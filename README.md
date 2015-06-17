@@ -6,7 +6,7 @@
 
   - __Product Owner__: Alberto D'Souza (ardsouza)
   - __Scrum Master__: Matthew Jacobs
-  - __Development Team Members__: Jammie Mountz, Kyle Rokita
+  - __Development Team Members__: Jammie Mountz, Kyle Rokita (futbalguy)
 
 ## Table of Contents
 
