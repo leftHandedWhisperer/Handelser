@@ -4,7 +4,7 @@
 
 ## Team
 
-  - __Product Owner__: Alberto D'Souza
+  - __Product Owner__: Alberto D'Souza (ardsouza)
   - __Scrum Master__: Matthew Jacobs
   - __Development Team Members__: Jammie Mountz, Kyle Rokita
 
