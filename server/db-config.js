@@ -1,4 +1,3 @@
-
 var knex = require('knex')({
   client: 'mysql',
   connection: {
@@ -10,46 +9,41 @@ var knex = require('knex')({
 
 var db = require('bookshelf')(knex);
 
-// db.createTable = function(tableName, callback) {
-//   console.log('should create table: ', tableName);
-//   if (tableName === 'dogs') {
-//     db.knex.schema.hasTable(tableName).then(function(exists) {
-//       if (!exists) {
-//         db.knex.schema.createTable(tableName, function(table) {
-//           table.increments('id').primary();
-//           table.string('name', 255);
-//           table.string('breed', 255);
-//           table.string('color', 255);
-//           table.integer('age');
-//         }).then(function(table) {
-//           console.log('created table :', tableName);
-//           callback(table);
-//         });
-//       } else {
+db.knex.schema.hasTable('users').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('users', function(table) {
+      table.increments('id').primary();
+      table.string('username', 100);
+      table.string('password', 100);
+      table.string('city', 255);
+    }).then(function(table) {
+      console.log('created table :', 'users');
+      callback(table);
+    });
+  }
+});
 
-//       }
-//     });
-//   } else if (tableName === 'people') {
-//     db.knex.schema.hasTable(tableName).then(function(exists) {
-//       if (!exists) {
-//         db.knex.schema.createTable(tableName, function(table) {
-//           table.increments('id').primary();
-//           table.string('name', 255);
-//           table.string('height', 255);
-//           table.integer('age');
-//         }).then(function(table) {
-//           console.log('created table :', tableName);
-//           callback(table);
-//         });
-//       } else {
+db.knex.schema.hasTable('events').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('events', function(table) {
+      table.increments('id').primary();
+      table.string('user_id', 100);
+      table.string('name', 255);
+      table.string('description', 255);
+      table.string('venue', 255);
+      table.dateTime('date');
+      table.string('address', 255);
+      table.string('city', 255);
+      table.string('state', 255);
+      table.integer('zip');
 
-//       }
-//     });
-//   }
+    }).then(function(table) {
+      console.log('created table :', 'events');
+      callback(table);
+    });
+  }
+});
 
-
-
-// };
 
 
 module.exports = db;
