@@ -83,15 +83,15 @@
       <div class="col-md-4">.col-md-4</div>
     </div>
 
+    <script src="app.js"></script>
+    <script src="views/CalendarView.js"></script>
     <script>
 
       $(document).ready(function() {
-          // page is now ready, initialize the calendar...
-          $('#calendar').fullCalendar({
-              // put your options and callbacks here
-          })
+          // here's how you can render the cal
+          // $('#calendar').fullCalendar({})
+          new app()
       });
     </script>
-
   </body>
 </html>
