@@ -53,7 +53,7 @@ mysqladmin -u root -p create database
 mysql.server start
 ```
 
-### Start Server
+### Start Database Server
 
 ```sh
 mysql.server start
