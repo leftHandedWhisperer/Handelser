@@ -41,6 +41,23 @@ From within the root directory:
 sudo npm install -g bower
 npm install
 bower install
+
+mysqladmin -u root -p create database
+mysql.server start
+```
+
+### Install MySQL
+
+```sh
+mysqladmin -u root -p create database
+mysql.server start
+```
+
+### Start Database Server
+
+```sh
+mysql.server start
+nodemon
 ```
 
 ### Roadmap
