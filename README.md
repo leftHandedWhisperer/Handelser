@@ -49,8 +49,8 @@ mysql.server start
 ### Install MySQL
 
 ```sh
-mysqladmin -u root -p create database
 mysql.server start
+mysqladmin -u root -p create database
 ```
 
 ### Start Database Server

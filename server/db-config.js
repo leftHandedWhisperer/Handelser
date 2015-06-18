@@ -18,7 +18,6 @@ db.knex.schema.hasTable('users').then(function(exists) {
       table.string('city', 255);
     }).then(function(table) {
       console.log('created table :', 'users');
-      callback(table);
     });
   }
 });
@@ -39,7 +38,6 @@ db.knex.schema.hasTable('events').then(function(exists) {
 
     }).then(function(table) {
       console.log('created table :', 'events');
-      callback(table);
     });
   }
 });
