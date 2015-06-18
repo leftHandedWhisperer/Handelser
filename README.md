@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Alberto D'Souza
-  - __Scrum Master__: Matthew Jacobs (test2)
-  - __Development Team Members__: Jammie Mountz, Kyle Rokita
+  - __Product Owner__: Alberto D'Souza (ardsouza)
+  - __Scrum Master__: Matthew Jacobs (CubeSquared)
+  - __Development Team Members__: Jammie Mountz (jammiemountz), Kyle Rokita (futbalguy)
 
 ## Table of Contents
 
@@ -40,6 +40,23 @@ From within the root directory:
 sudo npm install -g bower
 npm install
 bower install
+
+mysqladmin -u root -p create database
+mysql.server start
+```
+
+### Install MySQL
+
+```sh
+mysqladmin -u root -p create database
+mysql.server start
+```
+
+### Start Database Server
+
+```sh
+mysql.server start
+nodemon
 ```
 
 ### Roadmap
