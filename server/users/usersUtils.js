@@ -5,9 +5,14 @@ var User = require('../models/user');
 
 module.exports = {
 
-  retrieveAllUsers = function() {
+  retrieveAllUsers: function(callback) {
+    console.log('retrieving users in utils')
     Users.reset().fetch().then(function(users) {
-      return users; //do we need callback
+      console.log('fetched users: ',users.models )
+      callback(users); //do we need callback
+    })
+    .catch(function(error) {
+      console.log(error);
     });
   },
   retrieveUser: function(username) {
@@ -27,13 +32,14 @@ module.exports = {
         return found.attributes;
       } else {
 
-          var user = new User(user);
+        var user = new User(user);
 
-          user.save().then(function(newUser) {
-            Users.add(newUser);
-            return newUser;
-          });
+        user.save().then(function(newUser) {
+          Users.add(newUser);
+          return newUser;
         });
+      }
+    });
   }
 
 };

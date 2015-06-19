@@ -5,7 +5,7 @@ var Event = require('../models/event');
 
 module.exports = {
 
-  retrieveAllEvents = function() {
+  retrieveAllEvents: function() {
     Events.reset().fetch().then(function(events) {
       return events; //do we need callback
     });
@@ -27,13 +27,14 @@ module.exports = {
         return found.attributes;
       } else {
 
-          var event = new Event(event);
+        var event = new Event(event);
 
-          event.save().then(function(newEvent) {
-            Events.add(newEvent);
-            return newEvent;
-          });
+        event.save().then(function(newEvent) {
+          Events.add(newEvent);
+          return newEvent;
         });
+      }
+    });
   }
 
 };
