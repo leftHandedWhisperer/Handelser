@@ -14,10 +14,12 @@ module.exports = {
     });
   },
   retrieveUser: function(username,callback) {
-    console.log('username:',username);
-    new User({ username: username }).fetch().then(function(found) {
+    new User({ username: username }).fetch({withRelated: ['events'], require: true}).then(function(found) {
       if (found) {
-        callback(null,found.attributes);
+        var userWithEvents = found.attributes;
+        userWithEvents.events = found.relations.events;
+
+        callback(null,userWithEvents);
       } else {
         console.log('user not found:' + username);
       }
