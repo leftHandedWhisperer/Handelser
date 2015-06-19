@@ -1,7 +1,7 @@
 var db = require('../db-config');
-var Event = require('./event')
+var Event = require('./event');
 
-
+console.log('Event model: ',Event);
 var User = db.Model.extend({
   tableName: 'users',
   hasTimestamps: false, //CAN CHANGE THIS LATER, ALSO UPDATE DB-CONFIG IF SO
