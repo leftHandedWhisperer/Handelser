@@ -15,6 +15,7 @@
     <script src='bower_components/moment/moment.js'></script>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src='bower_components/fullcalendar/dist/fullcalendar.js'></script>
+    <script src='bower_components/fullcalendar/dist/gcal.js'></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -59,8 +60,9 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
           </form>
+          <form class="navbar-form navbar-right loginout">
+          </form>
           <ul class="nav navbar-nav navbar-right">
-            <li class="loginout"></li>
             <li><a href="#">Link</a></li>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
@@ -88,7 +90,12 @@
     <script src="Views/LogInOutView.js"></script>
     <script src="Views/LoginView.js"></script>
     <script src="Views/LogoutView.js"></script>
+    <script src="Views/SignupView.js"></script>
     <script src="router.js"></script>
+    <script src="Models/User.js"></script>
+    <script src="Models/Event.js"></script>
+    <script src="Collections/Events.js"></script>
+    <script src="Collections/Users.js"></script>
     <script>
 
       $(document).ready(function() {
