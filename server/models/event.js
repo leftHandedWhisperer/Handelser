@@ -1,7 +1,5 @@
 var db = require('../db-config');
-var User = require('./user');
 
-console.log('User model: ',User);
 var Event = db.Model.extend({
   tableName: 'events',
   hasTimestamps: false,  //CAN CHANGE THIS LATER, ALSO UPDATE DB-CONFIG IF SO
@@ -14,6 +12,8 @@ var Event = db.Model.extend({
     // });
   },
   user: function() {
+    //invoking require at runtime so we avoid circular dependency
+    var User = require('./user');
     return this.belongsTo(User, 'user_id');
   }
 });
