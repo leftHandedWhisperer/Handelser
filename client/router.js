@@ -9,7 +9,8 @@ app.Router = Backbone.Router.extend({
   },
 
   showCalendar: function(){
-    new app.CalendarView();
+    var events = new app.Events()
+    new app.CalendarView({collection: events});
   },
 
   showUsers: function(){

@@ -1,3 +1,3 @@
-var Event = Backbone.Model.extend({
+app.Event = Backbone.Model.extend({
   url: '/events'
-});
+}); 

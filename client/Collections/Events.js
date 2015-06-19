@@ -1,4 +1,4 @@
-var Events = Backbone.Collection.extend({
-  model: Event,
-  url: 'events'
+app.Events = Backbone.Collection.extend({
+  model: app.Event,
+  url: '/events'
 });
