@@ -1,9 +1,11 @@
 app.logInOutView = Backbone.View.extend({
-  id : 'loginout',
+  // className : 'loginout',
+  el: document.getElementsByClassName('loginout'),
 
   initialize : function() {
-    //this.logoutView = new LogoutView({});
-    //this.loginView = new LoginView({});
+    this.loginView = new app.loginView({});
+    this.logoutView = new app.logoutView({});
+    this.viewLogin();
   },
 
   events : {
@@ -20,6 +22,7 @@ app.logInOutView = Backbone.View.extend({
   },
 
   render : function(view) {
+    console.log('in the loginoutview render ufnction')
     this.$el.children().detach();
     this.$el.append(this[view].render());
   }
