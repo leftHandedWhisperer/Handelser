@@ -1,4 +1,4 @@
-var Users = Backbone.Collection.extend({
+app.Users = Backbone.Collection.extend({
   model: User,
-  url: 'users'
+  url: '/users'
 });
