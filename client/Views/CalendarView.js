@@ -11,7 +11,12 @@ app.CalendarView = Backbone.View.extend({
     // this.$el.empty();
     console.log('rendering cal view: ', this.$el)
     $('body').append(this.$el);
-    $('#calendar').fullCalendar({})
+    $('#calendar').fullCalendar({
+      googleCalendarApiKey: 'AIzaSyAsftjum9vyDGNMOCUUB0864MsUR4p5kRk',
+      events: {
+        googleCalendarId: '5uabqkja2nt9e3mu50q5vicbgk@group.calendar.google.com'
+      }
+    })
   },
 
   addAll: function(){
