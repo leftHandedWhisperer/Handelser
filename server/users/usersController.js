@@ -1,17 +1,20 @@
 var url = require('url');
 var utils = require('./usersUtils');
+var Promise = require('bluebird')
 
 module.exports = {
 
   getAllUsers: function(req, res) {
     console.log('retrieving users');
-    utils.retrieveAllUsers.then(function(users) {
+    // var R = Promise.promisify(utils.retrieveAllUsers);
+    utils.retrieveAllUsers(function(users) {
+      console.log(users)
       if (users) {
-        res.end(users);
+        res.end(JSON.stringify(users));
       } else {
         res.status(404).end();
       }
-    });
+    })
   },
 
   getUser: function(req, res) {
@@ -20,7 +23,7 @@ module.exports = {
     console.log('retrieving username ' + username);
     utils.retrieveUser({username: username}).then(function(user) {
       if (user) {
-        res.end(user); 
+        res.end(user);
       } else {
         res.status(404).end();
       }
