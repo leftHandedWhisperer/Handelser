@@ -1,13 +1,15 @@
 var url = require('url');
 var utils = require('./eventsUtils');
+var Promise = require('bluebird')
 
 module.exports = {
 
   getAllEvents: function(req, res) {
     console.log('retrieving all events');
-    utils.retrieveAllEvents().then(function(events) {
+    var R = Promise.promisify(utils.retrieveAllEvents);
+    R().then(function(events) {
       if (events) {
-        res.end(events);
+        res.json(events);
       } else {
         res.status(404).end();
       }
@@ -15,21 +17,23 @@ module.exports = {
   },
   getEvent: function(req, res) {
     var uri = req.url;
-    var eventName = (url.parse(uri).pathname).slice(7);
-    console.log('retrieving event ' + eventName);
-    utils.retrieveEvent(eventName).then(function(foundEvent) {
-      if (foundEvent) { 
-        res.end(foundEvent);
+    var eventID = (url.parse(uri).pathname).slice(1);
+    console.log('retrieving event ' + eventID);
+    var R = Promise.promisify(utils.retrieveEvent);
+    R(eventID).then(function(foundEvent) {
+      if (foundEvent) {
+        res.json(foundEvent);
       } else {
         res.status(404).end();
       }
     });
   },
   addEvent: function(req, res) {
-    console.log('adding event');
-    utils.addEvent(req.body).then(function(event) {
+    console.log('adding event: ',req.body);
+    var R = Promise.promisify(utils.storeEvent);
+    R(req.body).then(function(event) {
       if (event) {
-        res.status(302).end();
+        res.json(event);
       } else {
         res.status(400).end();
       }
