@@ -14,7 +14,7 @@ module.exports = {
     });
   },
   retrieveEvent: function(eventID,callback) {
-    new Event({ id: eventID }).fetch().then(function(found) {
+    var event = new Event({ id: eventID }).fetch().then(function(found) {
       if (found) {
         callback(null,found.attributes);
       } else {
