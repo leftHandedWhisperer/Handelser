@@ -1,7 +1,5 @@
 app.logoutView = Backbone.View.extend({
-  el : '<form class="form-inline logout">
-          <input class="btn btn-default" id="logoutButton" type="button" value="Logout">
-        </form>',
+  el : '<form class="form-inline logout"></form>',
 
   initialize : function() {
   },
@@ -15,6 +13,6 @@ app.logoutView = Backbone.View.extend({
   },
 
   render : function(view) {
-    return this.$el;
+    return this.$el.html('<input class="btn btn-default" id="logoutButton" type="button" value="Logout">');
   }
 });
