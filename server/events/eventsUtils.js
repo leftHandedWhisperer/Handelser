@@ -14,8 +14,12 @@ module.exports = {
     });
   },
   retrieveEvent: function(eventID,callback) {
-    new Event({ id: eventID }).fetch().then(function(found) {
+    new Event({ id: eventID }).fetch({withRelated: ['user'], require: true}).then(function(found) {
       if (found) {
+
+        // var eventsWithUser = found.attributes;
+        // eventsWithUser.user = found.relations.user;
+
         callback(null,found.attributes);
       } else {
         console.log('event not found:' + eventName);
