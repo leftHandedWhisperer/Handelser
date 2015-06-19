@@ -5,6 +5,6 @@ window.app = Backbone.View.extend({
   },
 
   render: function(){
-    new app.CalendarView().render;
+    new app.CalendarView().render();
   }
 });
