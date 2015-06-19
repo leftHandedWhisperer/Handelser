@@ -3,9 +3,14 @@ var morgan = require('morgan'), // used for logging incoming request
   cors = require('cors'),
   path = require('path');
 
+  require('.')
+
 module.exports = function(app, express) {
   // Express 4 allows us to use multiple routers with their own configurations
   // var lessonRouter = express.Router();
+
+  var usersRouter = new express.Router();
+  var eventsRouter = new express.Router();
 
   app.use(cors());
   app.use(morgan('dev'));
@@ -15,6 +20,11 @@ module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.use(express.static(__dirname + '/../client'));
 
+  app.use('/users', usersRouter);
+  app.use('/events', eventsRouter);
+
+  require('./users/userRoutes.js') (userRouter);
+  require('./events/eventsRoutes.js') (eventsRouter);
   // app.use(function(req,res,next) {
   //   console.log(req.url);
   //   if (req.url === '/') {
