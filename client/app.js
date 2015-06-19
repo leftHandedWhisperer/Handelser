@@ -9,6 +9,7 @@ window.app = Backbone.View.extend({
 
   initialize: function(){
     console.log( 'app is running');
+    this.loginout = new app.logInOutView({});
     // determine whether or not user is logged in
     // render the nav bar according to that.
     this.router = new app.Router({ el: this.$el.find('.col-md-8') });
