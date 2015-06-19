@@ -1,1 +1,3 @@
-var User = Backbone.Model.extend();
+app.User = Backbone.Model.extend({
+  url: '/users'
+});
