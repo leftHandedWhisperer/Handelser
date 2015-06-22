@@ -55,6 +55,37 @@ module.exports = {
     .catch(function(error) {
       console.log('error:', error);
     });
+  },
+
+  checkUser: function(user,callback) {
+    var username = user.username;
+    var password = user.password;
+
+    new User({username:username}).fetch().then(function(found) {
+
+      if (found) {
+        console.log('user found:', username);
+
+        found.comparePassword(password,function(err, isMatch) {
+          console.log('match: ',isMatch);
+          if (err) console.log('err: ', err);
+          if (isMatch) {
+            //do sessions
+            console.log('user authenticated');
+            callback(null, found.attributes);
+          } else {
+            console.log('password incorrect');
+          }
+        });
+
+      } else {
+
+        console.log('user not found');
+      }
+    })
+    .catch(function(error) {
+      console.log('error:', error);
+    });
   }
 
 };

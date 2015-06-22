@@ -48,6 +48,21 @@ module.exports = {
     .catch(function(error) {
       console.log('controller error: ',error);
     });
+  },
+
+  checkUser: function(req, res) {
+    console.log('checking user: ',req.body);
+    var R = Promise.promisify(utils.checkUser);
+    R(req.body).then(function(data) {
+      if (data) {
+        res.json(data);
+      } else {
+        res.status(400).end();
+      }
+    })
+    .catch(function(error) {
+      console.log('controller error: ',error);
+    });
   }
 
 };

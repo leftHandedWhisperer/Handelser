@@ -18,9 +18,9 @@ window.app = Backbone.View.extend({
 
   // render: function(){
   // },
-  
+
   renderCalendarView: function(){
-    this.router.navigate('/calendar', { trigger: true }); 
+    this.router.navigate('/calendar', { trigger: true });
   },
 
   renderUsersView: function(){
