@@ -1,4 +1,7 @@
 app.loginView = Backbone.View.extend({
+
+  model: app.User,
+
   el : '\
     <form class="form-inline login">\
       <div class="form-group">\
@@ -9,7 +12,7 @@ app.loginView = Backbone.View.extend({
         <label class="sr-only" for="loginPassword">Password</label>\
         <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>\
       </div>\
-      <button type="submit" class="btn btn-default" id="loginButton">Login</button>\
+      <input class="btn btn-default" id="loginButton" type="button" value="Login">\
       <input class="btn btn-default" id="signupButton" type="button" value="Signup">\
     </form>\
   ',
@@ -18,16 +21,31 @@ app.loginView = Backbone.View.extend({
   },
 
   events : {
-    'submit' : 'login',
+    'click #loginButton' : 'login',
     'click #signupButton' : 'signup',
   },
 
   login : function() {
-    console.log('logging in')
+    console.log('logging in');
+    var username = this.$el.find('#loginUsername').val();
+    var password = this.$el.find('#loginPassword').val();
+
+    console.log('username: ',username);
+    console.log('password: ',password);
+    app.currentUser = new app.User({username:username,password:password});
+    app.currentUser.sync('create',app.currentUser,{url:'/login'});
+
   },
 
   signup : function() {
     console.log('signup')
+    var username = this.$el.find('#loginUsername').val();
+    var password = this.$el.find('#loginPassword').val();
+
+    console.log('username: ',username);
+    console.log('password: ',password);
+    app.currentUser = new app.User({username:username,password:password,city:'Boston'});
+    app.currentUser.sync('create',app.currentUser,{url:'/signup'});
   },
 
   render : function(view) {

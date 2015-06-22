@@ -22,7 +22,7 @@ app.logInOutView = Backbone.View.extend({
   },
 
   render : function(view) {
-    console.log('in the loginoutview render ufnction')
+    console.log('in the loginoutview render function')
     this.$el.children().detach();
     this.$el.append(this[view].render());
   }
