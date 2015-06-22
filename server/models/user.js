@@ -15,9 +15,6 @@ var User = db.Model.extend({
   },
 
   comparePassword: function(attemptedPassword, callback) {
-    console.log('att pw: ',attemptedPassword);
-    console.log('act pw: ',this.get('password'));
-
     bcrypt.compare(attemptedPassword, this.get('password'), function(err, isMatch) {
       callback(err, isMatch);
     });
@@ -27,7 +24,6 @@ var User = db.Model.extend({
     var cipher = Promise.promisify(bcrypt.hash);
     // return a promise - bookshelf will wait for the promise
     // to resolve before completing the create action
-    console.log('get password: ',this.get('password'));
     return cipher(this.get('password'), 10)
       .bind(this)
       .then(function(hash) {

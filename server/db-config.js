@@ -58,6 +58,16 @@ db.knex.schema.hasTable('events').then(function(exists) {
   }
 });
 
+var tableDataContainsInfo = function(tableData, field, value) {
+  for (var i = 0; i < tableData.length; i++) {
+    //check for value in field
+    if (tableData[i][field] === value) {
+      return true;
+    }
+  }
+  return false;
+};
+
 var insertInfoInTable = function(tableName, callback) {
   var tableInfo;
   if (tableName === 'users') {
@@ -67,7 +77,7 @@ var insertInfoInTable = function(tableName, callback) {
   }
 
   db.knex.select().table(tableName).then(function(results) {
-    var fieldToCheck = 'name'
+    var fieldToCheck = 'name';
     if (!tableDataContainsInfo(results, fieldToCheck, tableInfo[0][fieldToCheck])) {
       console.log('inserting sample info in table');
       db.knex(tableName).insert(tableInfo).then(function(insert) {
@@ -88,17 +98,9 @@ var insertInfoInTable = function(tableName, callback) {
   .catch(function(error) {
     console.log(error);
   });
-}
+};
 
-var tableDataContainsInfo = function(tableData, field, value) {
-  for (var i = 0; i < tableData.length; i++) {
-    //check for value in field
-    if (tableData[i][field] === value) {
-      return true;
-    }
-  }
-  return false;
-}
+
 
 
 module.exports = db;

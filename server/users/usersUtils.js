@@ -57,18 +57,15 @@ module.exports = {
     });
   },
 
-  checkUser: function(user,callback) {
+  loginUser: function(user,callback) {
     var username = user.username;
     var password = user.password;
 
     new User({username:username}).fetch().then(function(found) {
 
       if (found) {
-        console.log('user found:', username);
-
         found.comparePassword(password,function(err, isMatch) {
-          console.log('match: ',isMatch);
-          if (err) console.log('err: ', err);
+          if (err) console.log('error: ', err);
           if (isMatch) {
             //do sessions
             console.log('user authenticated');
@@ -86,6 +83,27 @@ module.exports = {
     .catch(function(error) {
       console.log('error:', error);
     });
+  },
+
+  createSession: function(req, res, newUser) {
+    return req.session.regenerate(function() {
+        req.session.user = newUser;
+        // res.redirect('/');
+      });
+  },
+
+  isLoggedIn: function(req, res) {
+
+    return req.session ? !!req.session.user : false;
+  },
+
+  checkUserSession: function(req, res, next){
+    if (!exports.isLoggedIn(req)){
+      // res.redirect('/login');
+      console.error("Error: User not logged in");
+    } else {
+      next();
+    }
   }
 
 };

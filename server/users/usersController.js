@@ -50,11 +50,12 @@ module.exports = {
     });
   },
 
-  checkUser: function(req, res) {
+  loginUser: function(req, res) {
     console.log('checking user: ',req.body);
-    var R = Promise.promisify(utils.checkUser);
+    var R = Promise.promisify(utils.loginUser);
     R(req.body).then(function(data) {
       if (data) {
+        utils.createSession(req, res, data);
         res.json(data);
       } else {
         res.status(400).end();
@@ -63,6 +64,13 @@ module.exports = {
     .catch(function(error) {
       console.log('controller error: ',error);
     });
+  },
+
+  logoutUser: function(req, res) {
+    req.session.destroy(function(){
+      console.log('session destroyed');
+        // res.redirect('/login');
+      });
   }
 
 };
