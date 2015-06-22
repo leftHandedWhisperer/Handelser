@@ -19,12 +19,13 @@ var User = db.Model.extend({
       callback(isMatch);
     });
   },
-  
+
   hashPassword: function(){
     var cipher = Promise.promisify(bcrypt.hash);
     // return a promise - bookshelf will wait for the promise
     // to resolve before completing the create action
-    return cipher(this.get('password'), null, null)
+    console.log('get password: ',this.get('password'));
+    return cipher(this.get('password'), 10)
       .bind(this)
       .then(function(hash) {
         this.set('password', hash);
