@@ -16,6 +16,11 @@ app.Router = Backbone.Router.extend({
   showUsers: function(){
     console.log('this is where Id show users... if I had any!!!')
     new app.UsersView();
+  },
+
+  loggedIn: function() {
+    console.log('logged in');
+    //add logged in views
   }
 
-}); 
+});
