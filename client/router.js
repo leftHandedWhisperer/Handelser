@@ -9,13 +9,16 @@ app.Router = Backbone.Router.extend({
   },
 
   showCalendar: function(){
-    var events = new app.Events()
-    new app.CalendarView({collection: events});
+    app.mainpage.render('calendar');
   },
 
   showUsers: function(){
-    console.log('this is where Id show users... if I had any!!!')
     new app.UsersView();
+  },
+
+  loggedIn: function() {
+    console.log('logged in');
+    //add logged in views
   }
 
-}); 
+});
