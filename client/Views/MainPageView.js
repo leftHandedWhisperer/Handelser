@@ -2,7 +2,8 @@ app.mainPageView = Backbone.View.extend({
   el: document.getElementsByClassName('col-md-8'),
 
   initialize : function() {
-    app.calendar = this.calendar = new app.CalendarView({collection: app.events});
+    app.calendar = this.calendar = new app.calendarView({collection: app.events});
+    app.signup = this.signup = new app.signupView({});
   },
 
   events : {
@@ -11,6 +12,6 @@ app.mainPageView = Backbone.View.extend({
   render : function(view) {
     this.$el.children().detach();
     this.$el.append(this[view].render());
-    this.calendar.addAll();
+    if (view === 'calendar') this.calendar.addAll();
   }
 });
