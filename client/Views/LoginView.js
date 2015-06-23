@@ -37,7 +37,8 @@ app.loginView = Backbone.View.extend({
   },
 
   signup : function() {
-    app.router.navigate('/signup', { trigger: true }); 
+    // app.router.navigate('/signup', { trigger: true });
+    app.mainpage.render('signup')
   },
 
   render : function() {
