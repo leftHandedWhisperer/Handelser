@@ -34,7 +34,6 @@ app.loginView = Backbone.View.extend({
     console.log('password: ',password);
     app.currentUser = new app.User({username:username,password:password});
     app.currentUser.sync('create',app.currentUser,{url:'/login'});
-
   },
 
   signup : function() {
