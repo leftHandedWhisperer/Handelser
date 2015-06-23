@@ -12,6 +12,6 @@ app.mainPageView = Backbone.View.extend({
   render : function(view) {
     this.$el.children().detach();
     this.$el.append(this[view].render());
-    if (view === 'calendar') this.calendar.addAll();
+    if (view === 'calendar') this.calendar.$el.fullCalendar('today');
   }
 });
