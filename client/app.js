@@ -3,16 +3,18 @@ window.app = Backbone.View.extend({
   el: document.getElementsByClassName('app'),
 
   events: {
-    'click li a.calendarView': 'renderCalendarView',
     'click li a.usersView': 'renderUsersView'
   },
 
   initialize: function(){
     console.log( 'app is running');
-    this.loginout = new app.logInOutView({});
+    app.events = new app.Events();
+    app.navbar = new app.navbarView();
+    app.mainpage = new app.mainPageView();
+    app.sidepage = new app.sidePageView();
     // determine whether or not user is logged in
     // render the nav bar according to that.
-    this.router = new app.Router({ el: this.$el.find('.col-md-8') });
+    app.router = new app.Router({ el: this.$el.find('.app') });
     Backbone.history.start({ pushState: true });
   },
 
@@ -20,12 +22,12 @@ window.app = Backbone.View.extend({
   // },
 
   renderCalendarView: function(){
-    this.router.navigate('/calendar', { trigger: true });
+    app.router.navigate('/calendar', { trigger: true });
   },
 
   renderUsersView: function(){
     console.log('render users view');
-    this.router.navigate('/users', { trigger: true });
+    app.router.navigate('/users', { trigger: true });
   }
 
 });
