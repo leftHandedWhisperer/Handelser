@@ -5,7 +5,8 @@ app.Router = Backbone.Router.extend({
 
   routes: {
     'calendar': 'showCalendar',
-    'users': 'showUsers'
+    'users': 'showUsers',
+    'signup' : 'showSignup',
   },
 
   showCalendar: function(){
@@ -14,6 +15,10 @@ app.Router = Backbone.Router.extend({
 
   showUsers: function(){
     new app.UsersView();
+  },
+
+  showSignup: function() {
+    app.mainpage.render('signup')
   },
 
   loggedIn: function() {

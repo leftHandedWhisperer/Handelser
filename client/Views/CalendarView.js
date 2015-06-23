@@ -1,4 +1,4 @@
-app.CalendarView = Backbone.View.extend({
+app.calendarView = Backbone.View.extend({
   el : '<div id="calendar"></div>',
 
   initialize: function(){

@@ -38,17 +38,10 @@ app.loginView = Backbone.View.extend({
   },
 
   signup : function() {
-    console.log('signup')
-    var username = this.$el.find('#loginUsername').val();
-    var password = this.$el.find('#loginPassword').val();
-
-    console.log('username: ',username);
-    console.log('password: ',password);
-    app.currentUser = new app.User({username:username,password:password,city:'Boston'});
-    app.currentUser.sync('create',app.currentUser,{url:'/signup'});
+    app.router.navigate('/signup', { trigger: true }); 
   },
 
-  render : function(view) {
+  render : function() {
     return this.$el;
   }
 });
