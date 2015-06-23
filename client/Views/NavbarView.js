@@ -7,7 +7,7 @@ app.navbarView = Backbone.View.extend({
   },
 
   events : {
-    'click li a.calendarView': 'renderCalendarView',
+    'click li #calendarButton': 'renderCalendarView',
   },
 
   render : function() {
