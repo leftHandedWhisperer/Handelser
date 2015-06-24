@@ -12,13 +12,15 @@ app.calendarView = Backbone.View.extend({
 
   addAll: function(){
     var that = this;
+    this.$el.fullCalendar( 'removeEvents');
     this.$el.fullCalendar({
       dayClick: function(date) {
         $('.dayEventView').empty();
-        var dayModel = that.collection.where({shortDate: date.format()}) 
+        console.log('collection: ',that.collection);
+        var dayModel = that.collection.where({shortDate: date.format()})
         for (var i=0; i<dayModel.length; i++) {
           var dayview = new app.dayView({model: dayModel[i]});
-          dayview.render().appendTo($('.dayEventView')); 
+          dayview.render().appendTo($('.dayEventView'));
         }
       }
     });
@@ -26,7 +28,7 @@ app.calendarView = Backbone.View.extend({
       this.$el.fullCalendar('renderEvent', {
         title: item.get('name'),
         start: item.get('date')
-      }, true); 
+      }, true);
     }, this)
   },
 
