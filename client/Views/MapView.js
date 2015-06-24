@@ -1,0 +1,284 @@
+var MapView = ChartView.extend({
+
+  constructor: function(options) {
+    ChartView.apply(this, arguments);
+    return this;
+  },
+
+  draw: function(animated) {
+    var chart = this;
+
+    var width = chart.dimensions.wrapperWidth,
+      height = chart.dimensions.wrapperHeight,
+      active = d3.select(null);
+
+    var links = [];
+
+    var projection = d3.geo.albers()
+      .translate([width / 2, height / 2])
+      .scale(width * 1.1);
+
+    var path = d3.geo.path()
+      .projection(projection);
+
+    var zoom = d3.behavior.zoom()
+      .translate([0, 0])
+      .scale(1)
+      .scaleExtent([1, 40])
+      .on("zoom", zoomed);
+
+    var voronoi = d3.geom.voronoi()
+      .x(function(d) {
+        return d.x;
+      })
+      .y(function(d) {
+        return d.y;
+      })
+      .clipExtent([
+        [0, 0],
+        [0, 0]
+      ]);
+
+    var svg = d3.select(chart.el).append("svg")
+      .attr("width", width)
+      .attr("height", height)
+      .on("click", stopped, true);
+
+    svg.append("rect")
+      .attr("class", "background")
+      .attr("width", width)
+      .attr("height", height)
+      .on("click", reset);
+
+    var g = svg.append("g");
+
+    svg
+      .call(zoom) // delete this line to disable free zooming
+      .call(zoom.event);
+
+    queue()
+      .defer(d3.json, "us.json")
+      .await(ready);
+
+    function ready(error, us) {
+      if (error) throw error;
+
+      var eventsById = d3.map(),
+        positions = [];
+
+      var events = chart.data;
+
+      events.forEach(function(d) {
+        eventsById.set(d.iata, d);
+      });
+
+      //sort ascending by event date
+      events.sort(function(a, b) {
+        return a.date > b.date;
+      });
+
+      for (var i = 1; i < events.length; i++) {
+        link = {
+          source: events[i - 1],
+          target: events[i]
+        };
+        links.push(link);
+      }
+
+      events = events.filter(function(d) {
+        d.count = 80;
+        d[0] = +d.longitude;
+        d[1] = +d.latitude;
+        var position = projection(d);
+        d.x = position[0];
+        d.y = position[1];
+        console.log(d);
+        return true;
+      });
+
+      voronoi(events)
+        .forEach(function(d) {
+          d.point.cell = d;
+        });
+
+      g.selectAll("path")
+        .data(topojson.feature(us, us.objects.states).features)
+        .enter().append("path")
+        .attr("d", path)
+        .attr("class", "feature")
+        .on("click", clicked);
+
+      g.append("path")
+        .datum(topojson.mesh(us, us.objects.states, function(a, b) {
+          return a !== b;
+        }))
+        .attr("class", "mesh")
+        .attr("d", path);
+
+      var arcs = g.append("g")
+        .attr("class", "event-arcsHolder");
+
+      arcs
+        .selectAll("path")
+        .data(links)
+        .enter().append("path")
+        .attr("class", "event-arcs")
+        .attr("d", function(d) {
+          return path({
+            type: "LineString",
+            coordinates: [d.source, d.target]
+          });
+        })
+        .style('stroke-opacity', 0);
+
+      var eventDots = g.append("g")
+        .attr("class", "eventHolder");
+
+      eventDots
+        .selectAll("g")
+        .data(events)
+        .enter().append("g")
+        .attr("class", "events");
+
+      eventDots
+        .selectAll(".events")
+        .append("circle")
+        .attr("transform", function(d) {
+          return "translate(" + d.x + "," + d.y + ")";
+        })
+        .attr("r", function(d, i) {
+          return Math.sqrt(d.count);
+        });
+
+      eventDots
+        .selectAll(".events")
+        .style('opacity', 0);
+
+      eventDots
+        .selectAll(".events")
+        .append("text")
+        .attr("font-family", "Verdana")
+        .attr("font-size", "12px")
+        .text(function(d) {
+          return d.name;
+        })
+        .attr("transform", function(d) {
+          var width = this.getBoundingClientRect().width
+          var height = this.getBoundingClientRect().height
+
+          var radius = Math.sqrt(d.count);
+          var padding = 6;
+
+          return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")";
+        })
+
+      if (animated) {
+        console.log('animated: ',animated
+
+      )
+        animateEvent(eventDots, arcs, 0);
+      } else {
+        eventDots
+          .selectAll(".events")
+          .style('opacity', 1)
+
+        arcs
+          .selectAll(".event-arcs")
+          .attr("stroke-dashoffset", 0)
+          .style('stroke-opacity', 1);
+      }
+    }
+
+    function animateEvent(events, arcs, index) {
+
+      events
+        .selectAll(".events")
+        .filter(function(d, i) {
+          return i === index;
+        })
+        .transition()
+        .duration(150)
+        .style('opacity', 1)
+        .each('end', function(event) {
+          var totalLength;
+          var thisArc = arcs
+            .selectAll(".event-arcs")
+            .filter(function(d, i) {
+              return i === index;
+            });
+
+          if (thisArc.node()) {
+            var totalLength = thisArc.node().getTotalLength();
+          }
+
+          thisArc
+            .attr("stroke-dasharray", totalLength + " " + totalLength)
+            .attr("stroke-dashoffset", totalLength)
+            .style('stroke-opacity', 1)
+            .transition()
+            .duration(1.25 * totalLength)
+            .ease("linear")
+            .attr("stroke-dashoffset", 0)
+            .each('end', function(event) {
+              animateEvent(events, arcs, index + 1);
+            });
+        });
+    }
+
+    function clicked(d) {
+      if (active.node() === this) return reset();
+      active.classed("active", false);
+      active = d3.select(this).classed("active", true);
+
+      var bounds = path.bounds(d),
+        dx = bounds[1][0] - bounds[0][0],
+        dy = bounds[1][1] - bounds[0][1],
+        x = (bounds[0][0] + bounds[1][0]) / 2,
+        y = (bounds[0][1] + bounds[1][1]) / 2,
+        scale = .9 / Math.max(dx / width, dy / height),
+        translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+      svg.transition()
+        .duration(750)
+        .call(zoom.translate(translate).scale(scale).event);
+    }
+
+    function reset() {
+      active.classed("active", false);
+      active = d3.select(null);
+
+      svg.transition()
+        .duration(750)
+        .call(zoom.translate([0, 0]).scale(1).event);
+    }
+
+    function zoomed() {
+      g.style("stroke-width", 1.5 / d3.event.scale + "px");
+      g.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+      g.selectAll("circle").attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")scale(" + 1 / d3.event.scale + ")";
+      });
+    }
+
+    // If the drag behavior prevents the default click,
+    // also stop propagation so we don’t click-to-zoom.
+    function stopped() {
+      if (d3.event.defaultPrevented) d3.event.stopPropagation();
+    }
+
+    return this;
+  },
+
+  create_svg: function() {
+    var chart = this;
+
+    //create new svg
+    chart.svg = d3.select(chart.el).append("svg")
+      .attr("width", chart.dimensions.wrapperWidth)
+      .attr("height", chart.dimensions.wrapperHeight)
+      .attr("class", "chart")
+      .append("g")
+      .attr("transform", "translate(" + chart.options.margin.left + ", 20)");
+  }
+
+});
