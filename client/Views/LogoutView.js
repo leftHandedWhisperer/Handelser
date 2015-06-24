@@ -13,7 +13,14 @@ app.logoutView = Backbone.View.extend({
   },
 
   logout : function() {
-    console.log('logging out');
+    console.log('????')
+    $.get('/users/logout')
+      .done(function() {
+        console.log('logging out');
+        app.loginout.viewLogin();
+      }).fail(function() {
+        console.log('logout error');
+      });
   },
 
   render : function(view) {

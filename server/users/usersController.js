@@ -72,6 +72,7 @@ module.exports = {
       console.log('session destroyed');
         // res.redirect('/login');
       });
+    res.status(200).end()
   }
 
 };
