@@ -1,42 +1,23 @@
-app.CalendarView = Backbone.View.extend({
-  id: 'calendar',
-
-  // collection: 'events',
+app.calendarView = Backbone.View.extend({
+  el : '<div id="calendar"></div>',
 
   initialize: function(){
-    // this.collection.on('sync', this.addAll, this);
-    this.render()
-    this.collection.on('change', this.addAll, this);
-    this.collection.on('sync', this.addAll, this);
-    this.collection.fetch()
-    // this.collection.on('change', this.render);
-    // this.addAll();
+    this.collection.on('sync change', this.addAll, this);
+    this.collection.fetch();
   },
 
   render: function() {
-    // this.$el.empty();
-    console.log('rendering cal view: ', this.$el)
-    $('body').append(this.$el);
-    this.myCal = $('#calendar').fullCalendar({
-      // googleCalendarApiKey: 'AIzaSyAsftjum9vyDGNMOCUUB0864MsUR4p5kRk',
-      // events: {
-      //   googleCalendarId: '5uabqkja2nt9e3mu50q5vicbgk@group.calendar.google.com'
-      // }
-    })
-    console.log("this.collect: ", this.collection);
+    return this.$el;
   },
 
   addAll: function(){
-    console.log('in addAll function: ', this.collection)
+    this.$el.fullCalendar({});
     this.collection.forEach(function(item){
-      console.log(item)
-      console.log('in this collection for each', item)
-      this.myCal.fullCalendar('renderEvent', {
+      this.$el.fullCalendar('renderEvent', {
         title: item.get('name'),
         start: item.get('date')
-      })
+      }, true);
     }, this)
-    // this.render()
   },
 
   addOne: function(event){
