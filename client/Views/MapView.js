@@ -57,8 +57,10 @@ var MapView = ChartView.extend({
       .call(zoom.event);
 
     queue()
-      .defer(d3.json, "us.json")
+      // .defer(d3.json, "us.json")
       .await(ready);
+
+    var us = US;
 
     function ready(error, us) {
       if (error) throw error;
