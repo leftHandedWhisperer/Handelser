@@ -33,8 +33,8 @@ app.signupView = Backbone.View.extend({
     console.log('username: ',username);
     console.log('password: ',password);
     console.log('city: ', city)
-    app.currentUser = new app.User({username:username,password:password,city:city});
-    app.currentUser.sync('create',app.currentUser,{url:'/signup'});
+    app.signupUser = new app.User({username:username,password:password,city:city});
+    app.signupUser.sync('create',app.signupUser,{url:'/signup'});
   },
 
   render : function() {

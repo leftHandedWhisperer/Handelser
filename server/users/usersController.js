@@ -27,7 +27,7 @@ module.exports = {
       if (user) {
         res.json(user);
       } else {
-        res.status(404).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
@@ -42,7 +42,7 @@ module.exports = {
       if (data) {
         res.json(data);
       } else {
-        res.status(400).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
@@ -58,11 +58,12 @@ module.exports = {
         utils.createSession(req, res, data);
         res.json(data);
       } else {
-        res.status(400).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
       console.log('controller error: ',error);
+      res.status(500).end();
     });
   },
 

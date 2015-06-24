@@ -3,8 +3,8 @@ app.logInOutView = Backbone.View.extend({
   el: document.getElementsByClassName('loginout'),
 
   initialize : function() {
-    this.loginView = new app.loginView({});
-    this.logoutView = new app.logoutView({});
+    app.loginView = this.loginView = new app.loginView({});
+    app.logoutView = this.logoutView = new app.logoutView({});
     this.viewLogin();
   },
 
