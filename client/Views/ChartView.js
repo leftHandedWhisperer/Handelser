@@ -70,11 +70,14 @@ var ChartView = Backbone.View.extend({
   // The render function wraps drawing with responsivosity
   render: function(animated) {
     console.log('animated: ',animated);
+
     if (this.collection)
     this.data = this.collection.toJSON();
     this.$el.empty();
     this.get_dimensions();
     this.draw(animated);
+    console.log(this.el);
+    return this.el;
   },
   draw: function(animated) {
     console.log("override ChartView's draw function with your d3 code");

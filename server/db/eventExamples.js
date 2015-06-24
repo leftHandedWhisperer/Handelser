@@ -19,7 +19,9 @@ var events = [{
   address: '944 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: '94102'
+  zip: '94102',
+  lat:37.783624,
+  long: -122.408999
 },
 {
   user_id: 1,
@@ -27,10 +29,12 @@ var events = [{
   description: 'A sweet time',
   venue: 'Golden Gate Bridge',
   date:'2015-06-18 21:59:59',
-  address: '400 Market St.',
+  address: 'Some Sight',
   city: 'San Francisco',
   state: 'CA',
-  zip: '94103'
+  zip: '94103',
+  lat:37.791729,
+  long: -122.398358
 },
 {
   user_id: 2,
@@ -41,7 +45,9 @@ var events = [{
   address: '200 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: '94104'
+  zip: '94104',
+  lat:37.871593,
+  long: -122.272747
 },
 {
   user_id: 3,
@@ -52,7 +58,21 @@ var events = [{
   address: '300 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: '94105'
+  zip: '94105',
+  lat:37.774929,
+  long: -122.419416
+},{
+  user_id: 3,
+  name: 'Hot Lanta!',
+  description: 'A hot time',
+  venue: 'Atlanta',
+  date:'2015-07-01 20:59:59',
+  address: 'Someplace',
+  city: 'Atlanta',
+  state: 'GA',
+  zip: '94105',
+  lat:33.748995,
+  long: -84.387982
 }];
 
 module.exports = events;
