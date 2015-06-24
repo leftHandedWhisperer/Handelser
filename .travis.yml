@@ -7,4 +7,8 @@ before_install: npm install -g grunt-cli
 install: npm install
 deploy:
   provider: heroku
+<<<<<<< HEAD
   api_key: herokuAPI
+=======
+  api_key: "b337a24e-957f-4fab-909f-14fb70f15508"
+>>>>>>> integrated mocha, chai, travisCI, and heroku deploy
