@@ -4,7 +4,7 @@ app.navbarView = Backbone.View.extend({
 
   initialize : function() {
     app.loginout = new app.logInOutView({});
-    app.addNewEvent = new app.newEventView({});
+    //app.addNewEvent = new app.newEventView({});
   },
 
   events : {

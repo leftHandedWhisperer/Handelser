@@ -29,7 +29,12 @@ var User = db.Model.extend({
       .then(function(hash) {
         this.set('password', hash);
       });
+  },
+
+  following: function() {
+    return this.belongsToMany(User);
   }
+  
 });
 
 module.exports = User;
