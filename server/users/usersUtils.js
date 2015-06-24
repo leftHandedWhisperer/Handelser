@@ -108,7 +108,7 @@ module.exports = {
   },
 
   addFollowing: function(user_id, following_id, callback) {
-    new User({user_id:user_id}).fetch().then(function(user) {
+    new User({id:user_id}).fetch().then(function(user) {
       if (user) {
         return user.following().attach(following_id);
       }
