@@ -19,7 +19,7 @@ var events = [{
   address: '944 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: 94102
+  zip: '94102'
 },
 {
   user_id: 1,
@@ -30,7 +30,7 @@ var events = [{
   address: '400 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: 94103
+  zip: '94103'
 },
 {
   user_id: 2,
@@ -41,7 +41,7 @@ var events = [{
   address: '200 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: 94104
+  zip: '94104'
 },
 {
   user_id: 3,
@@ -52,7 +52,7 @@ var events = [{
   address: '300 Market St.',
   city: 'San Francisco',
   state: 'CA',
-  zip: 94105
+  zip: '94105'
 }];
 
 module.exports = events;
