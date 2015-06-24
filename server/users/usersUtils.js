@@ -72,6 +72,7 @@ module.exports = {
             callback(null, found.attributes);
           } else {
             console.log('password incorrect');
+            callback(null, null);
           }
         });
 

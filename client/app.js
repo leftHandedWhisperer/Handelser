@@ -7,7 +7,7 @@ window.app = Backbone.View.extend({
   },
 
   initialize: function(){
-    console.log( 'app is running');
+    console.log('app is running');
     app.events = new app.Events();
     app.navbar = new app.navbarView();
     app.mainpage = new app.mainPageView();

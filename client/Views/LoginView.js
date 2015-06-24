@@ -26,14 +26,18 @@ app.loginView = Backbone.View.extend({
   },
 
   login : function() {
-    console.log('logging in');
     var username = this.$el.find('#loginUsername').val();
     var password = this.$el.find('#loginPassword').val();
 
     console.log('username: ',username);
     console.log('password: ',password);
-    app.currentUser = new app.User({username:username,password:password});
-    app.currentUser.sync('create',app.currentUser,{url:'/login'});
+    $.post('/users/login', {username: username, password: password})
+      .done(function(data) {
+        console.log('logging in: ', data);
+        app.loginout.viewLogout();
+      }).fail(function() {
+        console.log('login error');
+      });
   },
 
   signup : function() {
