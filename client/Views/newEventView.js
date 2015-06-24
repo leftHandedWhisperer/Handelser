@@ -1,4 +1,6 @@
 app.newEventView = Backbone.View.extend({
+
+  data: this.model.attributes,
   
   el: '\
     <form id="add-event">\
@@ -82,6 +84,3 @@ app.newEventView = Backbone.View.extend({
     });
   }
 });
-
-
-
