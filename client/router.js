@@ -3,19 +3,27 @@ app.Router = Backbone.Router.extend({
     this.$el = options.el;
   },
 
-  routes: {
-    'calendar': 'showCalendar',
-    'users': 'showUsers'
-  },
+  // routes: {
+  //   'calendar': 'showCalendar',
+  //   'users': 'showUsers',
+  //   'signup' : 'showSignup',
+  // },
 
-  showCalendar: function(){
-    var events = new app.Events()
-    new app.CalendarView({collection: events});
-  },
+  // showCalendar: function(){
+  //   app.mainpage.render('calendar');
+  // },
 
-  showUsers: function(){
-    console.log('this is where Id show users... if I had any!!!')
-    new app.UsersView();
-  }
+  // showUsers: function(){
+  //   new app.UsersView();
+  // },
 
-}); 
+  // showSignup: function() {
+  //   app.mainpage.render('signup')
+  // },
+
+  // loggedIn: function() {
+  //   console.log('logged in');
+  //   //add logged in views
+  // }
+
+});

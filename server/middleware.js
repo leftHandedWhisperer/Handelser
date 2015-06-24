@@ -19,6 +19,13 @@ module.exports = function(app, express) {
   app.use(bodyParser.json());
   app.use(express.static(__dirname + '/../client'));
 
+  var session = require('express-session');
+  app.use(session({
+    secret: 'shhh, it\'s a secret',
+    resave: false,
+    saveUninitialized: true
+  }));
+
   app.use('/users', usersRouter);
   app.use('/events', eventsRouter);
 

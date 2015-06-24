@@ -48,6 +48,29 @@ module.exports = {
     .catch(function(error) {
       console.log('controller error: ',error);
     });
+  },
+
+  loginUser: function(req, res) {
+    console.log('checking user: ',req.body);
+    var R = Promise.promisify(utils.loginUser);
+    R(req.body).then(function(data) {
+      if (data) {
+        utils.createSession(req, res, data);
+        res.json(data);
+      } else {
+        res.status(400).end();
+      }
+    })
+    .catch(function(error) {
+      console.log('controller error: ',error);
+    });
+  },
+
+  logoutUser: function(req, res) {
+    req.session.destroy(function(){
+      console.log('session destroyed');
+        // res.redirect('/login');
+      });
   }
 
 };
