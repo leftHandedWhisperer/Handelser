@@ -16,6 +16,7 @@ app.calendarView = Backbone.View.extend({
     this.$el.fullCalendar({
       dayClick: function(date) {
         $('.dayEventView').empty();
+        console.log('collection: ',that.collection);
         var dayModel = that.collection.where({shortDate: date.format()})
         for (var i=0; i<dayModel.length; i++) {
           var dayview = new app.dayView({model: dayModel[i]});
