@@ -63,6 +63,9 @@ app.newEventView = Backbone.View.extend({
       description: this.$el.find('#description').val()
       //might need to add a user_id field here, not sure where we're storing that yet
     }
+    
+    //Google GeoCode
+    //http://maps.google.com/maps/api/geocode/json?address=blahblahblah
 
     this.$el.find('input').val('');
     this.$el.find('textarea').val('');
