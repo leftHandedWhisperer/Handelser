@@ -122,7 +122,6 @@ app.newEventView = Backbone.View.extend({
           console.error('error:', error);
         }
       });
-    // }();
 
   }
 
