@@ -1,12 +1,17 @@
 language: node_js
 node_js:
-  - '0.8'
-  - '0.10'
-
-before_install: 
-  - npm update -g
-  - npm install -g grunt-cli
+- '0.8'
+- '0.10'
+before_install:
+- npm update -g
+- npm install -g grunt-cli
 install: npm install
 deploy:
   provider: heroku
-  api_key: herokuAPI
+  api_key:
+    secure: 0xEL26Ymru9qngmPJptLQTCk3LsqlNsHMg5fkPXQLfMsujgj8oG7ArifybVv2M1KjtcNeLmOs7XVbwIzVnaoKQKVztp8xeQ7BVeXym45i3ZDkq7bm3gxSfMHyv2dUlTCMAMow6zqL2c0Yl+kMRBvz8WRPs3D0LuX0AgLhnwjfpfm0O5JXBtE/yGNelUyqC2mvij0e8BmBFK2q9t41hPkglfX48M0fksvgl/pGQueTpMMmfYPfsQJp4ZxmWa7fFo9cPXGlq9823NKELgYk+daF17gXpxrRrY2GXhOWzac1a1pSpNuV5ZhOK494cjwcXb1BKiTfJeBGpddqoe7I5ezkKgZRum8uC4QCWHs+80cdGOvlbg4NGASjaTYla1XXX36DfJ1KTo3CM831zqDZFXc1j5HLEZTa9OIpKJx1t0i45BNOwcChcOgdcYqi/xeZmZcR6aag4A6nRfoO1nKsrPZav+CFP+cPvfqUuAWevbEGyGOK6kbVPAI1ozG1mLjwipOlJbBB+8uj1ZBq9kzwfPXr2P3SyoJkrAFbXT4g2KIuslb7yCFxHghLVR1EInWlJ9B2Rdt82onSqIZcTd4EBq8vrZzjqtMxCcQVvUrgOKD0NchqDjykuLcqPYmcf2I68OLosMRXXMfkuyGAQ15DVKv6VGdBdvKAf4d1wFSCEYVDoo=
+  app: blooming-hollows-4230
+  on:
+    repo: leftHandedWhisperer/leftHandedWhisperer
+    branch: master
+  strategy: git

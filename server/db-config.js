@@ -61,6 +61,23 @@ db.knex.schema.hasTable('events').then(function(exists) {
   }
 });
 
+db.knex.schema.hasTable('followers').then(function(exists) {
+  if (!exists) {
+    db.knex.schema.createTable('followers', function(table) {
+      table.increments('id').primary();
+      table.string('follower_id', 100);
+      table.string('followed_id', 100);
+
+    }).then(function(table) {
+      console.log('created table :', 'followers');
+    })
+    .catch(function(error) {
+      console.log(error);
+    });
+  } else {
+  }
+});
+
 var tableDataContainsInfo = function(tableData, field, value) {
   for (var i = 0; i < tableData.length; i++) {
     //check for value in field

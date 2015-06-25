@@ -58,7 +58,6 @@ var MapView = ChartView.extend({
       .call(zoom.event);
 
     var us = US;
-    // console.log(us)
 
     // queue()
     // //   // .defer(d3.json, "us.json")
@@ -98,7 +97,6 @@ var MapView = ChartView.extend({
         var position = projection(d);
         d.x = position[0];
         d.y = position[1];
-        // console.log(d);
         return true;
       });
 
@@ -184,7 +182,6 @@ var MapView = ChartView.extend({
 
 
       if (animated) {
-        console.log('animated: ', animated)
         zoomToEvents.call(this);
 
         animateEvent(eventDots, arcs, 0);
@@ -239,7 +236,6 @@ var MapView = ChartView.extend({
     function zoomToEvents() {
 
       var chart = this;
-      console.log(this)
       var events = chart.data;
 
       var minX, maxX, minY, maxY;
