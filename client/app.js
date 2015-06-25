@@ -25,6 +25,10 @@ window.app = Backbone.View.extend({
     app.router.navigate('/calendar', { trigger: true });
   },
 
+  renderMapView: function(){
+    app.router.navigate('/map', { trigger: true });
+  },
+
   renderUsersView: function(){
     console.log('render users view');
     app.router.navigate('/users', { trigger: true });
