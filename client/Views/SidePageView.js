@@ -4,7 +4,6 @@ app.sidePageView = Backbone.View.extend({
 
   initialize : function() {
     app.newEvent = this.newEvent = new app.NewEventView({});
-
   },
 
   events : {
@@ -12,6 +11,6 @@ app.sidePageView = Backbone.View.extend({
 
   render : function(view) {
     this.$el.children().detach();
-    this.$el.append(this[view].render());
+    this.$el.append(app[view].render());
   }
 });
