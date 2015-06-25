@@ -39,8 +39,6 @@ var ChartView = Backbone.View.extend({
     // Wrap chart
 
     this.get_dimensions();
-    console.log('init container: ',this.chart_container)
-
 
     if (this.collection)
       this.collection.on("sync", _.bind(this.render, this, true));
@@ -86,7 +84,6 @@ var ChartView = Backbone.View.extend({
     this.$el.empty();
     this.get_dimensions();
     this.draw(animated);
-    console.log(this.el);
     return this.el;
   },
   draw: function(animated) {
