@@ -28,7 +28,7 @@ app.loginView = Backbone.View.extend({
   login : function() {
     var username = this.$el.find('#loginUsername').val();
     var password = this.$el.find('#loginPassword').val();
-    
+
     $.post('/users/login', {username: username, password: password})
       .done(function(data) {
         console.log('logging in: ', data);
@@ -44,7 +44,7 @@ app.loginView = Backbone.View.extend({
 
   signup : function() {
     // app.router.navigate('/signup', { trigger: true });
-    app.mainpage.render('signup')
+    app.sidepage.render('signup')
   },
 
   render : function() {

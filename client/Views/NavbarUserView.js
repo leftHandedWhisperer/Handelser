@@ -1,17 +1,13 @@
 app.navbarUserView = Backbone.View.extend({
   el : '\
     <ul class="nav navbar-nav navbar-right user">\
-      <p class="navbar-text" id="settingsButton">Settings</p>\
       <li class="dropdown">\
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>\
         <ul class="dropdown-menu">\
-          <li><a href="#">Action</a></li>\
-          <li><a href="#">Another action</a></li>\
-          <li><a href="#">Something else here</a></li>\
+          <li><a href="#" id="newEventButton">Add Event</a></li>\
+          <li><a href="#">Follow Another User</a></li>\
           <li role="separator" class="divider"></li>\
-          <li><a href="#">Separated link</a></li>\
-          <li role="separator" class="divider"></li>\
-          <li><a href="#">One more separated link</a></li>\
+          <li><a href="#" id="profileButton">Your Profile</a></li>\
         </ul>\
       </li>\
     </ul>\
@@ -25,6 +21,8 @@ app.navbarUserView = Backbone.View.extend({
 
   events : {
     'click #settingsButton' : 'settings',
+    'click #newEventButton': 'renderNewEventView',
+    'click #profileButton': 'renderProfileView'
   },
 
   settings: function() {
@@ -33,5 +31,17 @@ app.navbarUserView = Backbone.View.extend({
 
   render : function() {
     return this.$el;
-  }
+  },
+
+  renderNewEventView: function(){
+    // app.router.navigate('/calendar', { trigger: true });
+    if (app.currentUser) app.sidepage.render('newEvent');
+    else app.sidepage.render('pleaseLogin');
+  },
+
+  renderProfileView: function(){
+    // app.router.navigate('/calendar', { trigger: true });
+    if (app.currentUser) app.sidepage.render('profile');
+    else app.sidepage.render('pleaseLogin');
+  },
 });

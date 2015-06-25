@@ -1,8 +1,5 @@
-
-
-h1 {
-  font-size: 20px;
-  font-family: 'Helvetica Neue'
+html, body, .app, .row, .mainView, .sideView  {
+  height:100%;
 }
 
 .event-text {
@@ -83,4 +80,8 @@ h1 {
   stroke: #fff;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.col-md-4 {
+  border-left: solid gray 1px;
 }

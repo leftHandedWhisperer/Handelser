@@ -1,14 +1,10 @@
 app.mainPageView = Backbone.View.extend({
-  el: document.getElementsByClassName('col-md-8'),
+  el: document.getElementsByClassName('mainView'),
 
   initialize: function() {
-    app.calendar = this.calendar = new app.calendarView({
-      collection: app.events
-    });
+    app.calendar = this.calendar = new app.calendarView({collection: app.events});
     app.signup = this.signup = new app.signupView({});
-    app.tourmap = this.tourmap = new app.tourMapView({
-      collection: app.events
-    });
+    app.tourmap = this.tourmap = new app.tourMapView({collection: app.events});
 
   },
 
