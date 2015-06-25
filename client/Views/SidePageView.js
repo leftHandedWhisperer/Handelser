@@ -6,6 +6,7 @@ app.sidePageView = Backbone.View.extend({
     app.newEvent = this.newEvent = new app.NewEventView({});
     app.signup = this.signup = new app.signupView({});
     app.profile = this.profile = new app.ProfileView({});
+
   },
 
   events : {

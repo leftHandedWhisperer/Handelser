@@ -1,4 +1,4 @@
-app.NewEventView = Backbone.View.extend({
+app.newEventView = Backbone.View.extend({
 
   el: '<div> \
     <form id="add-event">\
