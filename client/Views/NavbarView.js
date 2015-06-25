@@ -28,6 +28,6 @@ app.navbarView = Backbone.View.extend({
 
   renderMapView: function(){
     // app.router.navigate('/calendar', { trigger: true });app.mainpage.render('map');
-	  app.mainpage.render('map');
+	  app.mainpage.render('tourmap');
   }
 });
