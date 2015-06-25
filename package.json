@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "grunt"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -35,5 +36,8 @@
     "grunt": "latest",
     "grunt-mocha": "~0.4.13",
     "mocha": "~2.2.5"
+  },
+  "engines": {
+    "node": "0.12.4"
   }
 }
