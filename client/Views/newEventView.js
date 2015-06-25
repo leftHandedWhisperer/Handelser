@@ -4,39 +4,39 @@ app.NewEventView = Backbone.View.extend({
     <form id="add-event">\
       <div class="form-group">\
         <label for="name">Name</label>\
-        <input type="text" required placeholder="Name" class="form-control" id="name">\
+        <input type="text" required placeholder="Name" class="form-control" id="name" required>\
       </div>\
       <div class="form-group">\
         <label for="address">Street Address</label>\
-        <input type="text" required placeholder="Address" class="form-control" id="address">\
+        <input type="text" required placeholder="Address" class="form-control" id="address" required>\
       </div>\
       <div class="form-group">\
         <label for="city">City</label>\
-        <input type="text" required placeholder="City" class="form-control" id="city">\
+        <input type="text" required placeholder="City" class="form-control" id="city" required>\
       </div>\
       <div class="form-group">\
         <label for="State">State</label>\
-        <input type="text" required placeholder="State" class="form-control" id="state">\
+        <input type="text" required placeholder="State" class="form-control" id="state" required>\
       </div>\
       <div class="form-group">\
         <label for="zip">Zip Code</label>\
-        <input type="text" required pattern="^\\d{5}(?:[-\\s]\\d{4})?$" placeholder="00000" class="form-control" id="zip">\
+        <input type="text" required pattern="^\\d{5}(?:[-\\s]\\d{4})?$" placeholder="00000" class="form-control" id="zip" required>\
       </div>\
       <div class="form-group">\
         <label for="date">Date</label>\
-        <input type="date" required placeholder="Date" class="form-control" id="date">\
+        <input type="date" required placeholder="Date" class="form-control" id="date" required>\
       </div>\
       <div class="form-group">\
         <label for="time">Time</label>\
-        <input type="time" required placeholder="Time" class="form-control" id="time">\
+        <input type="time" required placeholder="Time" class="form-control" id="time" required>\
       </div>\
       <div class="form-group">\
         <label for="venue">Venue</label>\
-        <input type="text" placeholder="Venue" class="form-control" id="venue">\
+        <input type="text" placeholder="Venue" class="form-control" id="venue" required>\
       </div>\
       <div class="form-group">\
         <label for="description">Description</label>\
-        <input type="text" placeholder="Description" class="form-control" id="description">\
+        <input type="text" placeholder="Description" class="form-control" id="description" required>\
       </div>\
       <button type="submit" class="btn btn-primary">Submit</button>\
     </form>\
