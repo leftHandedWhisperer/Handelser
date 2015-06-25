@@ -20,5 +20,4 @@ var should = chai.should();
 // })
 
 // describe("Calendar View", function() {
-  
 // })
