@@ -20,8 +20,14 @@ var User = db.Model.extend({
     });
   },
 
-  following: function() {
-    return this.belongsToMany(User);
+  follows: function() {
+    var Follower = require('./follower');
+    return this.belongsToMany(User,'followers', 'follower_id', 'followed_id');
+  },
+
+  followers: function() {
+    var Follower = require('./follower');
+    return this.belongsToMany(User,'followers', 'followed_id', 'follower_id');
   },
 
   hashPassword: function(){

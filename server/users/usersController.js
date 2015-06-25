@@ -20,10 +20,10 @@ module.exports = {
   },
 
   getUser: function(req, res) {
-    var username = (url.parse(req.url).pathname).slice(1);
-    console.log('retrieving username:' + username);
+    var user_ID = (url.parse(req.url).pathname).slice(1);
+    console.log('retrieving info for user_id:' + user_ID);
     var R = Promise.promisify(utils.retrieveUser);
-    R(username).then(function(user) {
+    R(user_ID).then(function(user) {
       if (user) {
         res.json(user);
       } else {
@@ -77,11 +77,27 @@ module.exports = {
 
   addFollowing: function(req, res) {
     //the user with user_id is now following the user with following_id
-    var user_id = req.body.user_id;
+    var follower_id = req.body.follower_id;
     var following_id = req.body.following_id;
-    utils.addFollowing(user_id, following_id, function() {
+    utils.storeFollowing(follower_id, following_id, function() {
       res.status(201).end();
     });
-  }
+  },
+
+  getFollowing: function(req, res) {
+    var user_ID = (url.parse(req.url).pathname).slice(8);
+    console.log('retrieving followed for user_id:' + user_ID);
+    var R = Promise.promisify(utils.retrieveFollowing);
+    R(user_ID).then(function(followed) {
+      if (followed) {
+        res.json(followed);
+      } else {
+        res.status(404).end();
+      }
+    })
+    .catch(function(error) {
+      console.log('controller error: ',error);
+    });
+  },
 
 };

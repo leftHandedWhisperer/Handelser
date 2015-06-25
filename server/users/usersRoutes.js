@@ -20,9 +20,12 @@ module.exports = function(app) {
 
   app.get('/logout', usersController.logoutUser); //logout a user
 
+  app.post('/follow', usersController.addFollowing);
+
   app.get('/:user', usersController.getUser); //get one user
 
-  app.post('/follow', usersController.addFollowing);
+
+
 
 };
 
