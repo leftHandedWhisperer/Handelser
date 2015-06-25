@@ -34,6 +34,8 @@ app.loginView = Backbone.View.extend({
     $.post('/users/login', {username: username, password: password})
       .done(function(data) {
         console.log('logging in: ', data);
+        //this is setting current user to data, not a true User instance
+        app.currentUser = data;
         app.loginout.viewLogout();
       }).fail(function() {
         console.log('login error');

@@ -55,12 +55,18 @@ module.exports = {
 
     new Event({name:name}).fetch().then(function(found) {
       if (found) {
+        console.log('event already found: ',found.attributes);
         callback(null,found.attributes);
       } else {
 
         var event = new Event({name:name,description:description,venue:venue,date:date,address:address,city:city,state:state,zip:zip,user_id:user_id});
 
+        console.log('new event: ',event);
+
+
         event.save().then(function(newEvent) {
+          console.log('saved event: ',newEvent);
+
           Events.add(newEvent);
           callback(null,newEvent);
         })
