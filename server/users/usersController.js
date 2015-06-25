@@ -73,6 +73,15 @@ module.exports = {
         // res.redirect('/login');
       });
     res.status(200).end()
+  },
+
+  addFollowing: function(req, res) {
+    //the user with user_id is now following the user with following_id
+    var user_id = req.body.user_id;
+    var following_id = req.body.following_id;
+    utils.addFollowing(user_id, following_id, function() {
+      res.status(201).end();
+    });
   }
 
 };

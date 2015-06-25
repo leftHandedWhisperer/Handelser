@@ -20,6 +20,10 @@ var User = db.Model.extend({
     });
   },
 
+  following: function() {
+    return this.belongsToMany(User);
+  },
+
   hashPassword: function(){
     var cipher = Promise.promisify(bcrypt.hash);
     // return a promise - bookshelf will wait for the promise
