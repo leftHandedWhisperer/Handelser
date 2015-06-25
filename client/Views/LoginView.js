@@ -12,7 +12,7 @@ app.loginView = Backbone.View.extend({
         <label class="sr-only" for="loginPassword">Password</label>\
         <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>\
       </div>\
-      <input class="btn btn-default" id="loginButton" type="button" value="Login">\
+      <button type="submit" class="btn btn-primary" id="loginButton">Login</button>\
       <input class="btn btn-default" id="signupButton" type="button" value="Signup">\
     </form>\
   ',

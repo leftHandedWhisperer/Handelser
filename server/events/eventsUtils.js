@@ -50,6 +50,8 @@ module.exports = {
     var state = event.state;
     var zip = event.zip;
     var user_id = event.user_id;
+    var lat = event.lat;
+    var long = event.long;
 
     console.log("check");
 
@@ -59,7 +61,7 @@ module.exports = {
         callback(null,found.attributes);
       } else {
 
-        var event = new Event({name:name,description:description,venue:venue,date:date,address:address,city:city,state:state,zip:zip,user_id:user_id});
+        var event = new Event({name:name,description:description,venue:venue,date:date,address:address,city:city,state:state,zip:zip,user_id:user_id,lat:lat,long:long});
 
         console.log('new event: ',event);
 

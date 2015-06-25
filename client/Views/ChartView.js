@@ -37,20 +37,30 @@ var ChartView = Backbone.View.extend({
   },
   initialize: function(options) {
     // Wrap chart
-    this.$chart_container = this.$el.parent();
-    this.chart_container = this.$chart_container.get(0);
+
     this.get_dimensions();
+    console.log('init container: ',this.chart_container)
+
 
     if (this.collection)
       this.collection.on("sync", _.bind(this.render, this, true));
     else if (this.options.data)
       this.data = this.options.data;
 
-    $(window).on("resize", _.debounce(_.bind(this.render, this, false), 100));
+    $(window).on("resize", _.debounce(_.bind(this.render, this, false), 50));
+
+    this.$chart_container = this.$el.parent();
+    this.chart_container = this.$chart_container.get(0);
+    this.$chart_container.on("resize", _.debounce(_.bind(this.render, this, false), 50));
+
   },
   get_dimensions: function() {
+    this.$chart_container = this.$el.parent();
+    this.chart_container = this.$chart_container.get(0);
+
     var wrapperWidth = this.$chart_container.width();
     var wrapperHeight = this.$chart_container.height();
+    wrapperHeight = wrapperWidth * 5/9;
 
     var width = wrapperWidth - this.options.margin.left - this.options.margin.right;
     var height = wrapperHeight - this.options.margin.bottom - this.options.margin.top;
@@ -70,11 +80,14 @@ var ChartView = Backbone.View.extend({
   // The render function wraps drawing with responsivosity
   render: function(animated) {
     console.log('animated: ',animated);
+
     if (this.collection)
     this.data = this.collection.toJSON();
     this.$el.empty();
     this.get_dimensions();
     this.draw(animated);
+    console.log(this.el);
+    return this.el;
   },
   draw: function(animated) {
     console.log("override ChartView's draw function with your d3 code");

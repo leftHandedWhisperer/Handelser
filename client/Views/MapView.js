@@ -12,6 +12,7 @@ var MapView = ChartView.extend({
       height = chart.dimensions.wrapperHeight,
       active = d3.select(null);
 
+
     var links = [];
 
     var projection = d3.geo.albers()
@@ -56,11 +57,16 @@ var MapView = ChartView.extend({
       .call(zoom) // delete this line to disable free zooming
       .call(zoom.event);
 
-    queue()
-      .defer(d3.json, "us.json")
-      .await(ready);
+    var us = US;
+    // console.log(us)
 
-    function ready(error, us) {
+    // queue()
+    // //   // .defer(d3.json, "us.json")
+    // .await(ready);
+    ready.call(this);
+
+    function ready(error) {
+
       if (error) throw error;
 
       var eventsById = d3.map(),
@@ -87,12 +93,12 @@ var MapView = ChartView.extend({
 
       events = events.filter(function(d) {
         d.count = 80;
-        d[0] = +d.longitude;
-        d[1] = +d.latitude;
+        d[0] = +d.long;
+        d[1] = +d.lat;
         var position = projection(d);
         d.x = position[0];
         d.y = position[1];
-        console.log(d);
+        // console.log(d);
         return true;
       });
 
@@ -148,7 +154,11 @@ var MapView = ChartView.extend({
         })
         .attr("r", function(d, i) {
           return Math.sqrt(d.count);
-        });
+        })
+        .on("mouseenter", mouseenter)
+        .on("mouseleave", mouseleave);
+
+
 
       eventDots
         .selectAll(".events")
@@ -167,15 +177,16 @@ var MapView = ChartView.extend({
           var height = this.getBoundingClientRect().height
 
           var radius = Math.sqrt(d.count);
-          var padding = 6;
+          var padding = 10;
 
           return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")";
         })
 
-      if (animated) {
-        console.log('animated: ',animated
 
-      )
+      if (animated) {
+        console.log('animated: ', animated)
+        zoomToEvents.call(this);
+
         animateEvent(eventDots, arcs, 0);
       } else {
         eventDots
@@ -225,6 +236,50 @@ var MapView = ChartView.extend({
         });
     }
 
+    function zoomToEvents() {
+
+      var chart = this;
+      console.log(this)
+      var events = chart.data;
+
+      var minX, maxX, minY, maxY;
+
+      events.forEach(function(d) {
+        var x = d.x;
+        var y = d.y;
+
+        if (!minX || x < minX) {
+          minX = x
+        }
+        if (!maxX || x > maxX) {
+          maxX = x
+        }
+
+        if (!minY || y < minY) {
+          minY = y
+        }
+        if (!maxY || y > maxY) {
+          maxY = y
+        }
+
+      });
+
+      if (maxX && maxY && minX && minY) {
+
+        dx = maxX - minX,
+          dy = maxY - minY,
+          x = (maxX + minX) / 2,
+          y = (maxY + minY) / 2,
+          scale = .9 / Math.max(dx / width, dy / height),
+          translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+        svg.transition()
+          .duration(750)
+          .call(zoom.translate(translate).scale(scale).event);
+
+      }
+    }
+
     function clicked(d) {
       if (active.node() === this) return reset();
       active.classed("active", false);
@@ -243,6 +298,21 @@ var MapView = ChartView.extend({
         .call(zoom.translate(translate).scale(scale).event);
     }
 
+    function mouseenter(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", true);
+
+      var eventText = d3.select(event).select("text").classed("active", true);
+
+    }
+
+    function mouseleave(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", false);
+
+      var eventText = d3.select(event).select("text").classed("active", false);
+    }
+
     function reset() {
       active.classed("active", false);
       active = d3.select(null);
@@ -258,6 +328,15 @@ var MapView = ChartView.extend({
       g.selectAll("circle").attr("transform", function(d) {
         return "translate(" + d.x + "," + d.y + ")scale(" + 1 / d3.event.scale + ")";
       });
+      g.selectAll("text").attr("transform", function(d) {
+        var width = this.getBoundingClientRect().width / d3.event.scale
+        var height = this.getBoundingClientRect().height / d3.event.scale
+
+        var radius = Math.sqrt(d.count) / d3.event.scale;
+        var padding = 10 / d3.event.scale;
+
+        return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")scale(" + 1 / d3.event.scale + ")";
+      });
     }
 
     // If the drag behavior prevents the default click,
@@ -267,18 +346,6 @@ var MapView = ChartView.extend({
     }
 
     return this;
-  },
-
-  create_svg: function() {
-    var chart = this;
-
-    //create new svg
-    chart.svg = d3.select(chart.el).append("svg")
-      .attr("width", chart.dimensions.wrapperWidth)
-      .attr("height", chart.dimensions.wrapperHeight)
-      .attr("class", "chart")
-      .append("g")
-      .attr("transform", "translate(" + chart.options.margin.left + ", 20)");
   }
 
 });

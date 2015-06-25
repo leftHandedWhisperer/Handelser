@@ -1,0 +1,47 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="../client/bower_components/jquery/dist/jquery.js"></script>
+  <script src="../client/bower_components/underscore/underscore.js"></script>
+  <script src="../client/bower_components/backbone/backbone.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/chai/chai.js"></script>
+
+  <script>
+    mocha.setup('bdd')
+    mocha.reporter('html');
+  </script>
+
+  <!-- Tests -->
+  <script src="tests.js"></script>
+
+  <script>
+    // Only tests run in real browser, injected script run if options.run == true
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+      mocha.run();
+    }
+
+  </script>
+    <script src="../client/app.js"></script>
+    <script src="../client/router.js"></script>
+    <script src="../client/Views/CalendarView.js"></script>
+    <script src="../client/Views/MainPageView.js"></script>
+    <script src="../client/Views/NavbarView.js"></script>
+    <script src="../client/Views/DayView.js"></script>
+    <script src="../client/Views/SidePageView.js"></script>
+    <script src="../client/Views/LogInOutView.js"></script>
+    <script src="../client/Views/LoginView.js"></script>
+    <script src="../client/Views/LogoutView.js"></script>
+    <script src="../client/Views/SignupView.js"></script>
+    <script src="../client/router.js"></script>
+    <script src="../client/Models/User.js"></script>
+    <script src="../client/Models/Event.js"></script>
+    <script src="../client/Collections/Events.js"></script>
+    <script src="../client/Collections/Users.js"></script>
+</body>
+</html>
