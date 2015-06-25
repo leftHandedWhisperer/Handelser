@@ -18,7 +18,7 @@ app.navbarUserView = Backbone.View.extend({
   ',
 
   initialize : function() {
-    this.friends = 
+    this.friends = '';
     console.log(app.currentUser);
     this.$el.find('.dropdown-toggle').html(app.currentUser.username + '<span class="caret"></span>');
   },
