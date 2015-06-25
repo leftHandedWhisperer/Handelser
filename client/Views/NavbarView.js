@@ -8,7 +8,6 @@ app.navbarView = Backbone.View.extend({
 
   events : {
     'click li #calendarButton': 'renderCalendarView',
-    'click li #newEventButton': 'renderNewEventView',
     'click li #mapButton': 'renderMapView',
   },
 
@@ -18,12 +17,6 @@ app.navbarView = Backbone.View.extend({
   renderCalendarView: function(){
     // app.router.navigate('/calendar', { trigger: true });
     app.mainpage.render('calendar');
-  },
-
-  renderNewEventView: function(){
-    // app.router.navigate('/calendar', { trigger: true });
-    if (app.currentUser) app.sidepage.render('newEvent');
-    else app.sidepage.render('pleaseLogin');
   },
 
   renderMapView: function(){
