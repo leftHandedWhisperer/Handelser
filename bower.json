@@ -2,15 +2,14 @@
   "name": "leftHandedWhisperer",
   "version": "0.0.0",
   "homepage": "https://github.com/leftHandedWhisperer/leftHandedWhisperer",
-  "authors": [],
   "license": "MIT",
-  "ignore": [
+  "ignore": {
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ],
+  },
   "dependencies": {
     "backbone": "~1.2.1",
     "bootstrap": "~3.3.5",
