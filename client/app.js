@@ -12,6 +12,7 @@ window.app = Backbone.View.extend({
     app.navbar = new app.navbarView();
     app.mainpage = new app.mainPageView();
     app.sidepage = new app.sidePageView();
+    app.pleaseLogin = new app.pleaseLoginView();
     // determine whether or not user is logged in
     // render the nav bar according to that.
     app.router = new app.Router({ el: this.$el.find('.app') });
