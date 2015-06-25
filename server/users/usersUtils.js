@@ -72,6 +72,7 @@ module.exports = {
             callback(null, found.attributes);
           } else {
             console.log('password incorrect');
+            callback(null, null);
           }
         });
 
@@ -104,6 +105,18 @@ module.exports = {
     } else {
       next();
     }
+  },
+
+  addFollowing: function(user_id, following_id, callback) {
+    new User({id:user_id}).fetch().then(function(user) {
+      if (user) {
+        return user.following().attach(following_id);
+      }
+    }).then(function() {
+      callback();
+    }).catch(function(error) {
+      console.log(error);
+    });
   }
 
 };

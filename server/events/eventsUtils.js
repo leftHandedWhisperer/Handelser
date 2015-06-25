@@ -7,6 +7,13 @@ module.exports = {
 
   retrieveAllEvents: function(callback) {
     Events.reset().fetch().then(function(events) {
+      events.forEach(function(event) {
+        var shortDate = event.attributes.date.toISOString().slice(0,10);
+        // console.log(shortDate);
+        // var eventsWithUser = found.attributes;
+        // eventsWithUser.user = found.relations.user;
+        event.set('shortDate',shortDate);
+      })
       callback(null,events);
     })
     .catch(function(error) {
@@ -16,9 +23,11 @@ module.exports = {
   retrieveEvent: function(eventID,callback) {
     new Event({ id: eventID }).fetch({withRelated: ['user'], require: true}).then(function(found) {
       if (found) {
-
+        var shortDate = found.date.slice(0,10);
+        console.log(shortDate);
         // var eventsWithUser = found.attributes;
         // eventsWithUser.user = found.relations.user;
+        found.attributes.shortDate = shortDate;
 
         callback(null,found.attributes);
       } else {
@@ -46,12 +55,18 @@ module.exports = {
 
     new Event({name:name}).fetch().then(function(found) {
       if (found) {
+        console.log('event already found: ',found.attributes);
         callback(null,found.attributes);
       } else {
 
         var event = new Event({name:name,description:description,venue:venue,date:date,address:address,city:city,state:state,zip:zip,user_id:user_id});
 
+        console.log('new event: ',event);
+
+
         event.save().then(function(newEvent) {
+          console.log('saved event: ',newEvent);
+
           Events.add(newEvent);
           callback(null,newEvent);
         })

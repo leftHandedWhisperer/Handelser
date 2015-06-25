@@ -7,6 +7,7 @@
     <div class='app'>
     <!-- css -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="style.css" rel="stylesheet" type="text/css">
 
     <!-- calendar -->
     <link rel='stylesheet' href='bower_components/fullcalendar/dist/fullcalendar.css' />
@@ -19,6 +20,10 @@
     <script src="bower_components/underscore/underscore.js"></script>
     <script src="bower_components/backbone/backbone.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/queue-async/queue.min.js"></script>
+    <script src="bower_components/topojson/topojson.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+
 
     <!-- files -->
 
@@ -68,6 +73,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="text-center" id="calendarButton">Calendar</li>
+                <li class="text-center" id="newEventButton">Add Event</li>
+                <li class="text-center" id="mapButton">Tour Map</li>
               </ul>
             </li>
           </ul>
@@ -77,19 +84,29 @@
 
     <!-- Homepage -->
     <div class="row">
-      <div class="col-md-8"></div>
+      <div class="col-md-8">
+      </div>
       <div class="col-md-4"></div>
     </div>
+    <div class="dayEventView"></div>
 
     <script src="app.js"></script>
+    <script src="Views/us.js"></script>
+    <script src="Views/ChartView.js"></script>
+    <script src="Views/MapView.js"></script>
+    <script src="Views/TourMapView.js"></script>
     <script src="Views/CalendarView.js"></script>
     <script src="Views/MainPageView.js"></script>
     <script src="Views/NavbarView.js"></script>
+    <script src="Views/DayView.js"></script>
     <script src="Views/SidePageView.js"></script>
     <script src="Views/LogInOutView.js"></script>
     <script src="Views/LoginView.js"></script>
     <script src="Views/LogoutView.js"></script>
     <script src="Views/SignupView.js"></script>
+
+	<script src="Views/NewEventView.js"></script>
+
     <script src="router.js"></script>
     <script src="Models/User.js"></script>
     <script src="Models/Event.js"></script>

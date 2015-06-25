@@ -11,11 +11,30 @@ app.calendarView = Backbone.View.extend({
   },
 
   addAll: function(){
-    this.$el.fullCalendar({});
+    var that = this;
+    this.$el.fullCalendar( 'removeEvents');
+    this.$el.fullCalendar({
+      timezone:'local',
+      dayClick: function(date) {
+        $('.dayEventView').empty();
+        console.log('dayClick shortdate: ',date.format());
+
+        var dayModel = that.collection.filter(function(item) {
+          console.log('shortdate: ',item.shortDate());
+          return item.shortDate() === date.format();
+        });
+
+        for (var i=0; i<dayModel.length; i++) {
+          var dayview = new app.dayView({model: dayModel[i]});
+          dayview.render().appendTo($('.dayEventView'));
+        }
+      }
+    });
     this.collection.forEach(function(item){
+
       this.$el.fullCalendar('renderEvent', {
         title: item.get('name'),
-        start: item.get('date')
+        start: item.localDate()
       }, true);
     }, this)
   },
@@ -23,6 +42,11 @@ app.calendarView = Backbone.View.extend({
   addOne: function(event){
     var view = new app.EventView({model: event});
     this.$el.append(view.render().el);
+  },
+
+  renderDay: function(date){
+    console.log('render day view')
+    console.log(date)
   }
 
 })

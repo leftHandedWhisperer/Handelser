@@ -12,6 +12,7 @@ var MapView = ChartView.extend({
       height = chart.dimensions.wrapperHeight,
       active = d3.select(null);
 
+
     var links = [];
 
     var projection = d3.geo.albers()
@@ -56,137 +57,147 @@ var MapView = ChartView.extend({
       .call(zoom) // delete this line to disable free zooming
       .call(zoom.event);
 
+    var us = US;
+    // console.log(us)
+
     queue()
-      .defer(d3.json, "us.json")
+    // //   // .defer(d3.json, "us.json")
       .await(ready);
 
-    function ready(error, us) {
-      if (error) throw error;
 
-      var eventsById = d3.map(),
-        positions = [];
 
-      var events = chart.data;
+    function ready(error) {
 
-      events.forEach(function(d) {
-        eventsById.set(d.iata, d);
+    if (error) throw error;
+
+    var eventsById = d3.map(),
+      positions = [];
+
+    var events = chart.data;
+
+    events.forEach(function(d) {
+      eventsById.set(d.iata, d);
+    });
+
+    //sort ascending by event date
+    events.sort(function(a, b) {
+      return a.date > b.date;
+    });
+
+    for (var i = 1; i < events.length; i++) {
+      link = {
+        source: events[i - 1],
+        target: events[i]
+      };
+      links.push(link);
+    }
+
+    events = events.filter(function(d) {
+      d.count = 80;
+      d[0] = +d.long;
+      d[1] = +d.lat;
+      var position = projection(d);
+      d.x = position[0];
+      d.y = position[1];
+      // console.log(d);
+      return true;
+    });
+
+    voronoi(events)
+      .forEach(function(d) {
+        d.point.cell = d;
       });
 
-      //sort ascending by event date
-      events.sort(function(a, b) {
-        return a.date > b.date;
-      });
+    g.selectAll("path")
+      .data(topojson.feature(us, us.objects.states).features)
+      .enter().append("path")
+      .attr("d", path)
+      .attr("class", "feature")
+      .on("click", clicked);
 
-      for (var i = 1; i < events.length; i++) {
-        link = {
-          source: events[i - 1],
-          target: events[i]
-        };
-        links.push(link);
-      }
+    g.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) {
+        return a !== b;
+      }))
+      .attr("class", "mesh")
+      .attr("d", path);
 
-      events = events.filter(function(d) {
-        d.count = 80;
-        d[0] = +d.longitude;
-        d[1] = +d.latitude;
-        var position = projection(d);
-        d.x = position[0];
-        d.y = position[1];
-        console.log(d);
-        return true;
-      });
+    var arcs = g.append("g")
+      .attr("class", "event-arcsHolder");
 
-      voronoi(events)
-        .forEach(function(d) {
-          d.point.cell = d;
+    arcs
+      .selectAll("path")
+      .data(links)
+      .enter().append("path")
+      .attr("class", "event-arcs")
+      .attr("d", function(d) {
+        return path({
+          type: "LineString",
+          coordinates: [d.source, d.target]
         });
+      })
+      .style('stroke-opacity', 0);
 
-      g.selectAll("path")
-        .data(topojson.feature(us, us.objects.states).features)
-        .enter().append("path")
-        .attr("d", path)
-        .attr("class", "feature")
-        .on("click", clicked);
+    var eventDots = g.append("g")
+      .attr("class", "eventHolder");
 
-      g.append("path")
-        .datum(topojson.mesh(us, us.objects.states, function(a, b) {
-          return a !== b;
-        }))
-        .attr("class", "mesh")
-        .attr("d", path);
+    eventDots
+      .selectAll("g")
+      .data(events)
+      .enter().append("g")
+      .attr("class", "events");
 
-      var arcs = g.append("g")
-        .attr("class", "event-arcsHolder");
+    eventDots
+      .selectAll(".events")
+      .append("circle")
+      .attr("transform", function(d) {
+        return "translate(" + d.x + "," + d.y + ")";
+      })
+      .attr("r", function(d, i) {
+        return Math.sqrt(d.count);
+      })
+      .on("mouseenter", mouseenter)
+      .on("mouseleave", mouseleave);
 
-      arcs
-        .selectAll("path")
-        .data(links)
-        .enter().append("path")
-        .attr("class", "event-arcs")
-        .attr("d", function(d) {
-          return path({
-            type: "LineString",
-            coordinates: [d.source, d.target]
-          });
-        })
-        .style('stroke-opacity', 0);
 
-      var eventDots = g.append("g")
-        .attr("class", "eventHolder");
 
-      eventDots
-        .selectAll("g")
-        .data(events)
-        .enter().append("g")
-        .attr("class", "events");
+    eventDots
+      .selectAll(".events")
+      .style('opacity', 0);
 
-      eventDots
-        .selectAll(".events")
-        .append("circle")
-        .attr("transform", function(d) {
-          return "translate(" + d.x + "," + d.y + ")";
-        })
-        .attr("r", function(d, i) {
-          return Math.sqrt(d.count);
-        });
+    eventDots
+      .selectAll(".events")
+      .append("text")
+      .attr("font-family", "Verdana")
+      .attr("font-size", "12px")
+      .text(function(d) {
+        return d.name;
+      })
+      .attr("transform", function(d) {
+        var width = this.getBoundingClientRect().width
+        var height = this.getBoundingClientRect().height
 
-      eventDots
-        .selectAll(".events")
-        .style('opacity', 0);
+        var radius = Math.sqrt(d.count);
+        var padding = 6;
 
-      eventDots
-        .selectAll(".events")
-        .append("text")
-        .attr("font-family", "Verdana")
-        .attr("font-size", "12px")
-        .text(function(d) {
-          return d.name;
-        })
-        .attr("transform", function(d) {
-          var width = this.getBoundingClientRect().width
-          var height = this.getBoundingClientRect().height
+        return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")";
+      })
 
-          var radius = Math.sqrt(d.count);
-          var padding = 6;
-
-          return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")";
-        })
-
-      if (animated) {
-        console.log('animated: ',animated
+    if (animated) {
+      console.log('animated: ', animated
 
       )
-        animateEvent(eventDots, arcs, 0);
-      } else {
-        eventDots
-          .selectAll(".events")
-          .style('opacity', 1)
+      animateEvent(eventDots, arcs, 0);
+    } else {
+      eventDots
+        .selectAll(".events")
+        .style('opacity', 1)
 
-        arcs
-          .selectAll(".event-arcs")
-          .attr("stroke-dashoffset", 0)
-          .style('stroke-opacity', 1);
-      }
+      arcs
+        .selectAll(".event-arcs")
+        .attr("stroke-dashoffset", 0)
+        .style('stroke-opacity', 1);
+    }
     }
 
     function animateEvent(events, arcs, index) {
@@ -241,6 +252,21 @@ var MapView = ChartView.extend({
       svg.transition()
         .duration(750)
         .call(zoom.translate(translate).scale(scale).event);
+    }
+
+    function mouseenter(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", true);
+
+      var eventText = d3.select(event).select("text").classed("active", true);
+
+    }
+
+    function mouseleave(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", false);
+
+      var eventText = d3.select(event).select("text").classed("active", false);
     }
 
     function reset() {

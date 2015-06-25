@@ -27,7 +27,7 @@ module.exports = {
       if (user) {
         res.json(user);
       } else {
-        res.status(404).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
@@ -42,7 +42,7 @@ module.exports = {
       if (data) {
         res.json(data);
       } else {
-        res.status(400).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
@@ -58,11 +58,12 @@ module.exports = {
         utils.createSession(req, res, data);
         res.json(data);
       } else {
-        res.status(400).end();
+        res.status(500).end();
       }
     })
     .catch(function(error) {
       console.log('controller error: ',error);
+      res.status(500).end();
     });
   },
 
@@ -71,6 +72,16 @@ module.exports = {
       console.log('session destroyed');
         // res.redirect('/login');
       });
+    res.status(200).end()
+  },
+
+  addFollowing: function(req, res) {
+    //the user with user_id is now following the user with following_id
+    var user_id = req.body.user_id;
+    var following_id = req.body.following_id;
+    utils.addFollowing(user_id, following_id, function() {
+      res.status(201).end();
+    });
   }
 
 };

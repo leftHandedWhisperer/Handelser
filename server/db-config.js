@@ -44,7 +44,10 @@ db.knex.schema.hasTable('events').then(function(exists) {
       table.string('address', 255);
       table.string('city', 255);
       table.string('state', 255);
-      table.integer('zip');
+      table.string('zip',10);
+      table.float('lat');
+      table.float('long');
+
 
     }).then(function(table) {
       console.log('created table :', 'events');
