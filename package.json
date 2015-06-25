@@ -6,7 +6,6 @@
   "scripts": {
     "test": "grunt",
     "start": "node index.js"
-    // "postinstall": "bower cache clean && bower install"
   },
   "repository": {
     "type": "git",
