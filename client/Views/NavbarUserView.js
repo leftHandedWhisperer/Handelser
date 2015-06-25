@@ -1,4 +1,4 @@
-app.userView = Backbone.View.extend({
+app.navbarUserView = Backbone.View.extend({
   el : '\
     <ul class="nav navbar-nav navbar-right user">\
       <p class="navbar-text" id="settingsButton">Settings</p>\
@@ -18,6 +18,7 @@ app.userView = Backbone.View.extend({
   ',
 
   initialize : function() {
+    this.friends = 
     console.log(app.currentUser);
     this.$el.find('.dropdown-toggle').html(app.currentUser.username + '<span class="caret"></span>');
   },
