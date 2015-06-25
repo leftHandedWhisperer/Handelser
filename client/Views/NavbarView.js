@@ -22,7 +22,8 @@ app.navbarView = Backbone.View.extend({
 
   renderNewEventView: function(){
     // app.router.navigate('/calendar', { trigger: true });
-    app.sidepage.render('newEvent');
+    if (app.currentUser) app.sidepage.render('newEvent');
+    else app.sidepage.render('pleaseLogin');
   },
 
   renderMapView: function(){
