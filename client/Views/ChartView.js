@@ -37,9 +37,10 @@ var ChartView = Backbone.View.extend({
   },
   initialize: function(options) {
     // Wrap chart
-    this.$chart_container = this.$el.parent();
-    this.chart_container = this.$chart_container.get(0);
+
     this.get_dimensions();
+    console.log('init container: ',this.chart_container)
+
 
     if (this.collection)
       this.collection.on("sync", _.bind(this.render, this, true));
@@ -49,8 +50,12 @@ var ChartView = Backbone.View.extend({
     $(window).on("resize", _.debounce(_.bind(this.render, this, false), 100));
   },
   get_dimensions: function() {
+    this.$chart_container = this.$el.parent();
+    this.chart_container = this.$chart_container.get(0);
+
     var wrapperWidth = this.$chart_container.width();
     var wrapperHeight = this.$chart_container.height();
+    wrapperHeight = Math.max(wrapperHeight,wrapperWidth * 5/9);
 
     var width = wrapperWidth - this.options.margin.left - this.options.margin.right;
     var height = wrapperHeight - this.options.margin.bottom - this.options.margin.top;

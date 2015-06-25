@@ -12,6 +12,7 @@ var MapView = ChartView.extend({
       height = chart.dimensions.wrapperHeight,
       active = d3.select(null);
 
+
     var links = [];
 
     var projection = d3.geo.albers()
@@ -98,7 +99,7 @@ var MapView = ChartView.extend({
       var position = projection(d);
       d.x = position[0];
       d.y = position[1];
-      console.log(d);
+      // console.log(d);
       return true;
     });
 
@@ -154,7 +155,11 @@ var MapView = ChartView.extend({
       })
       .attr("r", function(d, i) {
         return Math.sqrt(d.count);
-      });
+      })
+      .on("mouseenter", mouseenter)
+      .on("mouseleave", mouseleave);
+
+
 
     eventDots
       .selectAll(".events")
@@ -247,6 +252,21 @@ var MapView = ChartView.extend({
       svg.transition()
         .duration(750)
         .call(zoom.translate(translate).scale(scale).event);
+    }
+
+    function mouseenter(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", true);
+
+      var eventText = d3.select(event).select("text").classed("active", true);
+
+    }
+
+    function mouseleave(d) {
+      var event = this.parentNode;
+      d3.select(event).classed("active", false);
+
+      var eventText = d3.select(event).select("text").classed("active", false);
     }
 
     function reset() {
