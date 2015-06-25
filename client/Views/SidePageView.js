@@ -3,7 +3,7 @@ app.sidePageView = Backbone.View.extend({
   el: document.getElementsByClassName('col-md-4'),
 
   initialize : function() {
-    app.newEvent = this.newEvent = new app.NewEventView({});
+    app.newEvent = this.newEvent = new app.newEventView({});
   },
 
   events : {
