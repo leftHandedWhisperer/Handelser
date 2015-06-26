@@ -35,7 +35,7 @@ db.knex.schema.hasTable('events').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('events', function(table) {
       table.increments('id').primary();
-      table.string('user_id', 100);
+      table.integer('user_id');
       table.string('name', 255);
       table.string('description', 255);
       table.string('venue', 255);
@@ -64,8 +64,8 @@ db.knex.schema.hasTable('followers').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('followers', function(table) {
       table.increments('id').primary();
-      table.string('follower_id', 100);
-      table.string('followed_id', 100);
+      table.integer('follower_id');
+      table.integer('followed_id');
 
     }).then(function(table) {
       console.log('created table :', 'followers');
