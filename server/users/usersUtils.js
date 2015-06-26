@@ -26,6 +26,8 @@ module.exports = {
       });
   },
   retrieveUser: function(user_id, callback) {
+    user_id = parseInt(user_id);
+
     new User({
         id: user_id
       }).fetch({
@@ -147,6 +149,8 @@ module.exports = {
   },
 
   storeFollowing: function(follower_id, followed_id, callback) {
+    follower_id = parseInt(follower_id);
+    followed_id = parseInt(followed_id);
 
     if (followed_id === follower_id) {
       console.log('user cannot follow self');
