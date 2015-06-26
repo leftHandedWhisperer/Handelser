@@ -106,7 +106,7 @@ app.newEventView = Backbone.View.extend({
 
       $.ajax({
         type: 'GET',
-        url: 'http://maps.google.com/maps/api/geocode/json?address=' + addressQuery,
+        url: 'https://maps.google.com/maps/api/geocode/json?address=' + addressQuery,
         success: function(data) {
           var loc = data.results[0].geometry.location;
           console.log('location: ', loc);
