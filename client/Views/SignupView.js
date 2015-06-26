@@ -38,7 +38,7 @@ app.signupView = Backbone.View.extend({
       .done(function(data) {
         console.log('signing up: ', data);
         //this is setting current user to data, not a true User instance
-        app.login.login(username, password);
+        if (!app.currentUser) app.login.login(null, username, password);
       }).fail(function() {
         console.log('login error');
       });

@@ -25,11 +25,11 @@ app.loginView = Backbone.View.extend({
     'click #signupButton' : 'signup',
   },
 
-  login : function(username, password) {
-    username = username || this.$el.find('#loginUsername').val();
-    password = password || this.$el.find('#loginPassword').val();
+  login : function(event, username, password) {
+    var username = username || this.$el.find('#loginUsername').val();
+    var password = password || this.$el.find('#loginPassword').val();
 
-    $.post('/users/login', {username: username, password: password})
+    $.post('/users/login', {'username': username, 'password': password})
       .done(function(data) {
         console.log('logging in: ', data);
         //this is setting current user to data, not a true User instance
@@ -37,6 +37,7 @@ app.loginView = Backbone.View.extend({
         app.loginout.viewLogout();
         app.userNavProfile = new app.navbarUserView();
         app.navbar.$el.find('.collapse').append(app.userNavProfile.render());
+        app.sidepage.render('profile');
       }).fail(function() {
         console.log('login error');
       });
