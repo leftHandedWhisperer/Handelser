@@ -96,3 +96,8 @@ html, body, .app, .row, .mainView, .sideView  {
 .follow-button {
   margin-top: 13px;
 }
+
+.appContainer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
