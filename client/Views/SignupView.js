@@ -13,7 +13,7 @@ app.signupView = Backbone.View.extend({
         <label for="signupCity">City</label>\
         <input type="text" class="form-control" id="signupCity" placeholder="City" required>\
       </div>\
-      <input class="btn btn-default" id="signupButton" type="button" value="Signup">\
+      <input class="btn btn-default" id="signupButton" type="submit" value="Signup">\
     </form>\
   ',
 
@@ -21,10 +21,11 @@ app.signupView = Backbone.View.extend({
   },
 
   events : {
-    'click #signupButton' : 'signup',
+    'submit' : 'signup',
   },
 
-  signup : function() {
+  signup : function(event) {
+    event.preventDefault();
     console.log('signup')
     var username = this.$el.find('#signupUsername').val();
     var password = this.$el.find('#signupPassword').val();

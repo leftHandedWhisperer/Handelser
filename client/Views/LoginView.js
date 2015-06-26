@@ -12,7 +12,7 @@ app.loginView = Backbone.View.extend({
         <label class="sr-only" for="loginPassword">Password</label>\
         <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>\
       </div>\
-      <input class="btn btn-default" id="loginButton" type="button" value="Login">\
+      <input class="btn btn-default" id="loginButton" type="submit" value="Login">\
       <input class="btn btn-default" id="signupButton" type="button" value="Signup">\
     </form>\
   ',
@@ -21,11 +21,12 @@ app.loginView = Backbone.View.extend({
   },
 
   events : {
-    'click #loginButton' : 'login',
+    'submit' : 'login',
     'click #signupButton' : 'signup',
   },
 
   login : function(event, username, password) {
+    if (event) event.preventDefault();
     var username = username || this.$el.find('#loginUsername').val();
     var password = password || this.$el.find('#loginPassword').val();
 
