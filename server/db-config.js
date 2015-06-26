@@ -1,14 +1,13 @@
 var sampleUsers = require('./db/userExamples')
 var sampleEvents = require('./db/eventExamples')
 
+//prod is a copy of the DATABASE_URL environment variable
+var prodConnectionString = 'postgres://hbkuimaybryhch:0gFQCqUGNsMaOOZcmkYVzRcaAz@ec2-54-83-18-87.compute-1.amazonaws.com:5432/d9opd1ipu4em4v';
+var devConnectionString = 'postgres://127.0.0.1:5432/database';
 
 var knex = require('knex')({
-  client: 'mysql',
-  connection: {
-    host: '127.0.0.1',
-    user: 'root',
-    database: 'database'
-  }
+  client: 'pg',
+  connection: process.env.DATABASE_URL || devConnectionString
 });
 
 var db = require('bookshelf')(knex);
