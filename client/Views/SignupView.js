@@ -33,8 +33,15 @@ app.signupView = Backbone.View.extend({
     console.log('username: ',username);
     console.log('password: ',password);
     console.log('city: ', city)
-    app.signupUser = new app.User({username:username,password:password,city:city});
-    app.signupUser.sync('create',app.signupUser,{url:'/signup'});
+
+    $.post('/users/signup', {username: username, password: password, city: city})
+      .done(function(data) {
+        console.log('signing up: ', data);
+        //this is setting current user to data, not a true User instance
+        if (!app.currentUser) app.login.login(null, username, password);
+      }).fail(function() {
+        console.log('login error');
+      });
   },
 
   render : function() {
