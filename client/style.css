@@ -85,3 +85,14 @@ html, body, .app, .row, .mainView, .sideView  {
 .col-md-4 {
   border-left: solid gray 1px;
 }
+
+.follow-user {
+  margin: 10px;
+  background-color: ##EFF1FF;
+  border-radius: 10px;
+  display: block;
+}
+
+.follow-button {
+  margin-top: 13px;
+}
