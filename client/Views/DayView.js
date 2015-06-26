@@ -13,7 +13,6 @@ app.dayView = Backbone.View.extend({
   '),
 
   initialize: function() {
-    this.render();
   },
 
   events: {
