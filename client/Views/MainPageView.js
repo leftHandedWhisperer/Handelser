@@ -6,6 +6,7 @@ app.mainPageView = Backbone.View.extend({
     app.signup = this.signup = new app.signupView({});
     app.tourmap = this.tourmap = new app.tourMapView({collection: app.events});
     app.dayEvent = this.dayEvent = new app.dayEventView({});
+    this.render('tourmap');
   },
 
   events: {},

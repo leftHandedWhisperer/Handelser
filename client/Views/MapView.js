@@ -208,28 +208,30 @@ var MapView = ChartView.extend({
         .duration(150)
         .style('opacity', 1)
         .each('end', function(event) {
-          var totalLength;
-          var thisArc = arcs
-            .selectAll(".event-arcs")
-            .filter(function(d, i) {
-              return i === index;
-            });
+          animateEvent(events, arcs, index + 1);
 
-          if (thisArc.node()) {
-            var totalLength = thisArc.node().getTotalLength();
-          }
+          // var totalLength;
+          // var thisArc = arcs
+          //   .selectAll(".event-arcs")
+          //   .filter(function(d, i) {
+          //     return i === index;
+          //   });
 
-          thisArc
-            .attr("stroke-dasharray", totalLength + " " + totalLength)
-            .attr("stroke-dashoffset", totalLength)
-            .style('stroke-opacity', 1)
-            .transition()
-            .duration(1.25 * totalLength)
-            .ease("linear")
-            .attr("stroke-dashoffset", 0)
-            .each('end', function(event) {
-              animateEvent(events, arcs, index + 1);
-            });
+          // if (thisArc.node()) {
+          //   var totalLength = thisArc.node().getTotalLength();
+          // }
+
+          // thisArc
+          //   .attr("stroke-dasharray", totalLength + " " + totalLength)
+          //   .attr("stroke-dashoffset", totalLength)
+          //   .style('stroke-opacity', 1)
+          //   .transition()
+          //   .duration(1.25 * totalLength)
+          //   .ease("linear")
+          //   .attr("stroke-dashoffset", 0)
+          //   .each('end', function(event) {
+          //     animateEvent(events, arcs, index + 1);
+          //   });
         });
     }
 
