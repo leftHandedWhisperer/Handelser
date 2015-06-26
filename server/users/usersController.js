@@ -78,7 +78,9 @@ module.exports = {
   addFollowing: function(req, res) {
     //the user with user_id is now following the user with following_id
     var follower_id = req.body.follower_id;
+    console.log(follower_id);
     var following_id = req.body.following_id;
+    console.log(following_id);
     utils.storeFollowing(follower_id, following_id, function() {
       res.status(201).end();
     });
