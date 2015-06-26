@@ -12,7 +12,7 @@ app.ProfileView = Backbone.View.extend({
         </div>\
       </div>' ,
 
-  userTemplate: _.template(' <a href="" class="list-group-item profile">Name: <%= username %></a>'),
+  userTemplate: _.template(' <a href="#" class="list-group-item profile">Name: <%= username %></a>'),
 
   events: {},
 
