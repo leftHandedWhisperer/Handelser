@@ -25,9 +25,9 @@ app.loginView = Backbone.View.extend({
     'click #signupButton' : 'signup',
   },
 
-  login : function() {
-    var username = this.$el.find('#loginUsername').val();
-    var password = this.$el.find('#loginPassword').val();
+  login : function(username, password) {
+    username = username || this.$el.find('#loginUsername').val();
+    password = password || this.$el.find('#loginPassword').val();
 
     $.post('/users/login', {username: username, password: password})
       .done(function(data) {

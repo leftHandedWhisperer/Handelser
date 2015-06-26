@@ -9,6 +9,8 @@ window.app = Backbone.View.extend({
   initialize: function(){
     console.log('app is running');
     app.events = new app.Events();
+    app.allUsers = new app.Users();
+    app.allUsers.fetch()
     app.navbar = new app.navbarView();
     app.mainpage = new app.mainPageView();
     app.sidepage = new app.sidePageView();
