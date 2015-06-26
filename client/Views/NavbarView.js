@@ -16,7 +16,7 @@ app.navbarView = Backbone.View.extend({
 
   renderCalendarView: function(){
     // app.router.navigate('/calendar', { trigger: true });
-    app.mainpage.render('calendar');
+    app.mainpage.render('calendar dayEvent');
   },
 
   renderMapView: function(){
