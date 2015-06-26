@@ -5,7 +5,7 @@ app.navbarUserView = Backbone.View.extend({
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span></a>\
         <ul class="dropdown-menu">\
           <li><a href="#" id="newEventButton">Add Event</a></li>\
-          <li><a href="#">Follow Another User</a></li>\
+          <li><a href="#" id="usersButton">Follow Another User</a></li>\
           <li role="separator" class="divider"></li>\
           <li><a href="#" id="profileButton">Your Profile</a></li>\
         </ul>\
@@ -22,7 +22,8 @@ app.navbarUserView = Backbone.View.extend({
   events : {
     'click #settingsButton' : 'settings',
     'click #newEventButton': 'renderNewEventView',
-    'click #profileButton': 'renderProfileView'
+    'click #profileButton': 'renderProfileView',
+    'click #usersButton': 'renderUsers'
   },
 
   settings: function() {
@@ -44,4 +45,12 @@ app.navbarUserView = Backbone.View.extend({
     if (app.currentUser) app.sidepage.render('profile');
     else app.sidepage.render('pleaseLogin');
   },
+
+  renderUsers: function() {
+    console.log('render users in navbarUserView')
+    if (app.currentUser) app.sidepage.render('users');
+    else app.sidepage.render('pleaseLogin');
+  }
+
+
 });
