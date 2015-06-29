@@ -41,7 +41,7 @@ var ChartView = Backbone.View.extend({
     this.get_dimensions();
 
     if (this.collection)
-      this.collection.on("sync", _.bind(this.render, this, true));
+      this.collection.on("sync reset", _.bind(this.render, this, true));
     else if (this.options.data)
       this.data = this.options.data;
 
@@ -80,14 +80,15 @@ var ChartView = Backbone.View.extend({
     console.log('animated: ',animated);
 
     if (this.collection){
-      if (typeof predicate === 'function') {
+      // if (typeof predicate === 'function') {
+      //   this.data = app.filteredEvents.models.toJSON();
 
-        this.data = new app.Events(_.filter(this.collection.models,predicate)).toJSON();
-        console.log('filter returns: ',_.filter(this.collection.models,predicate));
+      //   // this.data = new app.Events(_.filter(this.collection.models,predicate)).toJSON();
+      //   // console.log('filter returns: ',_.filter(this.collection.models,predicate));
 
-      } else {
+      // } else {
         this.data = this.collection.toJSON();
-      }
+      // }
     }
     this.$el.empty();
     this.get_dimensions();
