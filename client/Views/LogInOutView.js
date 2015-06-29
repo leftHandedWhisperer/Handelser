@@ -6,6 +6,7 @@ app.logInOutView = Backbone.View.extend({
     app.login = this.login = new app.loginView({});
     app.logout = this.logout = new app.logoutView({});
     this.render('login');
+    setTimeout(function() { app.login.login() }, 500); 
   },
 
   events : {
