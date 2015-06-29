@@ -41,6 +41,7 @@ app.signupView = Backbone.View.extend({
         app.allUsers.fetch({
           success: function() {
             if (!app.currentUser) app.login.login(null, username, password);
+            app.filter.toggleSideView();
           }
         });
         //this is setting current user to data, not a true User instance

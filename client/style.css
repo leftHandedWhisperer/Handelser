@@ -133,7 +133,7 @@ html, body, .app, .row, .mainView, .sideView  {
 .sideView {
   background-color: #EAE4F2;
   padding-top: 15px;
-  height:100%;
+  padding-bottom: 15px;
 }
 
 .navbar {
@@ -145,4 +145,9 @@ html, body, .app, .row, .mainView, .sideView  {
   -moz-transition: width 0.3s ease, margin 0.3s ease;
   -o-transition: width 0.3s ease, margin 0.3s ease;
   transition: width 0.3s ease, margin 0.3s ease;
+}
+
+.hide-button {
+  float: right;
+  margin-bottom: 10px
 }
