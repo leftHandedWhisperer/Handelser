@@ -62,10 +62,11 @@ app.UsersView = Backbone.View.extend({
       unFollowing_id: e.target.attributes.data.value
     };
 
+    console.log('unfollowing user')
     $.ajax({
       type: 'POST',
-      url: '/users/follow',
-      data: followUser,
+      url: '/users/unfollow',
+      data: unFollowUser,
       success: function(data) {
         console.log('successfully unfollowed user '+ e.target.attributes.data.value)
         e.target.value = "Follow";

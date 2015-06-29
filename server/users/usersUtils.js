@@ -204,6 +204,24 @@ module.exports = {
           });
       }
     });
+  },
 
+  removeFollowing: function(follower_id, unFollowing_id, callback) {
+    console.log('in removeFollowing function in the utils')
+    follower_id = parseInt(follower_id);
+    followed_id = parseInt(unFollowing_id);
+
+    if (unFollowing_id === follower_id) {
+      console.log('user cannot unfollow self');
+      callback(null, null);
+      return;
+    }
+
+    new Follower({follower_id:follower_id,followed_id:followed_id}).fetch().then(function(found){
+      if (found) {
+        found.destroy();
+        callback(null, null);
+      }
+    })
   }
 };
