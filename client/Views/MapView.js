@@ -189,7 +189,12 @@ var MapView = ChartView.extend({
       } else {
         eventDots
           .selectAll(".events")
-          .style('opacity', 1)
+          // .style('opacity', 1)
+          .selectAll("circle")
+          .attr("r", function(d, i) {
+            console.log('d: ',d.count)
+            return Math.sqrt(d.count);
+          })
 
         arcs
           .selectAll(".event-arcs")

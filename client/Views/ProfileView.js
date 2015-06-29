@@ -36,10 +36,8 @@ app.ProfileView = Backbone.View.extend({
 
   render: function() {
     this.$el.children().detach();
-    console.log('profile view: ',this)
-    if (app.currentUser) {
+    if (this.model) {
       this.$el.append(this.mainTemplate(this.model.attributes));
-      console.log('made it here')
       this.$el.find('#userLocation').val(this.model.get('city'));
       this.getUserInfo(function(data) {
         var follows = data.follows;
@@ -90,7 +88,7 @@ app.ProfileView = Backbone.View.extend({
       },
       success: function(data) {
         console.log('updated user data: ', data);
-        app.currentUser = app.allUsers.findWhere({id:data.id});
+        app.allUsers.fetch();
       },
       error: function(jqxhr, status, error) {
         console.error('error:', error);
