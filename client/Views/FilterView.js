@@ -87,9 +87,15 @@ app.filterView = Backbone.View.extend({
       }
     });
 
+  },
 
-
-
+  toggleSideView: function(){
+    $('.mainView').toggleClass('col-md-12 col-md-8');
+    $('.sideView').toggleClass('hidden col-md-4');
+    var elem = document.getElementById("side-toggle-button");
+      if (elem.value=="Hide Info") elem.value = "Show Info";
+      else elem.value = "Hide Info";
+  }
 
 
     // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
@@ -123,5 +129,8 @@ app.filterView = Backbone.View.extend({
     //   }
     // });
 
+<<<<<<< HEAD
   }
+=======
+>>>>>>> made a slider view for the day stuff
 });
