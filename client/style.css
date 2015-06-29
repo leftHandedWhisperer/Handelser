@@ -130,6 +130,16 @@ html, body, .app, .row, .mainView, .sideView  {
   border-radius: 10px;
 } 
 
+.sideView {
+  background-color: #EAE4F2;
+  padding-top: 15px;
+  height:100%;
+}
+
+.navbar {
+  margin-bottom: 0px
+}
+
 .appContainer div {
   -webkit-transition: width 0.3s ease, margin 0.3s ease;
   -moz-transition: width 0.3s ease, margin 0.3s ease;
