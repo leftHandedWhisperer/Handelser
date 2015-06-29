@@ -181,6 +181,6 @@ var events = [{
   zip: '94102',
   lat:37.783624,
   long: -122.408999
-},];
+}];
 
 module.exports = events;
