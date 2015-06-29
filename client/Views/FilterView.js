@@ -16,6 +16,7 @@ app.filterView = Backbone.View.extend({
               <input type="text" class="form-control" id="user-filter">\
             </div>\
             <input class="btn btn-success" id="filter-button" type="button" value="Update">\
+            <input class="btn btn-default" id="side-toggle-button" type="button" value="Show Info">\
           </form>\
         </ul> \
       <div>',
@@ -37,7 +38,8 @@ app.filterView = Backbone.View.extend({
   },
 
   events: {
-    'click #filter-button': 'renderTourmapView'
+    'click #filter-button': 'renderTourmapView',
+    'click #side-toggle-button': 'toggleSideView'
   },
 
   render: function() {
@@ -129,8 +131,4 @@ app.filterView = Backbone.View.extend({
     //   }
     // });
 
-<<<<<<< HEAD
-  }
-=======
->>>>>>> made a slider view for the day stuff
 });
