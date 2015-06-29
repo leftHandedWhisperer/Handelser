@@ -17,12 +17,16 @@ html, body, .app, .row, .mainView, .sideView  {
   border-radius: 10px;
   margin: 5px;
   overflow: hidden;
+  position:relative;
+  z-index: 0;
 }
 
 #filterView {
   margin: 5px;
   clear:both;
   overflow: auto;
+  position:relative;
+  z-index: 1000;
 }
 
 .background {

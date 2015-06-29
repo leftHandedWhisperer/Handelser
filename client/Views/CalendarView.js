@@ -15,20 +15,25 @@ app.calendarView = Backbone.View.extend({
     var that = this;
     this.$el.fullCalendar('removeEvents');
     this.$el.fullCalendar({
+      header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay'
+          },
       timezone:'local',
-      dayClick: function(date) {
-        console.log('dayClick shortdate: ',date.format());
+      // dayClick: function(date) {
+      //   console.log('dayClick shortdate: ',date.format());
 
-        var dayModel = that.collection.filter(function(item) {
-          console.log('shortdate: ',item.shortDate());
-          return item.shortDate() === date.format();
-        });
+      //   var dayModel = that.collection.filter(function(item) {
+      //     console.log('shortdate: ',item.shortDate());
+      //     return item.shortDate() === date.format();
+      //   });
 
-        app.dayEvent.$el.empty();
-        for (var i=0; i<dayModel.length; i++) {
-          app.dayEvent.$el.append((new app.dayView({model: dayModel[i]})).render());;
-        }
-      },
+      //   app.dayEvent.$el.empty();
+      //   for (var i=0; i<dayModel.length; i++) {
+      //     app.dayEvent.$el.append((new app.dayView({model: dayModel[i]})).render());;
+      //   }
+      // },
       eventClick: function(event) {
         app.sideEvent = new app.dayView({model: that.collection.findWhere({name: event.title})});
         app.sidepage.render('sideEvent');
