@@ -13,6 +13,7 @@ app.sidePageView = Backbone.View.extend({
 
   render : function(views) {
     this.$el.children().detach();
+    // add the "hide side view page"
     views = views.split(' ');
     console.log(views);
     for (var view in views) {

@@ -94,9 +94,18 @@ app.filterView = Backbone.View.extend({
   toggleSideView: function(){
     $('.mainView').toggleClass('col-md-12 col-md-8');
     $('.sideView').toggleClass('hidden col-md-4');
+
     var elem = document.getElementById("side-toggle-button");
       if (elem.value=="Hide Info") elem.value = "Show Info";
       else elem.value = "Hide Info";
+
+    if ($('.appContainer').has('#chartHolder').length) {
+      console.log('rerendering tour map')
+      // $('#chartHolder').toggleClass('col-md-8');
+      setTimeout(function(){
+        app.mainpage.render('tourmap');
+      }, 300)
+    }
   }
 
 
