@@ -91,7 +91,7 @@ var MapView = ChartView.extend({
       }
 
       events = events.filter(function(d) {
-        d.count = 200;
+        d.count = 150;
         d[0] = +d.long;
         d[1] = +d.lat;
         var position = projection(d);
@@ -176,15 +176,14 @@ var MapView = ChartView.extend({
           var height = this.getBoundingClientRect().height
 
           var radius = Math.sqrt(d.count);
-          var padding = 10;
+          var padding = 20;
 
           return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")";
         })
 
 
       if (animated) {
-        zoomToEvents.call(this);
-
+        zoomToEvents.call(this,true);
         animateEvent(eventDots, arcs, 0);
       } else {
         eventDots
@@ -200,6 +199,9 @@ var MapView = ChartView.extend({
           .selectAll(".event-arcs")
           // .attr("stroke-dashoffset", 0)
           // .style('stroke-opacity', 1);
+
+        zoomToEvents.call(this,false);
+
       }
     }
 
@@ -261,7 +263,7 @@ var MapView = ChartView.extend({
         // });
     }
 
-    function zoomToEvents() {
+    function zoomToEvents(animated) {
 
       var chart = this;
       var events = chart.data;
@@ -296,9 +298,14 @@ var MapView = ChartView.extend({
           scale = .9 / Math.max(dx / width, dy / height),
           translate = [width / 2 - scale * x, height / 2 - scale * y];
 
+          if (animated) {
         svg.transition()
           .duration(1000)
           .call(zoom.translate(translate).scale(scale).event);
+        } else {
+          svg
+            .call(zoom.translate(translate).scale(scale).event);
+        }
 
       }
     }
@@ -370,7 +377,7 @@ var MapView = ChartView.extend({
         var height = this.getBoundingClientRect().height / d3.event.scale
 
         var radius = Math.sqrt(d.count) / d3.event.scale;
-        var padding = 10 / d3.event.scale;
+        var padding = 20 / d3.event.scale;
 
         return "translate(" + (d.x - width / 2.0) + "," + (d.y + height / 2.0 + radius + padding) + ")scale(" + 1 / d3.event.scale + ")";
       });
