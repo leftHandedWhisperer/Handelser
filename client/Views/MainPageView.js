@@ -6,12 +6,15 @@ app.mainPageView = Backbone.View.extend({
     app.signup = this.signup = new app.signupView({});
     app.tourmap = this.tourmap = new app.tourMapView({collection: app.events});
     app.dayEvent = this.dayEvent = new app.dayEventView({});
+    app.filter = this.filter = new app.filterView({});
+    this.render('tourmap');
   },
 
   events: {},
 
   render: function(views) {
     this.$el.children().detach();
+    this.$el.append(this['filter'].render());
     views = views.split(' ');
     for (var view in views) {
       this.$el.append(this[views[view]].render());
