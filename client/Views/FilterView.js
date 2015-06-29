@@ -64,7 +64,7 @@ app.filterView = Backbone.View.extend({
 
     $.ajax({
       type: 'GET',
-      url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
+      url: 'https://maps.google.com/maps/api/geocode/json?address=' + location,
       success: function(data) {
 
         var loc = data.results[0].geometry.location;
