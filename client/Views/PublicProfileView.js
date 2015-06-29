@@ -6,13 +6,7 @@ app.publicProfileView = Backbone.View.extend({
   mainTemplate: _.template('<h2><%= username %></a>\'s Info</h2>\
     <div>\
       <h3>Profile:</h3>\
-      <form class="userInfo">\
-        <div class="form-group">\
-          <label for="userLocation">Location:</label>\
-          <input type="text" class="form-control form-control-inline" id="userLocation" required>\
-          <input class="btn btn-default" id="userLocationButton" type="button" value="Update">\
-        </div>\
-      </form>\
+      <div id="userLocation"><a href="#" class="list-group-item profile">Location: <%= city %></a></div>\
       <h3>Events:</h3>\
       <div id="eventList" class="list-group">\
       </div>\
@@ -21,14 +15,13 @@ app.publicProfileView = Backbone.View.extend({
       </div>\
     </div>'),
 
-  userTemplate: _.template(' <a href="#" class="list-group-item profile" id="<%= id %>">Name: <%= username %></a>'),
+  userTemplate: _.template(' <a href="#" class="list-group-item profile userlink" id="<%= id %>">Name: <%= username %></a>'),
 
   eventTemplate: _.template(' <a href="#" data="<%= id %>" class="list-group-item profile">Name: <%= name %></a>'),
 
   events: {
-    'click #userLocationButton': 'updateUserLocation',
     'click #eventList': 'eventClick',
-    'click .list-group-item': 'viewUser',
+    'click .userlink': 'viewUser',
   },
 
   initialize: function() {
@@ -80,27 +73,6 @@ app.publicProfileView = Backbone.View.extend({
         console.error('error:', error);
       }
     });
-  },
-
-  updateUserLocation: function() {
-    var newUserLoc = this.$el.find('#userLocation').val();
-    console.log('updating user loc: ', newUserLoc);
-
-    $.ajax({
-      type: 'PUT',
-      url: '/users/' + this.model.get('id'),
-      data: {
-        city: newUserLoc
-      },
-      success: function(data) {
-        console.log('updated user data: ', data);
-        app.allUsers.fetch();
-      },
-      error: function(jqxhr, status, error) {
-        console.error('error:', error);
-      }
-    });
-
   },
 
   eventClick: function(event) {
