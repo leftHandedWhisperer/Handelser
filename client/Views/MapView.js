@@ -154,7 +154,8 @@ var MapView = ChartView.extend({
           return Math.sqrt(d.count);
         })
         .on("mouseenter", mouseenter)
-        .on("mouseleave", mouseleave);
+        .on("mouseleave", mouseleave)
+        .on("click", mouseclick);
 
 
 
@@ -308,6 +309,15 @@ var MapView = ChartView.extend({
       d3.select(event).classed("active", false);
 
       var eventText = d3.select(event).select("text").classed("active", false);
+    }
+
+    function mouseclick(d) {
+      var event = this.parentNode;
+      d3.select(event).each(function(d) {
+        app.sideEvent = new app.dayView({model: app.events.findWhere({id: d.id})});
+        app.sidepage.render('sideEvent');
+      });
+
     }
 
     function reset() {
