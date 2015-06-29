@@ -1,3 +1,4 @@
 app.tourMapView = MapView.extend({
-  el: '<div id="chartHolder"></div>'
+  el: '<div id="chartHolder"></div>',
+
 });

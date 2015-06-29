@@ -24,6 +24,7 @@ module.exports = function(app) {
 
   app.get('/:user', usersController.getUser); //get one user
 
+  app.put('/:user', usersController.updateUser); //update a user
 
 
 

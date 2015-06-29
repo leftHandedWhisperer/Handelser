@@ -16,6 +16,13 @@ html, body, .app, .row, .mainView, .sideView  {
   border: solid black 1px;
   border-radius: 10px;
   margin: 5px;
+  overflow: hidden;
+}
+
+#filterView {
+  margin: 5px;
+  clear:both;
+  overflow: auto;
 }
 
 .background {
@@ -84,4 +91,30 @@ html, body, .app, .row, .mainView, .sideView  {
 
 .col-md-4 {
   border-left: solid gray 1px;
+}
+
+.follow-user {
+  margin: 10px;
+  background-color: ##EFF1FF;
+  border-radius: 10px;
+  display: block;
+}
+
+.follow-button {
+  margin-top: 13px;
+}
+
+.appContainer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.form-control-inline {
+    min-width: 0;
+    width: auto;
+    display: inline;
+}
+
+#distance-filter {
+  width: 80px;
 }

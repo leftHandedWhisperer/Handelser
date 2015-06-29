@@ -16,8 +16,8 @@ app.sidePageView = Backbone.View.extend({
     this.$el.children().detach();
     views = views.split(' ');
     for (var view in views) {
-      this.$el.append(this[views[view]].render());
       if (views[view] === 'users') app.users = this.users = new app.UsersView({collection: app.allUsers})
+      this.$el.append(this[views[view]].render());
     }
   }
 });

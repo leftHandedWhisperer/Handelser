@@ -61,6 +61,29 @@ module.exports = {
         console.log('error:', error);
       });
   },
+
+  updateUser: function(user_id, userInfo, callback) {
+    user_id = parseInt(user_id);
+    new User({
+        id: user_id
+      }).fetch().then(function(found) {
+        if (found) {
+            found.set(userInfo);
+          found.save().then(function(updatedUser) {
+              callback(null, updatedUser);
+            })
+            .catch(function(error) {
+              console.log('error:', error);
+            });
+        } else {
+          console.log('user_id not found:' + user_id);
+        }
+      })
+      .catch(function(error) {
+        console.log('error:', error);
+      });
+  },
+
   storeUser: function(user, callback) {
     var username = user.username;
     var password = user.password;
