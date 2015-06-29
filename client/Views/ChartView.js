@@ -76,11 +76,19 @@ var ChartView = Backbone.View.extend({
     };
   },
   // The render function wraps drawing with responsivosity
-  render: function(animated) {
+  render: function(animated,predicate) {
     console.log('animated: ',animated);
 
-    if (this.collection)
-    this.data = this.collection.toJSON();
+    if (this.collection){
+      if (typeof predicate === 'function') {
+
+        this.data = new app.Events(_.filter(this.collection.models,predicate)).toJSON();
+        console.log('filter returns: ',_.filter(this.collection.models,predicate));
+
+      } else {
+        this.data = this.collection.toJSON();
+      }
+    }
     this.$el.empty();
     this.get_dimensions();
     this.draw(animated);

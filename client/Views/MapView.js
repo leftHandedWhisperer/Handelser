@@ -25,7 +25,7 @@ var MapView = ChartView.extend({
     var zoom = d3.behavior.zoom()
       .translate([0, 0])
       .scale(1)
-      .scaleExtent([1, 40])
+      .scaleExtent([1, 100])
       .on("zoom", zoomed);
 
     var voronoi = d3.geom.voronoi()
@@ -192,8 +192,8 @@ var MapView = ChartView.extend({
 
         arcs
           .selectAll(".event-arcs")
-          .attr("stroke-dashoffset", 0)
-          .style('stroke-opacity', 1);
+          // .attr("stroke-dashoffset", 0)
+          // .style('stroke-opacity', 1);
       }
     }
 
@@ -252,7 +252,6 @@ var MapView = ChartView.extend({
         if (!maxX || x > maxX) {
           maxX = x
         }
-
         if (!minY || y < minY) {
           minY = y
         }
@@ -264,15 +263,15 @@ var MapView = ChartView.extend({
 
       if (maxX && maxY && minX && minY) {
 
-        dx = maxX - minX,
-          dy = maxY - minY,
+        dx = Math.max(maxX - minX,5), //min in case there is only 1 event
+          dy = Math.max(maxY - minY,5),
           x = (maxX + minX) / 2,
           y = (maxY + minY) / 2,
           scale = .9 / Math.max(dx / width, dy / height),
           translate = [width / 2 - scale * x, height / 2 - scale * y];
 
         svg.transition()
-          .duration(750)
+          .duration(1000)
           .call(zoom.translate(translate).scale(scale).event);
 
       }
@@ -292,7 +291,7 @@ var MapView = ChartView.extend({
         translate = [width / 2 - scale * x, height / 2 - scale * y];
 
       svg.transition()
-        .duration(750)
+        .duration(1000)
         .call(zoom.translate(translate).scale(scale).event);
     }
 
@@ -312,6 +311,7 @@ var MapView = ChartView.extend({
     }
 
     function reset() {
+      console.log('resetting')
       active.classed("active", false);
       active = d3.select(null);
 
