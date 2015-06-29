@@ -27,14 +27,14 @@ var ChartView = Backbone.View.extend({
     // Fallback if d3 is unavailable, add some formatters otherwise.
     if (!this.d3) {
       this.draw = this.fallback_draw;
-    }
-    else {
+    } else {
       this.formatNumber = d3.format(".lf");
       this.formatCommas = d3.format(",");
       this.formatPercent = d3.format("%");
     }
     Backbone.View.apply(this, arguments);
   },
+  resizeSet: false,
   initialize: function(options) {
     // Wrap chart
 
@@ -49,24 +49,32 @@ var ChartView = Backbone.View.extend({
 
     this.$chart_container = this.$el.parent();
     this.chart_container = this.$chart_container.get(0);
-    this.$chart_container.resize(function(){console.log('asdfa')});
+    // console.log('container: ',this.$chart_container );
+    // this.$chart_container.resize(function(){console.log('asdfa')});
 
   },
   get_dimensions: function() {
     this.$chart_container = this.$el.parent();
     this.chart_container = this.$chart_container.get(0);
 
+
+    if (!this.resizeSet && this.$chart_container.length > 0 ) {
+
+      console.log('resize set on element: ', this.$chart_container);
+      this.$chart_container.resize(_.bind(this.render, this, false));
+      this.resizeSet = true;
+    }
+
     var wrapperWidth = this.$chart_container.width();
     var wrapperHeight = this.$chart_container.height();
-    wrapperHeight = wrapperWidth * 5/9;
+    wrapperHeight = wrapperWidth * 5 / 9;
 
     var width = wrapperWidth - this.options.margin.left - this.options.margin.right;
     var height = wrapperHeight - this.options.margin.bottom - this.options.margin.top;
 
     this.$el
       .height(wrapperHeight)
-      .width(wrapperWidth)
-      ;
+      .width(wrapperWidth);
 
     this.dimensions = {
       width: width,
@@ -76,10 +84,10 @@ var ChartView = Backbone.View.extend({
     };
   },
   // The render function wraps drawing with responsivosity
-  render: function(animated,predicate) {
-    console.log('animated: ',animated);
+  render: function(animated, predicate) {
+    console.log('animated: ', animated);
 
-    if (this.collection){
+    if (this.collection) {
       // if (typeof predicate === 'function') {
       //   this.data = app.filteredEvents.models.toJSON();
 
@@ -87,7 +95,7 @@ var ChartView = Backbone.View.extend({
       //   // console.log('filter returns: ',_.filter(this.collection.models,predicate));
 
       // } else {
-        this.data = this.collection.toJSON();
+      this.data = this.collection.toJSON();
       // }
     }
     this.$el.empty();

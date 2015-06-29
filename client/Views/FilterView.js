@@ -98,12 +98,12 @@ app.filterView = Backbone.View.extend({
       if (elem.value=="Hide Info") elem.value = "Show Info";
       else elem.value = "Hide Info";
 
-    if ($('.appContainer').has('#chartHolder').length) {
-      // $('#chartHolder').toggleClass('col-md-8');
-      setTimeout(function(){
-        app.mainpage.render('tourmap');
-      }, 300)
-    }
+    // if ($('.appContainer').has('#chartHolder').length) {
+    //   // $('#chartHolder').toggleClass('col-md-8');
+    //   setTimeout(function(){
+    //     // app.mainpage.render('tourmap');
+    //   }, 300)
+    // }
   }
 
 

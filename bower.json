@@ -18,6 +18,7 @@
     "d3": "~3.5.5",
     "topojson": "~1.6.19",
     "queue-async": "~1.0.7",
-    "jquery-resize": "*"
+    "jquery-resize": "*",
+    "javascript-detect-element-resize": "~0.5.3"
   }
 }
