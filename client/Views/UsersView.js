@@ -18,7 +18,8 @@ app.UsersView = Backbone.View.extend({
   },
 
   events: {
-    'click #followUser' : 'followUser'
+    'click #followUser' : 'followUser',
+    'click #unfollow' : 'unFollowUser'
   },
 
   addAll: function(){
@@ -28,16 +29,13 @@ app.UsersView = Backbone.View.extend({
   },
 
   render: function() {
-    console.log('rendering in the usersView')
     console.log(this.collection)
     this.collection.forEach(function(user){
-      console.log('for each in users view')
       this.$el.append(this.template(user.attributes));
     }, this)
   },
 
   followUser: function(e){
-    console.log(e.target.attributes)
     var followUser = {
       follower_id: app.currentUser.get('id'),
       following_id: e.target.attributes.data.value
@@ -49,10 +47,8 @@ app.UsersView = Backbone.View.extend({
       data: followUser,
       success: function(data) {
         console.log('successfully followed user '+ e.target.attributes.data.value)
-        console.log('before change ', e.target.attributes.id.value)
-        $(e.target.attributes.id.value).val("unFollowUser");
-        console.log('after change ', e.target.attributes.id.value)
-        $(e.target.attributes.value.value).val("unFollowUser");
+        e.target.value = "Unfollow";
+        e.target.id = "unfollow";
       },
       error: function(jqxhr, status, error) {
         console.error('error:', error);
@@ -60,8 +56,25 @@ app.UsersView = Backbone.View.extend({
     });
   },
 
-  unfollowUser: function(e) {
-    console.log('unfollowing user')
+  unFollowUser: function(e) {
+    var unFollowUser = {
+      follower_id: app.currentUser.get('id'),
+      unFollowing_id: e.target.attributes.data.value
+    };
+
+    $.ajax({
+      type: 'POST',
+      url: '/users/follow',
+      data: followUser,
+      success: function(data) {
+        console.log('successfully unfollowed user '+ e.target.attributes.data.value)
+        e.target.value = "Follow";
+        e.target.id = "followUser";
+      },
+      error: function(jqxhr, status, error) {
+        console.error('error:', error);
+      }
+    });
   }
 
 });
