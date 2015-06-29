@@ -36,7 +36,7 @@ app.loginView = Backbone.View.extend({
         //this is setting current user to data, not a true User instance
         app.currentUser = app.allUsers.findWhere({id:data.id});
         console.log('logged in: ',app.currentUser)
-        app.loginout.viewLogout();
+        app.loginout.render('logout');
         app.userNavProfile = new app.navbarUserView();
         app.navbar.$el.find('.collapse').append(app.userNavProfile.render());
       }).fail(function() {

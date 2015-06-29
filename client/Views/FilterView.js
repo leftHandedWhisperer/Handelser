@@ -16,6 +16,7 @@ app.filterView = Backbone.View.extend({
               <input type="text" class="form-control" id="user-filter">\
             </div>\
             <input class="btn btn-success" id="filter-button" type="button" value="Update">\
+            <input class="btn btn-default" id="side-toggle-button" type="button" value="Show Info">\
           </form>\
         </ul> \
       <div>',
@@ -37,7 +38,8 @@ app.filterView = Backbone.View.extend({
   },
 
   events: {
-    'click #filter-button': 'renderTourmapView'
+    'click #filter-button': 'renderTourmapView',
+    'click #side-toggle-button': 'toggleSideView'
   },
 
   render: function() {
@@ -87,9 +89,15 @@ app.filterView = Backbone.View.extend({
       }
     });
 
+  },
 
-
-
+  toggleSideView: function(){
+    $('.mainView').toggleClass('col-md-12 col-md-8');
+    $('.sideView').toggleClass('hidden col-md-4');
+    var elem = document.getElementById("side-toggle-button");
+      if (elem.value=="Hide Info") elem.value = "Show Info";
+      else elem.value = "Hide Info";
+  }
 
 
     // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
@@ -122,6 +130,4 @@ app.filterView = Backbone.View.extend({
     //     console.error('error:', error);
     //   }
     // });
-
-  }
 });
