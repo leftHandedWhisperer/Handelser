@@ -10,6 +10,7 @@ html, body, .app, .row, .mainView, .sideView  {
   left:50%;
   display: block;
 }
+
 #chartHolder {
   width:100%;
   height: 100%;
@@ -129,9 +130,24 @@ html, body, .app, .row, .mainView, .sideView  {
   border-radius: 10px;
 } 
 
+.sideView {
+  background-color: #EAE4F2;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.navbar {
+  margin-bottom: 0px
+}
+
 .appContainer div {
   -webkit-transition: width 0.3s ease, margin 0.3s ease;
   -moz-transition: width 0.3s ease, margin 0.3s ease;
   -o-transition: width 0.3s ease, margin 0.3s ease;
   transition: width 0.3s ease, margin 0.3s ease;
+}
+
+.hide-button {
+  float: right;
+  margin-bottom: 10px
 }

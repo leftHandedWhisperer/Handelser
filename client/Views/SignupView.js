@@ -38,8 +38,13 @@ app.signupView = Backbone.View.extend({
     $.post('/users/signup', {username: username, password: password, city: city})
       .done(function(data) {
         console.log('signing up: ', data);
+        app.allUsers.fetch({
+          success: function() {
+            if (!app.currentUser) app.login.login(null, username, password);
+            app.filter.toggleSideView();
+          }
+        });
         //this is setting current user to data, not a true User instance
-        if (!app.currentUser) app.login.login(null, username, password);
       }).fail(function() {
         console.log('login error');
       });

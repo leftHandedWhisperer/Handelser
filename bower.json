@@ -17,6 +17,8 @@
     "moment": "~2.10.3",
     "d3": "~3.5.5",
     "topojson": "~1.6.19",
-    "queue-async": "~1.0.7"
+    "queue-async": "~1.0.7",
+    "jquery-resize": "*",
+    "javascript-detect-element-resize": "~0.5.3"
   }
 }

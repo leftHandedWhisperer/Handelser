@@ -16,7 +16,6 @@ app.filterView = Backbone.View.extend({
               <input type="text" class="form-control" id="user-filter">\
             </div>\
             <input class="btn btn-success" id="filter-button" type="button" value="Update">\
-            <input class="btn btn-default" id="side-toggle-button" type="button" value="Show Info">\
           </form>\
         </ul> \
       <div>',
@@ -53,20 +52,20 @@ app.filterView = Backbone.View.extend({
 
     var location = this.$el.find('#location-filter').val();
 
-    var username = parseInt(this.$el.find('#user-filter').val());
-    if (app.allUsers) {
-      var user_id = app.allUsers.findWhere({
+    var username = this.$el.find('#user-filter').val();
+    var user_id;
+    if (app.allUsers && username) {
+      var user = app.allUsers.findWhere({
         username: username
       });
+      user_id = parseInt(user.get('id'))
+      console.log('user id: ', user_id)
     }
-
-    console.log('getting loc data')
 
     $.ajax({
       type: 'GET',
       url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
       success: function(data) {
-        console.log('got loc data')
 
         var loc = data.results[0].geometry.location;
 
@@ -91,43 +90,54 @@ app.filterView = Backbone.View.extend({
 
   },
 
-  toggleSideView: function(){
+  toggleSideView: function() {
     $('.mainView').toggleClass('col-md-12 col-md-8');
     $('.sideView').toggleClass('hidden col-md-4');
+
     var elem = document.getElementById("side-toggle-button");
-      if (elem.value=="Hide Info") elem.value = "Show Info";
+    if (elem) {
+      if (elem.value === "Hide Info") elem.value = "Show Info";
       else elem.value = "Hide Info";
+    }
+
+    // if ($('.appContainer').has('#chartHolder').length) {
+    //   // $('#chartHolder').toggleClass('col-md-8');
+    //   setTimeout(function(){
+    //     // app.mainpage.render('tourmap');
+    //   }, 300)
+    // }
   }
 
 
-    // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
-    // distanceMax = distanceMax || 50;
+  // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
+  // distanceMax = distanceMax || 50;
 
-    // var location = this.$el.find('#location-filter').val();
+  // var location = this.$el.find('#location-filter').val();
 
-    // var username = parseInt(this.$el.find('#user-filter').val());
-    // if (app.allUsers) {
-    //   var user_id = app.allUsers.findWhere({username:username});
-    // }
+  // var username = parseInt(this.$el.find('#user-filter').val());
+  // if (app.allUsers) {
+  //   var user_id = app.allUsers.findWhere({username:username});
+  // }
 
-    // $.ajax({
-    //   type: 'GET',
-    //   url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
-    //   success: function(data) {
-    //     var loc = data.results[0].geometry.location;
+  // $.ajax({
+  //   type: 'GET',
+  //   url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
+  //   success: function(data) {
+  //     var loc = data.results[0].geometry.location;
 
-    //     app.tourmap.render(true,function(item) {
-    //       if (user_id) {
-    //         console.log(item.get('user_id'))
-    //         return (item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax && item.get('user_id') === user_id);
-    //       } else {
-    //         return item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax;
-    //       }
-    //     });
+  //     app.tourmap.render(true,function(item) {
+  //       if (user_id) {
+  //         console.log(item.get('user_id'))
+  //         return (item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax && item.get('user_id') === user_id);
+  //       } else {
+  //         return item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax;
+  //       }
+  //     });
 
-    //   },
-    //   error: function(jqxhr, status, error) {
-    //     console.error('error:', error);
-    //   }
-    // });
+  //   },
+  //   error: function(jqxhr, status, error) {
+  //     console.error('error:', error);
+  //   }
+  // });
+
 });
