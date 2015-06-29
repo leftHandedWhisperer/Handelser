@@ -10,6 +10,7 @@ html, body, .app, .row, .mainView, .sideView  {
   left:50%;
   display: block;
 }
+
 #chartHolder {
   width:100%;
   height: 100%;

@@ -341,6 +341,10 @@ var MapView = ChartView.extend({
       d3.select(event).each(function(d) {
         app.sideEvent = new app.dayView({model: app.events.findWhere({id: d.id})});
         app.sidepage.render('sideEvent');
+        if ($('.sideView').hasClass('hidden')) {
+          // resize the tour map here?
+          app.filter.toggleSideView();
+        }
       });
 
     }
