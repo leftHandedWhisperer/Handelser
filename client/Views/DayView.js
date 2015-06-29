@@ -4,12 +4,13 @@ app.dayView = Backbone.View.extend({
 
   template: _.template('\
     <h2>Event: <%= name %></h2> \
-    <ul class="list-group">\
-      <li class="list-group-item">Address: <%= address %><p></p><%= city %>, <%= state %>, <%= zip %></li>\
-      <li class="list-group-item">Date: <%= date %></li>\
-      <li class="list-group-item">Venue: <%= venue %></li>\
-      <li class="list-group-item">Description: <%= description %></li>\
-    </ul>\
+    <div class="list-group">\
+      <a class="list-group-item">Address: <%= address %><p></p><%= city %>, <%= state %>, <%= zip %></a>\
+      <a class="list-group-item">Date: <%= date %></a>\
+      <a class="list-group-item">Venue: <%= venue %></a>\
+      <a class="list-group-item">Description: <%= description %></a>\
+      <a class="list-group-item">Event Creator: <%= username %></a>\
+    </div>\
   '),
 
   initialize: function() {
@@ -21,8 +22,11 @@ app.dayView = Backbone.View.extend({
 
   render: function(view) {
     console.log('data', this.data)
+    var attributes = this.model.attributes;
+    attributes['username'] = app.allUsers.findWhere({id:attributes['user_id']}).get('username');
     this.$el.html(this.template(this.model.attributes));
     return this.$el;
   }
+
 
 });
