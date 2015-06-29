@@ -17,7 +17,6 @@ app.sidePageView = Backbone.View.extend({
     var testButton = $('<button class="btn btn-default hide-button">Hide</button>').click(function () { app.filter.toggleSideView() });
     $('.sideView').append(testButton);
     views = views.split(' ');
-    console.log(views);
     for (var view in views) {
       if (views[view] === 'users') app.users = this.users = new app.UsersView({collection: app.allUsers})
       this.$el.append(app[views[view]].render());
