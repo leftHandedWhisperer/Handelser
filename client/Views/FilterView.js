@@ -16,7 +16,6 @@ app.filterView = Backbone.View.extend({
               <input type="text" class="form-control" id="user-filter">\
             </div>\
             <input class="btn btn-success" id="filter-button" type="button" value="Update">\
-            <input class="btn btn-default" id="side-toggle-button" type="button" value="Show Info">\
           </form>\
         </ul> \
       <div>',
@@ -100,7 +99,6 @@ app.filterView = Backbone.View.extend({
       else elem.value = "Hide Info";
 
     if ($('.appContainer').has('#chartHolder').length) {
-      console.log('rerendering tour map')
       // $('#chartHolder').toggleClass('col-md-8');
       setTimeout(function(){
         app.mainpage.render('tourmap');
@@ -139,4 +137,5 @@ app.filterView = Backbone.View.extend({
     //     console.error('error:', error);
     //   }
     // });
+
 });
