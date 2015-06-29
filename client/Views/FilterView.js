@@ -6,12 +6,11 @@ app.filterView = Backbone.View.extend({
             <div class="form-group">\
               <label>Search Location: </label>\
               <input type="text" class="form-control" id="location-filter">\
-              <input class="btn btn-default" id="location-button" type="button" value="Update">\
             </div>\
             <div class="form-group">\
               <label>Search Radius (mi): </label>\
               <input type="number" class="form-control" id="distance-filter">\
-              <input class="btn btn-default" id="filter-button" type="button" value="Update">\
+              <input class="btn btn-success" id="filter-button" type="button" value="Update">\
             </div>\
           </form>\
         </ul> \
@@ -24,8 +23,7 @@ app.filterView = Backbone.View.extend({
   },
 
   events : {
-    'click #filter-button' : 'renderTourmapView',
-    'click #location-button' : 'renderTourmapView'
+    'click #filter-button' : 'renderTourmapView'
   },
 
   render : function() {

@@ -3,8 +3,8 @@ app.dayView = Backbone.View.extend({
   model: app.Event,
 
   template: _.template('\
+    <h2>Event: <%= name %></h2> \
     <ul class="list-group">\
-      <li class="list-group-item">Name: <%= name %></li>\
       <li class="list-group-item">Address: <%= address %><p></p><%= city %>, <%= state %>, <%= zip %></li>\
       <li class="list-group-item">Date: <%= date %></li>\
       <li class="list-group-item">Venue: <%= venue %></li>\
@@ -16,7 +16,7 @@ app.dayView = Backbone.View.extend({
   },
 
   events: {
-    // 'click ul' : 
+    // 'click ul' :
   },
 
   render: function(view) {
