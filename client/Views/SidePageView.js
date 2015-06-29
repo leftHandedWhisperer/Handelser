@@ -14,7 +14,7 @@ app.sidePageView = Backbone.View.extend({
   render : function(views) {
     this.$el.children().detach();
     // add the "hide side view page"
-    var testButton = $('<button class="btn btn-default">Hide</button>').click(function () { app.filter.toggleSideView() });
+    var testButton = $('<button class="btn btn-default hide-button">Hide</button>').click(function () { app.filter.toggleSideView() });
     $('.sideView').append(testButton);
     views = views.split(' ');
     console.log(views);
