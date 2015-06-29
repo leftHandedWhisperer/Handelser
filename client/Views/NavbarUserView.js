@@ -16,7 +16,7 @@ app.navbarUserView = Backbone.View.extend({
   initialize : function() {
     this.friends = '';
     console.log(app.currentUser);
-    this.$el.find('.dropdown-toggle').html(app.currentUser.username + '<span class="caret"></span>');
+    this.$el.find('.dropdown-toggle').html(app.currentUser.get('username') + '<span class="caret"></span>');
   },
 
   events : {
@@ -42,7 +42,10 @@ app.navbarUserView = Backbone.View.extend({
 
   renderProfileView: function(){
     // app.router.navigate('/calendar', { trigger: true });
-    if (app.currentUser) app.sidepage.render('profile');
+    if (app.currentUser) {
+      app.profile.model = app.currentUser;
+      app.sidepage.render('profile');
+    }
     else app.sidepage.render('pleaseLogin');
   },
 
