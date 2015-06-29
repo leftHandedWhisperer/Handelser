@@ -20,7 +20,7 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94102',
-  lat:37.783624,
+  lat: 37.783624,
   long: -122.408999
 },
 {
@@ -33,7 +33,7 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94103',
-  lat:37.791729,
+  lat: 37.791729,
   long: -122.398358
 },
 {
@@ -46,7 +46,7 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94104',
-  lat:37.871593,
+  lat: 37.871593,
   long: -122.272747
 },
 {
@@ -59,7 +59,7 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94105',
-  lat:37.774929,
+  lat: 37.774929,
   long: -122.419416
 },{
   user_id: 3,
@@ -71,7 +71,7 @@ var events = [{
   city: 'Atlanta',
   state: 'GA',
   zip: '94105',
-  lat:33.748995,
+  lat: 33.748995,
   long: -84.387982
 },{
   user_id: 4,
@@ -84,7 +84,7 @@ var events = [{
   state: 'IL',
   zip: '94105',
   lat:41.8369,
-  long: 87.6847
+  long: -87.6847
 },{
   user_id: 2,
   name: 'Harvest Festival!',
@@ -95,8 +95,8 @@ var events = [{
   city: 'Chicago',
   state: 'IL',
   zip: '94105',
-  lat:41.8369,
-  long: 87.6847
+  lat: 41.8289,
+  long: -87.6859
 },{
   user_id: 3,
   name: 'Firemen\'s Ball!',
@@ -107,8 +107,8 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94105',
-  lat:37.774929,
-  long: -122.419416
+  lat: 37.774972,
+  long: -122.419476
 },{
   user_id: 3,
   name: 'The Great Howl!',
@@ -119,20 +119,20 @@ var events = [{
   city: 'New York',
   state: 'NY',
   zip: '94105',
-  lat: 40.7127,
-  long: 74.0059
+  lat: 40.7217,
+  long: -74.0079
 },{
   user_id: 1,
   name: '48 Hour Hackathon!',
   description: 'Last time someone solved P vs NP. What will you do?',
-  venue: 'Hack Reactor',
+  venue: 'Hack Reactor East',
   date:'2015-07-26 18:59:59',
   address: '944 Market St.',
   city: 'New York',
   state: 'NY',
   zip: '94105',
-  lat:40.7127,
-  long: 74.0059
+  lat: 40.7210,
+  long: -74.0049
 },{
   user_id: 3,
   name: 'Horse Whisperer\'s Ball!',
@@ -143,8 +143,8 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94105',
-  lat:37.774929,
-  long: -122.419416
+  lat: 37.774986,
+  long: -122.419401
 },{
   user_id: 4,
   name: 'Mosquito Study Lecture!',
@@ -155,8 +155,8 @@ var events = [{
   city: 'New York',
   state: 'NY',
   zip: '94105',
-  lat:40.7127,
-  long: 74.0059
+  lat: 40.7155,
+  long: -74.0051
 },{
   user_id: 2,
   name: 'Bullet Train Opening',
@@ -167,8 +167,8 @@ var events = [{
   city: 'Des Moines',
   state: 'IA',
   zip: '94102',
-  lat: 41.5908,
-  long: 93.6208
+  lat: 41.5980,
+  long: -93.62081
 },{
   user_id: 1,
   name: 'Space Shuttle Launch',
@@ -179,8 +179,8 @@ var events = [{
   city: 'San Francisco',
   state: 'CA',
   zip: '94102',
-  lat:37.783624,
-  long: -122.408999
+  lat: 37.783624,
+  long: -122.40900
 }];
 
 module.exports = events;
