@@ -90,7 +90,7 @@ var MapView = ChartView.extend({
         links.push(link);
       }
 
-      events = events.filter(function(d) {
+      events = events.filter(function(d,i) {
         d.count = 150;
         d[0] = +d.long;
         d[1] = +d.lat;
@@ -191,7 +191,6 @@ var MapView = ChartView.extend({
           // .style('opacity', 1)
           .selectAll("circle")
           .attr("r", function(d, i) {
-            console.log('d: ',d.count)
             return Math.sqrt(d.count);
           })
 
@@ -218,7 +217,6 @@ var MapView = ChartView.extend({
         .ease('bounce')
         // .style('opacity', 1)
         .attr("r", function(d, i) {
-          console.log('d: ',d.count)
           return Math.sqrt(d.count);
         })
         .each('end', function(event) {
