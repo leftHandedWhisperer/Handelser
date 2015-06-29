@@ -1,9 +1,11 @@
 app.ProfileView = Backbone.View.extend({
 
   el: '<div>\
-        <h2>Your Profile</h2>\
+      </div>',
+
+  mainTemplate: _.template('<h2><%= username %></a>\'s Info</h2>\
         <div>\
-          <h3>Your Information:</h3>\
+          <h3>Profile:</h3>\
           <form class="userInfo">\
             <div class="form-group">\
               <label for="userLocation">Location:</label>\
@@ -11,19 +13,21 @@ app.ProfileView = Backbone.View.extend({
               <input class="btn btn-default" id="userLocationButton" type="button" value="Update">\
             </div>\
           </form>\
-          <h3>Users You Follow:</h3>\
+          <h3>Events:</h3>\
+          <div id="eventList" class="list-group">\
+          </div>\
+          <h3>Users Following:</h3>\
           <div id="followingList" class="list-group">\
           </div>\
-          <h3>Users Following You:</h3>\
-          <div id="followersList" class="list-group">\
-          </div>\
-        </div>\
-      </div>',
+        </div>'),
 
   userTemplate: _.template(' <a href="#" class="list-group-item profile">Name: <%= username %></a>'),
 
+  eventTemplate: _.template(' <a href="#" data="<%= id %>" class="list-group-item profile">Name: <%= name %></a>'),
+
   events: {
-    'click #userLocationButton': 'updateUserLocation'
+    'click #userLocationButton': 'updateUserLocation',
+    'click #eventList': 'eventClick'
   },
 
   initialize: function() {
@@ -31,20 +35,27 @@ app.ProfileView = Backbone.View.extend({
   },
 
   render: function() {
-    if (app.currentUser) {
-      this.$el.find('#userLocation').val(app.currentUser.city);
+    this.$el.children().detach();
+    if (this.model) {
+      this.$el.append(this.mainTemplate(this.model.attributes));
+      this.$el.find('#userLocation').val(this.model.get('city'));
       this.getUserInfo(function(data) {
-        console.log('data: ', data)
         var follows = data.follows;
         for (var i = 0; i < follows.length; i++) {
           var follow = follows[i];
           $('#followingList').append(this.userTemplate(follow));
         }
 
-        var followers = data.followers;
-        for (var i = 0; i < followers.length; i++) {
-          var follower = followers[i];
-          $('#followerList').append(this.userTemplate(follower));
+        // var followers = data.followers;
+        // for (var i = 0; i < followers.length; i++) {
+        //   var follower = followers[i];
+        //   $('#followerList').append(this.userTemplate(follower));
+        // }
+
+        var events = app.events.where({user_id:this.model.get('id')})
+        for (var i = 0; i < events.length; i++) {
+          var event = events[i];
+          $('#eventList').append(this.eventTemplate(event.attributes));
         }
       })
     }
@@ -55,7 +66,7 @@ app.ProfileView = Backbone.View.extend({
     var that = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8000/users/' + app.currentUser.id,
+      url: 'http://localhost:8000/users/' + this.model.get('id'),
       success: function(data) {
         callback.call(that, data);
       },
@@ -71,21 +82,27 @@ app.ProfileView = Backbone.View.extend({
 
     $.ajax({
       type: 'PUT',
-      url: '/users/' + app.currentUser.id,
+      url: '/users/' + this.model.get('id'),
       data: {
         city: newUserLoc
       },
       success: function(data) {
         console.log('updated user data: ', data);
-        app.currentUser = data;
+        app.allUsers.fetch();
       },
       error: function(jqxhr, status, error) {
         console.error('error:', error);
       }
     });
 
-  }
+  },
 
+  eventClick: function(event) {
+    console.log(event)
+    var eventID =  parseInt(event.target.getAttribute("data"));
+    app.sideEvent = new app.dayView({model: app.events.findWhere({id: eventID})});
+    app.sidepage.render('sideEvent');
+  }
 
 
 });

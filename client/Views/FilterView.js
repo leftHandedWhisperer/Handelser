@@ -31,7 +31,7 @@ app.filterView = Backbone.View.extend({
       // </div>\
 
   initialize : function() {
-    parseInt(this.$el.find('#distance-filter').val(50));
+    parseInt(this.$el.find('#distance-filter').val(5000));
     this.$el.find('#location-filter').val('San Francisco, CA');
     this.renderTourmapView();
   },
