@@ -84,7 +84,7 @@ var events = [{
   state: 'IL',
   zip: '94105',
   lat:41.8369,
-  long: 87.6847
+  long: -87.6847
 },{
   user_id: 2,
   name: 'Harvest Festival!',
@@ -96,7 +96,7 @@ var events = [{
   state: 'IL',
   zip: '94105',
   lat:41.8369,
-  long: 87.6847
+  long: -87.6847
 },{
   user_id: 3,
   name: 'Firemen\'s Ball!',
@@ -120,7 +120,7 @@ var events = [{
   state: 'NY',
   zip: '94105',
   lat: 40.7127,
-  long: 74.0059
+  long: -74.0059
 },{
   user_id: 1,
   name: '48 Hour Hackathon!',
@@ -132,7 +132,7 @@ var events = [{
   state: 'NY',
   zip: '94105',
   lat:40.7127,
-  long: 74.0059
+  long: -74.0059
 },{
   user_id: 3,
   name: 'Horse Whisperer\'s Ball!',
@@ -156,7 +156,7 @@ var events = [{
   state: 'NY',
   zip: '94105',
   lat:40.7127,
-  long: 74.0059
+  long: -74.0059
 },{
   user_id: 2,
   name: 'Bullet Train Opening',
@@ -168,7 +168,7 @@ var events = [{
   state: 'IA',
   zip: '94102',
   lat: 41.5908,
-  long: 93.6208
+  long: -93.6208
 },{
   user_id: 1,
   name: 'Space Shuttle Launch',
