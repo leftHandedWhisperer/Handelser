@@ -25,17 +25,18 @@ app.loginView = Backbone.View.extend({
     'click #signupButton' : 'signup',
   },
 
-  login : function(event) {
-    event.preventDefault();
-    var username = this.$el.find('#loginUsername').val();
-    var password = this.$el.find('#loginPassword').val();
+  login : function(event, username, password) {
+    if (event) event.preventDefault();
+    var username = username || this.$el.find('#loginUsername').val();
+    var password = password || this.$el.find('#loginPassword').val();
 
     $.post('/users/login', {username: username, password: password})
       .done(function(data) {
         console.log('logging in: ', data);
         //this is setting current user to data, not a true User instance
         app.currentUser = app.allUsers.findWhere({id:data.id});
-        console.log('logged in: ',app.currentUser)
+        console.log(app.allUsers);
+        console.log('logged in: ',app.currentUser);
         app.loginout.render('logout');
         app.userNavProfile = new app.navbarUserView();
         app.navbar.$el.find('.collapse').append(app.userNavProfile.render());
