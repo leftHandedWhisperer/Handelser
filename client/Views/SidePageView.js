@@ -6,7 +6,6 @@ app.sidePageView = Backbone.View.extend({
     app.newEvent = this.newEvent = new app.newEventView({});
     app.signup = this.signup = new app.signupView({});
     app.profile = this.profile = new app.privateProfileView({model: app.currentUser});
-
   },
 
   events : {
@@ -15,6 +14,7 @@ app.sidePageView = Backbone.View.extend({
   render : function(views) {
     this.$el.children().detach();
     views = views.split(' ');
+    console.log(views);
     for (var view in views) {
       if (views[view] === 'users') app.users = this.users = new app.UsersView({collection: app.allUsers})
       this.$el.append(app[views[view]].render());

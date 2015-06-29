@@ -5,7 +5,7 @@ app.logInOutView = Backbone.View.extend({
   initialize : function() {
     app.login = this.login = new app.loginView({});
     app.logout = this.logout = new app.logoutView({});
-    this.viewLogin();
+    this.render('login');
   },
 
   events : {
@@ -13,16 +13,8 @@ app.logInOutView = Backbone.View.extend({
     'app_loggedOutState' : 'viewLogin', //logout trigger
   },
 
-  viewLogin : function() {
-    this.render('login');
-  },
-
-  viewLogout : function() {
-    this.render('logout');
-  },
-
   render : function(view) {
     this.$el.children().detach();
-    this.$el.append(this[view].render());
+    this.$el.append(app[view].render());
   }
 });
