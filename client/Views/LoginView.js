@@ -12,7 +12,7 @@ app.loginView = Backbone.View.extend({
         <label class="sr-only" for="loginPassword">Password</label>\
         <input type="password" class="form-control" id="loginPassword" placeholder="Password" required>\
       </div>\
-      <input class="btn btn-default" id="loginButton" type="submit" value="Login">\
+      <input class="btn btn-default" id="loginButton" type="button" value="Login">\
       <input class="btn btn-default" id="signupButton" type="button" value="Signup">\
     </form>\
   ',
@@ -21,24 +21,23 @@ app.loginView = Backbone.View.extend({
   },
 
   events : {
-    'submit' : 'login',
+    'click #loginButton' : 'login',
     'click #signupButton' : 'signup',
   },
 
-  login : function(event, username, password) {
-    if (event) event.preventDefault();
-    var username = username || this.$el.find('#loginUsername').val();
-    var password = password || this.$el.find('#loginPassword').val();
+  login : function() {
+    var username = this.$el.find('#loginUsername').val();
+    var password = this.$el.find('#loginPassword').val();
 
-    $.post('/users/login', {'username': username, 'password': password})
+    $.post('/users/login', {username: username, password: password})
       .done(function(data) {
         console.log('logging in: ', data);
         //this is setting current user to data, not a true User instance
-        app.currentUser = data;
+        app.currentUser = app.allUsers.findWhere({id:data.id});
+        console.log('logged in: ',app.currentUser)
         app.loginout.viewLogout();
         app.userNavProfile = new app.navbarUserView();
         app.navbar.$el.find('.collapse').append(app.userNavProfile.render());
-        app.sidepage.render('profile');
       }).fail(function() {
         console.log('login error');
       });

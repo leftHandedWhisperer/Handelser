@@ -8,7 +8,7 @@ app.newEventView = Backbone.View.extend({
       </div>\
       <div class="form-group">\
         <label for="address">Street Address</label>\
-        <input type="text" required placeholder="Address" class="form-control" id="address">\
+        <input type="text" placeholder="Address" class="form-control" id="address">\
       </div>\
       <div class="form-group">\
         <label for="city">City</label>\
@@ -20,7 +20,7 @@ app.newEventView = Backbone.View.extend({
       </div>\
       <div class="form-group">\
         <label for="zip">Zip Code</label>\
-        <input type="text" required pattern="^\\d{5}(?:[-\\s]\\d{4})?$" placeholder="00000" class="form-control" id="zip">\
+        <input type="text" pattern="^\\d{5}(?:[-\\s]\\d{4})?$" placeholder="00000" class="form-control" id="zip">\
       </div>\
       <div class="form-group">\
         <label for="date">Date</label>\
@@ -88,7 +88,7 @@ app.newEventView = Backbone.View.extend({
         date: parsedISODate,
         venue: this.$el.find('#venue').val(),
         description: this.$el.find('#description').val(),
-        user_id: app.currentUser.id
+        user_id: app.currentUser.get('id')
       };
 
       //Google GeoCode

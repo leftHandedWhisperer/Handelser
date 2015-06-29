@@ -1,5 +1,5 @@
 app.UsersView = Backbone.View.extend({
-  
+
   el: document.getElementsByClassName('sideView'),
 
   template: _.template('\
@@ -39,7 +39,7 @@ app.UsersView = Backbone.View.extend({
   followUser: function(e){
     console.log(e.target.attributes)
     var followUser = {
-      follower_id: app.currentUser.id,
+      follower_id: app.currentUser.get('id'),
       following_id: e.target.attributes.data.value
     };
 
