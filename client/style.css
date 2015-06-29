@@ -118,3 +118,9 @@ html, body, .app, .row, .mainView, .sideView  {
 #distance-filter {
   width: 80px;
 }
+
+#calendar {
+  padding: 20px;
+  border: solid black 1px;
+  border-radius: 10px;
+}
