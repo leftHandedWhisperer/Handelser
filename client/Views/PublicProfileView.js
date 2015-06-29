@@ -1,37 +1,43 @@
-app.ProfileView = Backbone.View.extend({
+app.publicProfileView = Backbone.View.extend({
 
   el: '<div>\
       </div>',
 
   mainTemplate: _.template('<h2><%= username %></a>\'s Info</h2>\
-        <div>\
-          <h3>Profile:</h3>\
-          <form class="userInfo">\
-            <div class="form-group">\
-              <label for="userLocation">Location:</label>\
-              <input type="text" class="form-control form-control-inline" id="userLocation" required>\
-              <input class="btn btn-default" id="userLocationButton" type="button" value="Update">\
-            </div>\
-          </form>\
-          <h3>Events:</h3>\
-          <div id="eventList" class="list-group">\
-          </div>\
-          <h3>Users Following:</h3>\
-          <div id="followingList" class="list-group">\
-          </div>\
-        </div>'),
+    <div>\
+      <h3>Profile:</h3>\
+      <form class="userInfo">\
+        <div class="form-group">\
+          <label for="userLocation">Location:</label>\
+          <input type="text" class="form-control form-control-inline" id="userLocation" required>\
+          <input class="btn btn-default" id="userLocationButton" type="button" value="Update">\
+        </div>\
+      </form>\
+      <h3>Events:</h3>\
+      <div id="eventList" class="list-group">\
+      </div>\
+      <h3>Users Following:</h3>\
+      <div id="followingList" class="list-group">\
+      </div>\
+    </div>'),
 
-  userTemplate: _.template(' <a href="#" class="list-group-item profile">Name: <%= username %></a>'),
+  userTemplate: _.template(' <a href="#" class="list-group-item profile" id="<%= id %>">Name: <%= username %></a>'),
 
   eventTemplate: _.template(' <a href="#" data="<%= id %>" class="list-group-item profile">Name: <%= name %></a>'),
 
   events: {
     'click #userLocationButton': 'updateUserLocation',
-    'click #eventList': 'eventClick'
+    'click #eventList': 'eventClick',
+    'click .list-group-item': 'viewUser',
   },
 
   initialize: function() {
     // this.getUserInfo();
+  },
+
+  viewUser : function(event) {
+    app.otherUser = new app.publicProfileView({model: app.allUsers.findWhere({id:parseInt(event.target.id)})});
+    app.sidepage.render('otherUser');
   },
 
   render: function() {
@@ -39,7 +45,7 @@ app.ProfileView = Backbone.View.extend({
     if (this.model) {
       this.$el.append(this.mainTemplate(this.model.attributes));
       this.$el.find('#userLocation').val(this.model.get('city'));
-      this.getUserInfo(function(data) {
+      this.getUserInfo(this.model.get('id'), function(data) {
         var follows = data.follows;
         for (var i = 0; i < follows.length; i++) {
           var follow = follows[i];
@@ -62,11 +68,11 @@ app.ProfileView = Backbone.View.extend({
     return this.$el;
   },
 
-  getUserInfo: function(callback) {
+  getUserInfo: function(id, callback) {
     var that = this;
     $.ajax({
       type: 'GET',
-      url: 'http://localhost:8000/users/' + this.model.get('id'),
+      url: 'http://localhost:8000/users/' + id,
       success: function(data) {
         callback.call(that, data);
       },
