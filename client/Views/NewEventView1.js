@@ -117,6 +117,7 @@ app.newEventView = Backbone.View.extend({
 
           var event = new app.Event(newEvent);
           app.events.create(event);
+          app.filterView.renderTourmapView();
         },
         error: function(jqxhr, status, error) {
           console.error('error:', error);
