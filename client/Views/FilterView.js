@@ -130,5 +130,4 @@ app.filterView = Backbone.View.extend({
     //     console.error('error:', error);
     //   }
     // });
-
 });
