@@ -8,7 +8,7 @@ app.Events = Backbone.Collection.extend({
     }
     options.success = function(data) {
       console.log('setting filteredEvents: ',data);
-       app.filteredEvents.set(data.models);
+       app.filteredEvents.reset(data.models);
     }
     return Backbone.Collection.prototype.fetch.call(this, options);
   }

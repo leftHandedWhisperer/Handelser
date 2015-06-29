@@ -38,6 +38,9 @@ app.navbarUserView = Backbone.View.extend({
     // app.router.navigate('/calendar', { trigger: true });
     if (app.currentUser) app.sidepage.render('newEvent');
     else app.sidepage.render('pleaseLogin');
+    if ($('.sideView').hasClass('hidden')) {
+      app.filter.toggleSideView();
+    }
   },
 
   renderProfileView: function(){
@@ -47,12 +50,18 @@ app.navbarUserView = Backbone.View.extend({
       app.sidepage.render('profile');
     }
     else app.sidepage.render('pleaseLogin');
+    if ($('.sideView').hasClass('hidden')) {
+      app.filter.toggleSideView();
+    }
   },
 
   renderUsers: function() {
     console.log('render users in navbarUserView')
     if (app.currentUser) app.sidepage.render('users');
     else app.sidepage.render('pleaseLogin');
+    if ($('.sideView').hasClass('hidden')) {
+      app.filter.toggleSideView();
+    }
   }
 
 

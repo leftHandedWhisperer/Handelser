@@ -37,7 +37,8 @@ app.filterView = Backbone.View.extend({
   },
 
   events: {
-    'click #filter-button': 'renderTourmapView'
+    'click #filter-button': 'renderTourmapView',
+    'click #side-toggle-button': 'toggleSideView'
   },
 
   render: function() {
@@ -51,20 +52,20 @@ app.filterView = Backbone.View.extend({
 
     var location = this.$el.find('#location-filter').val();
 
-    var username = parseInt(this.$el.find('#user-filter').val());
-    if (app.allUsers) {
-      var user_id = app.allUsers.findWhere({
+    var username = this.$el.find('#user-filter').val();
+    var user_id;
+    if (app.allUsers && username) {
+      var user = app.allUsers.findWhere({
         username: username
       });
+      user_id = parseInt(user.get('id'))
+      console.log('user id: ', user_id)
     }
-
-    console.log('getting loc data')
 
     $.ajax({
       type: 'GET',
       url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
       success: function(data) {
-        console.log('got loc data')
 
         var loc = data.results[0].geometry.location;
 
@@ -87,9 +88,23 @@ app.filterView = Backbone.View.extend({
       }
     });
 
+  },
 
+  toggleSideView: function(){
+    $('.mainView').toggleClass('col-md-12 col-md-8');
+    $('.sideView').toggleClass('hidden col-md-4');
 
+    var elem = document.getElementById("side-toggle-button");
+      if (elem.value=="Hide Info") elem.value = "Show Info";
+      else elem.value = "Hide Info";
 
+    // if ($('.appContainer').has('#chartHolder').length) {
+    //   // $('#chartHolder').toggleClass('col-md-8');
+    //   setTimeout(function(){
+    //     // app.mainpage.render('tourmap');
+    //   }, 300)
+    // }
+  }
 
 
     // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
@@ -123,5 +138,4 @@ app.filterView = Backbone.View.extend({
     //   }
     // });
 
-  }
 });

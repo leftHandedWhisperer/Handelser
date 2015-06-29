@@ -37,6 +37,9 @@ app.calendarView = Backbone.View.extend({
       eventClick: function(event) {
         app.sideEvent = new app.dayView({model: that.collection.findWhere({name: event.title})});
         app.sidepage.render('sideEvent');
+        if ($('.sideView').hasClass('hidden')) {
+          app.filter.toggleSideView();
+        }
       }
     });
     this.collection.forEach(function(item){
