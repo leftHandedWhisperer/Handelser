@@ -48,6 +48,9 @@ app.loginView = Backbone.View.extend({
   signup : function() {
     // app.router.navigate('/signup', { trigger: true });
     app.sidepage.render('signup')
+    if ($('.sideView').hasClass('hidden')) {
+      app.filter.toggleSideView();
+    }
   },
 
   render : function() {
