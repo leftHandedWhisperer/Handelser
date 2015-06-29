@@ -45,11 +45,11 @@ var ChartView = Backbone.View.extend({
     else if (this.options.data)
       this.data = this.options.data;
 
-    $(window).on("resize", _.debounce(_.bind(this.render, this, false), 50));
+    // $(window).on("resize", _.debounce(_.bind(this.render, this, false), 50));
 
     this.$chart_container = this.$el.parent();
     this.chart_container = this.$chart_container.get(0);
-    this.$chart_container.on("resize", _.debounce(_.bind(this.render, this, false), 50));
+    this.$chart_container.resize(function(){console.log('asdfa')});
 
   },
   get_dimensions: function() {
