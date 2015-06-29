@@ -91,7 +91,7 @@ var MapView = ChartView.extend({
       }
 
       events = events.filter(function(d) {
-        d.count = 80;
+        d.count = 200;
         d[0] = +d.long;
         d[1] = +d.lat;
         var position = projection(d);
@@ -151,22 +151,23 @@ var MapView = ChartView.extend({
           return "translate(" + d.x + "," + d.y + ")";
         })
         .attr("r", function(d, i) {
-          return Math.sqrt(d.count);
+          return 0;
         })
         .on("mouseenter", mouseenter)
-        .on("mouseleave", mouseleave);
+        .on("mouseleave", mouseleave)
+        .on("click", mouseclick);
 
 
 
       eventDots
         .selectAll(".events")
-        .style('opacity', 0);
+        // .style('opacity', 0);
 
       eventDots
         .selectAll(".events")
         .append("text")
         .attr("font-family", "Verdana")
-        .attr("font-size", "12px")
+        .attr("font-size", "16px")
         .text(function(d) {
           return d.name;
         })
@@ -188,7 +189,12 @@ var MapView = ChartView.extend({
       } else {
         eventDots
           .selectAll(".events")
-          .style('opacity', 1)
+          // .style('opacity', 1)
+          .selectAll("circle")
+          .attr("r", function(d, i) {
+            console.log('d: ',d.count)
+            return Math.sqrt(d.count);
+          })
 
         arcs
           .selectAll(".event-arcs")
@@ -204,11 +210,31 @@ var MapView = ChartView.extend({
         .filter(function(d, i) {
           return i === index;
         })
+        .selectAll("circle")
         .transition()
         .duration(150)
-        .style('opacity', 1)
+        .ease('bounce')
+        // .style('opacity', 1)
+        .attr("r", function(d, i) {
+          console.log('d: ',d.count)
+          return Math.sqrt(d.count);
+        })
         .each('end', function(event) {
           animateEvent(events, arcs, index + 1);
+        })
+
+        // events
+        //   .selectAll(".events")
+        //   .filter(function(d, i) {
+        //     return i === index;
+        //   })
+        //   .selectAll("circle")
+        //   .transition()
+        //   .duration(150)
+        //   .attr("r", function(d, i) {
+        //     console.log('d: ',d.count)
+        //     return Math.sqrt(d.count);
+        //   })
 
           // var totalLength;
           // var thisArc = arcs
@@ -232,7 +258,7 @@ var MapView = ChartView.extend({
           //   .each('end', function(event) {
           //     animateEvent(events, arcs, index + 1);
           //   });
-        });
+        // });
     }
 
     function zoomToEvents() {
@@ -308,6 +334,15 @@ var MapView = ChartView.extend({
       d3.select(event).classed("active", false);
 
       var eventText = d3.select(event).select("text").classed("active", false);
+    }
+
+    function mouseclick(d) {
+      var event = this.parentNode;
+      d3.select(event).each(function(d) {
+        app.sideEvent = new app.dayView({model: app.events.findWhere({id: d.id})});
+        app.sidepage.render('sideEvent');
+      });
+
     }
 
     function reset() {
