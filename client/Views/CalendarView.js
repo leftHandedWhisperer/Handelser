@@ -28,6 +28,10 @@ app.calendarView = Backbone.View.extend({
         for (var i=0; i<dayModel.length; i++) {
           app.dayEvent.$el.append((new app.dayView({model: dayModel[i]})).render());;
         }
+      },
+      eventClick: function(event) {
+        app.sideEvent = new app.dayView({model: that.collection.findWhere({name: event.title})});
+        app.sidepage.render('sideEvent');
       }
     });
     this.collection.forEach(function(item){
