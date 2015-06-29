@@ -21,14 +21,14 @@ app.privateProfileView = Backbone.View.extend({
       </div>\
     </div>'),
 
-  userTemplate: _.template(' <a href="#" class="list-group-item profile" id="<%= id %>">Name: <%= username %></a>'),
+  userTemplate: _.template(' <a href="#" class="list-group-item profile userlink" id="<%= id %>">Name: <%= username %></a>'),
 
   eventTemplate: _.template(' <a href="#" data="<%= id %>" class="list-group-item profile">Name: <%= name %></a>'),
 
   events: {
     'click #userLocationButton': 'updateUserLocation',
     'click #eventList': 'eventClick',
-    'click .list-group-item': 'viewUser',
+    'click .userlink': 'viewUser',
   },
 
   initialize: function() {
