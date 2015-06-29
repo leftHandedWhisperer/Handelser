@@ -104,6 +104,16 @@ module.exports = {
     });
   },
 
+  removeFollowing: function(req, res) {
+    var follower_id = req.body.follower_id;
+    var unFollowing_id = req.body.unFollowing_id;
+    console.log('follower_id: ' + follower_id + ' unFollowing_id: ' + unFollowing_id);
+    utils.removeFollowing(follower_id, unFollowing_id, function() {
+      res.status(201).end();
+    });
+
+  },
+
   getFollowing: function(req, res) {
     var user_ID = (url.parse(req.url).pathname).slice(8);
     console.log('retrieving followed for user_id:' + user_ID);
