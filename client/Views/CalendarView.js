@@ -2,8 +2,8 @@ app.calendarView = Backbone.View.extend({
   el : '<div id="calendar"></div>',
 
   initialize: function(){
-    this.collection.on('sync change', this.addAll, this);
-    this.collection.fetch();
+    this.collection.on('sync change reset', this.addAll, this);
+    // this.collection.fetch();
   },
 
   render: function() {

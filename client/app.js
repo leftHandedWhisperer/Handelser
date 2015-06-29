@@ -9,6 +9,8 @@ window.app = Backbone.View.extend({
   initialize: function(){
     console.log('app is running');
     app.events = new app.Events();
+    app.filteredEvents = new app.FilteredEvents(app.events.models);
+    app.events.fetch();
     app.allUsers = new app.Users();
     app.allUsers.fetch()
     app.navbar = new app.navbarView();
