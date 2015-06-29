@@ -20,31 +20,31 @@ app.filterView = Backbone.View.extend({
         </ul> \
       <div>',
 
-      // <div class="dropdown form-group" >\
-      //   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Followed User<span class="caret"></span></a>\
-      //   <ul class="dropdown-menu">\
-      //     <li><a href="#" id="newEventButton">Add Event</a></li>\
-      //     <li><a href="#" id="usersButton">Follow Another User</a></li>\
-      //     <li role="separator" class="divider"></li>\
-      //     <li><a href="#" id="profileButton">Your Profile</a></li>\
-      //   </ul>\
-      // </div>\
+  // <div class="dropdown form-group" >\
+  //   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Followed User<span class="caret"></span></a>\
+  //   <ul class="dropdown-menu">\
+  //     <li><a href="#" id="newEventButton">Add Event</a></li>\
+  //     <li><a href="#" id="usersButton">Follow Another User</a></li>\
+  //     <li role="separator" class="divider"></li>\
+  //     <li><a href="#" id="profileButton">Your Profile</a></li>\
+  //   </ul>\
+  // </div>\
 
-  initialize : function() {
+  initialize: function() {
     parseInt(this.$el.find('#distance-filter').val(5000));
     this.$el.find('#location-filter').val('San Francisco, CA');
     this.renderTourmapView();
   },
 
-  events : {
-    'click #filter-button' : 'renderTourmapView'
+  events: {
+    'click #filter-button': 'renderTourmapView'
   },
 
-  render : function() {
+  render: function() {
     return this.$el;
   },
 
-  renderTourmapView: function(){
+  renderTourmapView: function() {
 
     var distanceMax = parseInt(this.$el.find('#distance-filter').val());
     distanceMax = distanceMax || 50;
@@ -53,29 +53,75 @@ app.filterView = Backbone.View.extend({
 
     var username = parseInt(this.$el.find('#user-filter').val());
     if (app.allUsers) {
-      var user_id = app.allUsers.findWhere({username:username});
+      var user_id = app.allUsers.findWhere({
+        username: username
+      });
     }
+
+    console.log('getting loc data')
 
     $.ajax({
       type: 'GET',
       url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
       success: function(data) {
+        console.log('got loc data')
+
         var loc = data.results[0].geometry.location;
 
-        app.tourmap.render(true,function(item) {
+        var events = app.events.filter(function(item) {
           if (user_id) {
             console.log(item.get('user_id'))
-            return (item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax && item.get('user_id') === user_id);
+            return (item.distanceFromLatLong(loc.lat, loc.lng) <= distanceMax && item.get('user_id') === user_id);
           } else {
-            return item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax;
+            return item.distanceFromLatLong(loc.lat, loc.lng) <= distanceMax;
           }
         });
+
+        console.log('filtered events: ', events);
+
+        app.filteredEvents.reset(events);
 
       },
       error: function(jqxhr, status, error) {
         console.error('error:', error);
       }
     });
+
+
+
+
+
+
+    // var distanceMax = parseInt(this.$el.find('#distance-filter').val());
+    // distanceMax = distanceMax || 50;
+
+    // var location = this.$el.find('#location-filter').val();
+
+    // var username = parseInt(this.$el.find('#user-filter').val());
+    // if (app.allUsers) {
+    //   var user_id = app.allUsers.findWhere({username:username});
+    // }
+
+    // $.ajax({
+    //   type: 'GET',
+    //   url: 'http://maps.google.com/maps/api/geocode/json?address=' + location,
+    //   success: function(data) {
+    //     var loc = data.results[0].geometry.location;
+
+    //     app.tourmap.render(true,function(item) {
+    //       if (user_id) {
+    //         console.log(item.get('user_id'))
+    //         return (item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax && item.get('user_id') === user_id);
+    //       } else {
+    //         return item.distanceFromLatLong(loc.lat,loc.lng) <= distanceMax;
+    //       }
+    //     });
+
+    //   },
+    //   error: function(jqxhr, status, error) {
+    //     console.error('error:', error);
+    //   }
+    // });
 
   }
 });
