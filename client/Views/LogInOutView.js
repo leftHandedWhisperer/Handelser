@@ -10,8 +10,8 @@ app.logInOutView = Backbone.View.extend({
   },
 
   events : {
-    'app_loggedInState' : 'viewLogout', //login trigger
-    'app_loggedOutState' : 'viewLogin', //logout trigger
+    // 'app_loggedInState' : 'viewLogout', //login trigger
+    // 'app_loggedOutState' : 'viewLogin', //logout trigger
   },
 
   render : function(view) {

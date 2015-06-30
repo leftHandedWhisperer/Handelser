@@ -3,7 +3,6 @@ app.calendarView = Backbone.View.extend({
 
   initialize: function(){
     this.collection.on('sync change reset', this.addAll, this);
-    // this.collection.fetch();
   },
 
   render: function() {
@@ -13,28 +12,31 @@ app.calendarView = Backbone.View.extend({
 
   addAll: function(){
     var that = this;
+    // http://fullcalendar.io/docs/ for more information on how to use
     this.$el.fullCalendar('removeEvents');
     this.$el.fullCalendar({
-      header: {
+      header: { //template for the calendar
             left: 'prev,next today',
             center: 'title',
             right: 'month,agendaWeek,agendaDay'
           },
       timezone:'local',
-      // dayClick: function(date) {
-      //   console.log('dayClick shortdate: ',date.format());
+      /* Unused for no particular reason
+      dayClick: function(date) {
+        console.log('dayClick shortdate: ',date.format());
 
-      //   var dayModel = that.collection.filter(function(item) {
-      //     console.log('shortdate: ',item.shortDate());
-      //     return item.shortDate() === date.format();
-      //   });
+        var dayModel = that.collection.filter(function(item) {
+          console.log('shortdate: ',item.shortDate());
+          return item.shortDate() === date.format();
+        });
 
-      //   app.dayEvent.$el.empty();
-      //   for (var i=0; i<dayModel.length; i++) {
-      //     app.dayEvent.$el.append((new app.dayView({model: dayModel[i]})).render());;
-      //   }
-      // },
-      eventClick: function(event) {
+        app.dayEvent.$el.empty();
+        for (var i=0; i<dayModel.length; i++) {
+          app.dayEvent.$el.append((new app.dayView({model: dayModel[i]})).render());;
+        }
+      },
+      */
+      eventClick: function(event) { //single event click on the calendar
         app.sideEvent = new app.dayView({model: that.collection.findWhere({name: event.title})});
         app.sidepage.render('sideEvent');
         if ($('.sideView').hasClass('hidden')) {
@@ -42,7 +44,7 @@ app.calendarView = Backbone.View.extend({
         }
       }
     });
-    this.collection.forEach(function(item){
+    this.collection.forEach(function(item){ //rendering to calendar
 
       this.$el.fullCalendar('renderEvent', {
         title: item.get('name'),
@@ -51,12 +53,12 @@ app.calendarView = Backbone.View.extend({
     }, this)
   },
 
-  addOne: function(event){
+  addOne: function(event){ // never gets called
     var view = new app.EventView({model: event});
     this.$el.append(view.render().el);
   },
 
-  renderDay: function(date){
+  renderDay: function(date){ // also never gets called
     console.log('render day view')
     console.log(date)
   }
