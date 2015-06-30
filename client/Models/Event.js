@@ -7,7 +7,6 @@ app.Event = Backbone.Model.extend({
   shortDate: function() {
     var longDate = this.localDate();
     var shortyDate = longDate.slice(0,10);
-    // console.log('short date: ',shortyDate);
     return shortyDate;
   },
   localDate: function() {
@@ -16,7 +15,6 @@ app.Event = Backbone.Model.extend({
 
     var isoDate = new Date(this.get('date'));
     var localDate = new Date(isoDate.setHours(isoDate.getHours()+offset));
-    // console.log('localDate: ',localDate);
     var dateForCal = localDate.toISOString();
     return dateForCal;
   },

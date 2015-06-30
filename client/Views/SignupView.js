@@ -17,9 +17,6 @@ app.signupView = Backbone.View.extend({
     </form>\
   ',
 
-  initialize : function() {
-  },
-
   events : {
     'submit' : 'signup',
   },
