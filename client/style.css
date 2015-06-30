@@ -136,3 +136,19 @@ html, body, .app, .row, .mainView, .sideView  {
   -o-transition: width 0.3s ease, margin 0.3s ease;
   transition: width 0.3s ease, margin 0.3s ease;
 }
+
+.sideView {
+   background-color: #EAE4F2;
+   padding-top: 15px;
+   height:100%;
+    padding-bottom: 15px;
+}
+
+.navbar {
+   margin-bottom: 0px
+ }
+
+.hide-button {
+  float: right;
+  margin-bottom: 10px
+}
