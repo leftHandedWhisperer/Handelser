@@ -1,3 +1,6 @@
+
+//logged-in users, event creators and users being followed are all represented
+//as instances of the User model in the front end.
 app.User = Backbone.Model.extend({
   url: '/users',
 
