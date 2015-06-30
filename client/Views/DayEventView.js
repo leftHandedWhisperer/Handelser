@@ -1,4 +1,4 @@
-app.dayEventView = Backbone.View.extend({
+app.dayEventView = Backbone.View.extend({ //a really unnecessary wrapper for dayView
   el : '\
     <div class="dayEventView"></div>\
   ',
