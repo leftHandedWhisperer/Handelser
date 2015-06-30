@@ -1,6 +1,7 @@
 app.mainPageView = Backbone.View.extend({
   el: document.getElementsByClassName('mainView'),
 
+  // creates the "home page"
   initialize: function() {
     app.calendar = this.calendar = new app.calendarView({collection: app.filteredEvents});
     app.signup = this.signup = new app.signupView({});
