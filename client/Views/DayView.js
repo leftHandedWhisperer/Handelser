@@ -1,4 +1,4 @@
-app.dayView = Backbone.View.extend({
+app.dayView = Backbone.View.extend({ //holds all the information for events
 
   model: app.Event,
 
