@@ -1,5 +1,7 @@
 app.UsersView = Backbone.View.extend({
 
+  // this view makes a list of the users and then has functions for following and unfollowing a user.
+
   el: document.getElementsByClassName('sideView'),
 
   template: _.template('\
@@ -12,22 +14,12 @@ app.UsersView = Backbone.View.extend({
         </ul>\
   '),
 
-  initialize: function(){
-    // this.render()
-    // this.collection.fetch()
-  },
-
   events: {
     'click #followUser' : 'followUser',
     'click #unfollow' : 'unFollowUser'
   },
 
-  addAll: function(){
-    this.collection.forEach(function(item){
-      console.log(item.get('name'));
-    }, this)
-  },
-
+  // render a list of all the users
   render: function() {
     console.log(this.collection)
     this.collection.forEach(function(user){

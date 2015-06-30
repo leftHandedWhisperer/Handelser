@@ -1,12 +1,4 @@
-// table.string('user_id', 100);
-// table.string('name', 255);
-// table.string('description', 255);
-// table.string('venue', 255);
-// table.dateTime('date');
-// table.string('address', 255);
-// table.string('city', 255);
-// table.string('state', 255);
-// table.integer('zip');
+//these sample events will be loaded when the database does not have an 'events' table (so drop table and restart node if you want to refresh)
 
 // MySQL retrieves and displays DATETIME values in 'YYYY-MM-DD HH:MM:SS' format.
 

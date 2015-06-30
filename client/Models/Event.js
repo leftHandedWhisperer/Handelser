@@ -2,24 +2,26 @@ Number.prototype.toRadians = function() {
    return this * Math.PI / 180;
 }
 
+//Every event in the calendar is represented as an instance of an Event model. The URL allows syncing
+
 app.Event = Backbone.Model.extend({
   url: '/events',
   shortDate: function() {
     var longDate = this.localDate();
     var shortyDate = longDate.slice(0,10);
-    // console.log('short date: ',shortyDate);
     return shortyDate;
   },
+  //handling time zone issues
   localDate: function() {
     var localoffset = (new Date()).getTimezoneOffset();
     var offset = - localoffset/60;
 
     var isoDate = new Date(this.get('date'));
     var localDate = new Date(isoDate.setHours(isoDate.getHours()+offset));
-    // console.log('localDate: ',localDate);
     var dateForCal = localDate.toISOString();
     return dateForCal;
   },
+  //calculating the distance between a user's location and an event's
   distanceFromLatLong: function(lat, long) {
       var eventLat = this.get('lat');
       var eventLong = this.get('long');

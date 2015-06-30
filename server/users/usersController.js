@@ -35,6 +35,21 @@ module.exports = {
     });
   },
 
+  addUser: function(req, res) {
+    console.log('adding user: ',req.body);
+    var R = Promise.promisify(utils.storeUser);
+    R(req.body).then(function(data) {
+      if (data) {
+        res.json(data);
+      } else {
+        res.status(500).end();
+      }
+    })
+    .catch(function(error) {
+      console.log('controller error: ',error);
+    });
+  },
+
   updateUser: function(req, res) {
     var user_ID = (url.parse(req.url).pathname).slice(1);
     var userInfo = req.body;
@@ -53,20 +68,7 @@ module.exports = {
     });
   },
 
-  addUser: function(req, res) {
-    console.log('adding user: ',req.body);
-    var R = Promise.promisify(utils.storeUser);
-    R(req.body).then(function(data) {
-      if (data) {
-        res.json(data);
-      } else {
-        res.status(500).end();
-      }
-    })
-    .catch(function(error) {
-      console.log('controller error: ',error);
-    });
-  },
+
 
   loginUser: function(req, res) {
     console.log('checking user: ',req.body);
@@ -93,26 +95,6 @@ module.exports = {
     res.status(200).end()
   },
 
-  addFollowing: function(req, res) {
-    //the user with user_id is now following the user with following_id
-    var follower_id = req.body.follower_id;
-    console.log(follower_id);
-    var following_id = req.body.following_id;
-    console.log(following_id);
-    utils.storeFollowing(follower_id, following_id, function() {
-      res.status(201).end();
-    });
-  },
-
-  removeFollowing: function(req, res) {
-    var follower_id = req.body.follower_id;
-    var unFollowing_id = req.body.unFollowing_id;
-    console.log('follower_id: ' + follower_id + ' unFollowing_id: ' + unFollowing_id);
-    utils.removeFollowing(follower_id, unFollowing_id, function() {
-      res.status(201).end();
-    });
-
-  },
 
   getFollowing: function(req, res) {
     var user_ID = (url.parse(req.url).pathname).slice(8);
@@ -129,5 +111,26 @@ module.exports = {
       console.log('controller error: ',error);
     });
   },
+
+  addFollowing: function(req, res) {
+    //the user with user_id is now following the user with following_id
+    var follower_id = req.body.follower_id;
+    var following_id = req.body.following_id;
+    utils.storeFollowing(follower_id, following_id, function() {
+      res.status(201).end();
+    });
+  },
+
+  removeFollowing: function(req, res) {
+    var follower_id = req.body.follower_id;
+    var unFollowing_id = req.body.unFollowing_id;
+    console.log('follower_id: ' + follower_id + ' unFollowing_id: ' + unFollowing_id);
+    utils.removeFollowing(follower_id, unFollowing_id, function() {
+      res.status(201).end();
+    });
+
+  },
+
+
 
 };

@@ -24,10 +24,6 @@ app.publicProfileView = Backbone.View.extend({
     'click .userlink': 'viewUser',
   },
 
-  initialize: function() {
-    // this.getUserInfo();
-  },
-
   viewUser : function(event) {
     app.otherUser = new app.publicProfileView({model: app.allUsers.findWhere({id:parseInt(event.target.id)})});
     app.sidepage.render('otherUser');
@@ -44,13 +40,6 @@ app.publicProfileView = Backbone.View.extend({
           var follow = follows[i];
           $('#followingList').append(this.userTemplate(follow));
         }
-
-        // var followers = data.followers;
-        // for (var i = 0; i < followers.length; i++) {
-        //   var follower = followers[i];
-        //   $('#followerList').append(this.userTemplate(follower));
-        // }
-
         var events = app.events.where({user_id:this.model.get('id')})
         for (var i = 0; i < events.length; i++) {
           var event = events[i];
@@ -81,6 +70,5 @@ app.publicProfileView = Backbone.View.extend({
     app.sideEvent = new app.dayView({model: app.events.findWhere({id: eventID})});
     app.sidepage.render('sideEvent');
   }
-
 
 });

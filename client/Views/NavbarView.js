@@ -1,5 +1,5 @@
 app.navbarView = Backbone.View.extend({
-  // className : 'loginout',
+
   el: document.getElementsByClassName('navbar'),
 
   initialize : function() {
@@ -15,12 +15,10 @@ app.navbarView = Backbone.View.extend({
   },
 
   renderCalendarView: function(){
-    // app.router.navigate('/calendar', { trigger: true });
     app.mainpage.render('calendar dayEvent');
   },
 
   renderMapView: function(){
-    // app.router.navigate('/calendar', { trigger: true });app.mainpage.render('map');
 	  app.mainpage.render('tourmap');
   }
 });

@@ -11,7 +11,7 @@
  **/
 
 var ChartView = Backbone.View.extend({
-  constructor: function(options) {
+  constructor: function(options) { //d3 constructor
     this.default_options = {
       margin: {
         top: 20,
@@ -53,7 +53,7 @@ var ChartView = Backbone.View.extend({
     // this.$chart_container.resize(function(){console.log('asdfa')});
 
   },
-  get_dimensions: function() {
+  get_dimensions: function() { //necessary for resizing
     this.$chart_container = this.$el.parent();
     this.chart_container = this.$chart_container.get(0);
 
