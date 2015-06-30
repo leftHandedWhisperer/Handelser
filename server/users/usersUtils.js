@@ -3,6 +3,7 @@ var Users = require('../collections/users');
 var User = require('../models/user');
 var Follower = require('../models/follower');
 
+//clean user data so we dont send passwords and attributes that start with underscore (private variables)
 function cleanAttributes (attributes) {
   var result = {};
   for (var key in attributes) {
@@ -17,6 +18,7 @@ function cleanAttributes (attributes) {
 
 module.exports = {
 
+  //get all users from DB
   retrieveAllUsers: function(callback) {
     Users.reset().fetch().then(function(users) {
         callback(null, users.models)
@@ -25,6 +27,8 @@ module.exports = {
         console.log('error:', error);
       });
   },
+
+  //get a user from DB by ID
   retrieveUser: function(user_id, callback) {
     user_id = parseInt(user_id);
 
@@ -62,6 +66,7 @@ module.exports = {
       });
   },
 
+  //update a user in DB by ID
   updateUser: function(user_id, userInfo, callback) {
     user_id = parseInt(user_id);
     new User({
@@ -84,6 +89,7 @@ module.exports = {
       });
   },
 
+  //store a new user in DB
   storeUser: function(user, callback) {
     var username = user.username;
     var password = user.password;
@@ -119,6 +125,7 @@ module.exports = {
       });
   },
 
+  //check if user is in DB
   loginUser: function(user, callback) {
     var username = user.username;
     var password = user.password;
@@ -150,27 +157,7 @@ module.exports = {
       });
   },
 
-  createSession: function(req, res, newUser) {
-    return req.session.regenerate(function() {
-      req.session.user = newUser;
-      // res.redirect('/');
-    });
-  },
-
-  isLoggedIn: function(req, res) {
-
-    return req.session ? !!req.session.user : false;
-  },
-
-  checkUserSession: function(req, res, next) {
-    if (!exports.isLoggedIn(req)) {
-      // res.redirect('/login');
-      console.error("Error: User not logged in");
-    } else {
-      next();
-    }
-  },
-
+  //add a following relationship to the followers join table
   storeFollowing: function(follower_id, followed_id, callback) {
     follower_id = parseInt(follower_id);
     followed_id = parseInt(followed_id);
@@ -206,8 +193,8 @@ module.exports = {
     });
   },
 
+  //remove a following relationship from the followers join table
   removeFollowing: function(follower_id, unFollowing_id, callback) {
-    console.log('in removeFollowing function in the utils')
     follower_id = parseInt(follower_id);
     followed_id = parseInt(unFollowing_id);
 
@@ -223,5 +210,28 @@ module.exports = {
         callback(null, null);
       }
     })
+  },
+
+  //start user session
+  createSession: function(req, res, newUser) {
+    return req.session.regenerate(function() {
+      req.session.user = newUser;
+      // res.redirect('/');
+    });
+  },
+
+  //check if user is logged in, this doesn't do anything server side because we dont redirect from the backend
+  isLoggedIn: function(req, res) {
+    return req.session ? !!req.session.user : false;
+  },
+
+
+  checkUserSession: function(req, res, next) {
+    if (!exports.isLoggedIn(req)) {
+      // res.redirect('/login');
+      console.error("Error: User not logged in");
+    } else {
+      next();
+    }
   }
 };

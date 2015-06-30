@@ -31,21 +31,5 @@ module.exports = function(app, express) {
 
   require('./users/usersRoutes.js') (usersRouter);
   require('./events/eventsRoutes.js') (eventsRouter);
-  // app.use(function(req,res,next) {
-  //   console.log(req.url);
-  //   if (req.url === '/') {
-  //     res.send('../../client/index.html');
-  //   }
-  //   next();
-  // });
 
-  // app.get('/', function(req, res) {
-  //   res.sendFile(path.join(__dirname,'/../client/index.html'));
-  // });
-
-  // authentication middleware used to decode token and made available on the request
-  // app.use('/lessons', lessonRouter); // user link router for link request
-
-  // inject our routers into their respective route files
-  // require('./lessons/lessonRouter.js')(lessonRouter);
 };

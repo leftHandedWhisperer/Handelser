@@ -5,30 +5,22 @@ var Event = require('../models/event');
 
 module.exports = {
 
+  //all these utils are fired from eventsController to access the postgres DB
+
+  //get all events from DB
   retrieveAllEvents: function(callback) {
     Events.reset().fetch().then(function(events) {
-      events.forEach(function(event) {
-        var shortDate = event.attributes.date.toISOString().slice(0,10);
-        // console.log(shortDate);
-        // var eventsWithUser = found.attributes;
-        // eventsWithUser.user = found.relations.user;
-        event.set('shortDate',shortDate);
-      })
       callback(null,events);
     })
     .catch(function(error) {
       console.log('error:', error);
     });
   },
+
+  //get one events from DB by ID
   retrieveEvent: function(eventID,callback) {
     new Event({ id: eventID }).fetch({withRelated: ['user'], require: true}).then(function(found) {
       if (found) {
-        var shortDate = found.date.slice(0,10);
-        console.log(shortDate);
-        // var eventsWithUser = found.attributes;
-        // eventsWithUser.user = found.relations.user;
-        found.attributes.shortDate = shortDate;
-
         callback(null,found.attributes);
       } else {
         console.log('event not found:' + eventName);
@@ -38,8 +30,9 @@ module.exports = {
       console.log('error:', error);
     });
   },
+
+  //set new event to DB
   storeEvent: function(event,callback) {
-    console.log("event to add to DB: ", event);
 
     var name = event.name;
     var description = event.description;
@@ -53,8 +46,6 @@ module.exports = {
     var lat = event.lat;
     var long = event.long;
 
-    console.log("check");
-
     new Event({name:name}).fetch().then(function(found) {
       if (found) {
         console.log('event already found: ',found.attributes);
@@ -62,9 +53,6 @@ module.exports = {
       } else {
 
         var event = new Event({name:name,description:description,venue:venue,date:date,address:address,city:city,state:state,zip:zip,user_id:user_id,lat:lat,long:long});
-
-        console.log('new event: ',event);
-
 
         event.save().then(function(newEvent) {
           console.log('saved event: ',newEvent);

@@ -1,6 +1,4 @@
-// table.string('username', 100);
-// table.string('password', 100);
-// table.string('city', 255);
+//these sample users will be loaded when the database does not have an 'users' table (so drop table and restart node if you want to refresh)
 
 var users = [{
   username: 'falloutboy',

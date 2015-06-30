@@ -60,6 +60,7 @@ db.knex.schema.hasTable('events').then(function(exists) {
   }
 });
 
+//this is for the followers join table
 db.knex.schema.hasTable('followers').then(function(exists) {
   if (!exists) {
     db.knex.schema.createTable('followers', function(table) {
@@ -77,6 +78,7 @@ db.knex.schema.hasTable('followers').then(function(exists) {
   }
 });
 
+//check if example data is already in table, if it is we wont add it to the DB
 var tableDataContainsInfo = function(tableData, field, value) {
   for (var i = 0; i < tableData.length; i++) {
     //check for value in field
@@ -87,6 +89,7 @@ var tableDataContainsInfo = function(tableData, field, value) {
   return false;
 };
 
+//insert example data (from JSON objects) into DB
 var insertInfoInTable = function(tableName, callback) {
   var tableInfo;
   if (tableName === 'users') {

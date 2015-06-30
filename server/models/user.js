@@ -6,7 +6,7 @@ var User = db.Model.extend({
   tableName: 'users',
   hasTimestamps: false, //CAN CHANGE THIS LATER, ALSO UPDATE DB-CONFIG IF SO
   events: function() {
-    //invoking require at runtime so we avoid circular dependency
+    //invoking require at runtime so we avoid circular dependency on Event
     var Event = require('./event');
     return this.hasMany(Event);
   },
@@ -20,16 +20,6 @@ var User = db.Model.extend({
     });
   },
 
-  follows: function() {
-    var Follower = require('./follower');
-    return this.belongsToMany(User,'followers', 'follower_id', 'followed_id');
-  },
-
-  followers: function() {
-    var Follower = require('./follower');
-    return this.belongsToMany(User,'followers', 'followed_id', 'follower_id');
-  },
-
   hashPassword: function(){
     var cipher = Promise.promisify(bcrypt.hash);
     // return a promise - bookshelf will wait for the promise
@@ -39,7 +29,20 @@ var User = db.Model.extend({
       .then(function(hash) {
         this.set('password', hash);
       });
-  }
+  },
+
+  //bookshelf join on users this user follows through the followers table
+  follows: function() {
+    var Follower = require('./follower');
+    return this.belongsToMany(User,'followers', 'follower_id', 'followed_id');
+  },
+
+  //bookshelf join on people following this user through the followers table
+  followers: function() {
+    var Follower = require('./follower');
+    return this.belongsToMany(User,'followers', 'followed_id', 'follower_id');
+  },
+
 });
 
 module.exports = User;
