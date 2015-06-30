@@ -5,6 +5,7 @@ app.Events = Backbone.Collection.extend({
     if (!options) {
       options = {};
     }
+    //app.filteredEvents refers to the events that are currently visible to the client
     options.success = function(data) {
        app.filteredEvents.reset(data.models);
     }
